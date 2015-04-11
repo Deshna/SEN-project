@@ -1,0 +1,293 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shop | Niks-Creations</title>
+
+    <link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/bootstrap.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/side-menu.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+	
+	<style>
+	h4{
+		font-size: 120%;
+	}
+	</style>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top" style = "background-color:#000"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
+								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
+								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nomargin">
+
+								{% if user.is_authenticated %}
+    								<li><a href="/user/profile/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>My account</a></li>
+								{% else %}
+    									<li><a href="/user/login/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Login/ Register</a></li>
+								{% endif %}
+								<li><a href="#" style = "color:#fff"><i class="fa fa-phone" style = "color:#fff"></i> Contact</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+	 <!-- Page Content -->
+<div style = "background-color:#F3F781">
+<div class="container">
+	<div class="row">
+	<div class="col-lg-12 text-center">
+		<h1 style="color:#000">Niks-Creations.</h1>
+		<p class="lead" style="font-family:Helvetica;color:#000">Taste originality and creativity at it's best.</p>
+		<ul class="list-unstyled">
+		</ul>
+	</div>
+	</div>
+<!-- /.row -->
+</div>				 
+</div>
+		
+
+		<div class="header-botttom">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						
+					</div>
+
+					
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					{% for cat in categories %}
+						{% if cat.name != "New Arrivals" %}
+						<ul class="nav navbar-nav">
+							<li class="dropdown">
+
+								<a href="#" class="dropdown-toggle" style = "color:#000" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:sans-serif">{{ cat.name }}<span class="caret"></span></h4></a>
+								<ul class="dropdown-menu" role="menu">
+										{% for sub_cat in cat.subcategory_set.all %}
+									   		<li><a href="/user/shop?sub={{ sub_cat.name }}">{{ sub_cat.name }}</a></li>
+										{% endfor %}
+								</ul>
+							</li>
+						{% endif %}
+					{% endfor %}
+	</header>
+<div class="row">
+	<div class="col-md-2 container-fluid main-container">
+		<div class="sidebar">
+			<div class="row">
+				<!-- uncomment code for absolute positioning tweek see top comment in css -->
+				<div class="absolute-wrapper"> </div>
+				<!-- Menu -->
+				<div class="side-menu">
+					<nav class="navbar navbar-default" role="navigation">
+						<!-- Main Menu -->
+						<div class="side-menu-container">
+							<ul class="nav navbar-nav">	
+								<li><a href="/user/profile/"><span class="glyphicon glyphicon-user"></span>Profile </a></li>
+								<li><a href="/user/sizechart/"><span class="glyphicon glyphicon-stats"></span> Size Chart</a></li>
+								<li><a href="/user/address/"><span class="glyphicon glyphicon-plane"></span> Shipping Address</a></li>
+								<li class="active"><a href="/user/creditcard/"><span class="glyphicon glyphicon-credit-card"></span> Cards</a></li>
+								<li ><a href="/user/wishlist/"><span class="glyphicon glyphicon-heart"></span> WishList</a></li>
+								<li ><a href="/user/pastorders/"><span class="glyphicon glyphicon-briefcase"></span>Past Orders</a></li>	
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</nav>
+
+				</div>
+			</div>  		</div>
+		</div>
+
+
+		<div class="col-md-10" style="background-color:#ffffff">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-2">
+
+					<form class="form-horizontal" role="form" method = "POST">
+					{% csrf_token %}
+						<fieldset>
+							<legend>Card Details</legend>
+							<div align ="center" style = "color:orange">
+								<h5><b>{{ state_ }}</b></h5>
+							</div>
+							<div class="form-group" style="margin-top:20px">
+								<label class="col-sm-4 control-label" for="card-holder-name">Name on Card</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" name="cardname" id="card-holder-name" placeholder="Card Holder's Name">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="card-number">Card Number</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" name="cardno" id="card-number" placeholder="Debit/Credit Card Number">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="expiry-month">Expiration Date</label>
+								<div class="col-sm-5">
+									<div class="row">
+										<div class="col-xs-6">
+											<select class="form-control col-sm-2" name="exp_month" id="expiry-month">
+												<option>Month</option>
+												<option value="01">Jan (01)</option>
+												<option value="02">Feb (02)</option>
+												<option value="03">Mar (03)</option>
+												<option value="04">Apr (04)</option>
+												<option value="05">May (05)</option>
+												<option value="06">June (06)</option>
+												<option value="07">July (07)</option>
+												<option value="08">Aug (08)</option>
+												<option value="09">Sep (09)</option>
+												<option value="10">Oct (10)</option>
+												<option value="11">Nov (11)</option>
+												<option value="12">Dec (12)</option>
+											</select>
+										</div>
+										<div class="col-xs-6">
+											<select class="form-control" name="exp_year">
+												<option value="13">2013</option>
+												<option value="14">2014</option>
+												<option value="15">2015</option>
+												<option value="16">2016</option>
+												<option value="17">2017</option>
+												<option value="18">2018</option>
+												<option value="19">2019</option>
+												<option value="20">2020</option>
+												<option value="21">2021</option>
+												<option value="22">2022</option>
+												<option value="23">2023</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="cvv">Card CVV</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="cvv" id="cvv" placeholder="Security Code">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-5">
+									<button type="button" class="btn btn-primary">Cancel</button>
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+			</div>
+
+		</div>
+      <!-- </div>
+      <div class="tab-pane fade" id="profile">
+    	<form id="tab2">
+        	<label>New Password</label>
+        	<input type="password" class="input-xlarge">
+        	<div>
+        	    <button class="btn btn-primary">Update</button>
+        	</div>
+    	</form>
+    </div>
+  </div>
+</div>
+	 -->
+	 <footer id="footer"><!--Footer-->
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class = "row">
+					<div class = "col-sm-2">
+						<div class="single-widget">
+							<h2><b>Policies</b></h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Terms of Use</a></li>
+								<li><a href="#">Privecy Policy</a></li>
+								<li><a href="#">Refund Policy</a></li>
+								<li><a href="#">Billing System</a></li>
+								<li><a href="#">Ticket System</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<h3>Subscribe to us</h3>
+						{{ state }}
+							<form action="/user/subscribe/" class="searchform" method="POST">
+							{% csrf_token %}
+								<input type="email" name ="subscriber" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br />our site and be updated your self...</p>
+							</form>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+				<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.scrollUp.min.js"></script>
+    			<script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
+    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.prettyPhoto.js"></script>
+    			<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+    			<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    			<script src="https://togetherjs.com/togetherjs-min.js"></script>
+
+     <script>
+  	 $(document).ready(function(){
+  	 		$('.navbar-toggle-sidebar').click(function () {
+  		$('.navbar-nav').toggleClass('slide-in');
+  		$('.side-body').toggleClass('body-slide-in');
+  		$('#search').removeClass('in').addClass('collapse').slideUp(200);
+  	});
+
+  	// $('#search-trigger').click(function () {
+  	// 	$('.navbar-nav').removeClass('slide-in');
+  	// 	$('.side-body').removeClass('body-slide-in');
+  	// 	$('.search-input').focus();
+  	// });
+  	 });
+  	 </script>
+</body>
+</html>

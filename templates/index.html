@@ -15,6 +15,7 @@
     <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
     <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
     <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 	<style>
 	h4{
@@ -34,46 +35,56 @@
 
 <body>
 	<header id="header"><!--header-->
-		<div class="header_top"><!--header_top-->
+		<div class="header_top" style = "background-color:#000"><!--header_top-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="/user/home/"><b> Home</b></a></li>
-								<li><a href="/user/about/"><b> About</b></a></li>
-								<li><a href="/user/location/"><b> Store Location</b></a></li>
+								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
+								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
+								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nomargin">
+								{% if user.is_authenticated %}
+    								<li><a href="/user/profile/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>My account</a></li>
+    								<li><a href="/user/logout/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Logout</a></li>
+								{% else %}
+    									<li><a href="/user/login/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Login/ Register</a></li>
+								{% endif %}
+								
+								<li><a href="#" style = "color:#fff"><i class="fa fa-phone" style = "color:#fff"></i> Contact</a></li>
 
-								<li><a href="/user/login/"><i class="fa fa-lock"></i>Login/ Register</a></li>
-								<li><a href="#"><i class="fa fa-phone"></i> Contact</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/header_top-->
+
 		
-		<div class="header-middle"><!--header-middle-->
+		<div class="header-middle" style = "background-color:#F3F781"><!--header-middle-->
 			<div class="container">
 				<div class="row">
 					<div class="col-md-7">
 						<div class="logo pull-left">
-							<a href="index.html" color = "black"><h2 style="font-family:Helvetica"><b>NIKS-creations</b></h2></a>
-								<p class="lead" style="font-family:Helvetica"><small>Taste the origanility and creativity at it's best.</small></p>
+							<a href="index.html" style="color:#298A08"><h2 style="font-family:Helvetica"><b>NIKS-creations</b></h2></a>
+								<p class="lead" style="font-family:Helvetica;color:#000"><small>"Taste the originality and creativity at it's best."</small></p>
 						</div>			
 					</div>
 					<div class="col-md-2 pull-right">
 						<div class = "pull-right">
-							<a href="#" class="btn btn-default btn-md btn-block">Create a Dress</a>
+							<a href="#" class="btn btn-primary btn-lg btn-block" >Create a Dress</a>
 						</div><br>
-						<div class=" search_box pull-right">
-							<input type="text" placeholder="Search"/>
+						<div class="search_box pull-right">
+							<form action = "/user/search/" method = "POST">
+							{% csrf_token %}
+							<input type="text" style = "color:orange" name = "search" placeholder="Search"/>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -93,75 +104,23 @@
 						</button>
 						
 					</div>
+
+					
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					{% for cat in categories %}
+						{% if cat.name != "New Arrivals" %}
 						<ul class="nav navbar-nav">
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:sans-serif">Embroidery<span class="caret"></span></h4></a>
+
+								<a href="#" class="dropdown-toggle" style = "color:#000" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:Sans-serif;font-weight:350">{{ cat.name }}<span class="caret"></span></h4></a>
 								<ul class="dropdown-menu" role="menu">
-									   <li><a href="#">Machine</a></li>
-										<li><a href="#">Computer</a></li> 
-										<li><a href="#">Jardozi(Khat)</a></li> 
-										<li><a href="#">Kutchhi</a></li> 
-										<li><a href="#">Marodi</a></li> 
-										<li><a href="#">Applique/Patch Work</a></li> 
-										<li><a href="#">Pitta Work</a></li> 
-										<li><a href="#">Gota Work</a></li> 
-										<li><a href="#">Aari Work</a></li>
-										<li><a href="#">Beads</a></li> 
-										<li><a href="#">Booti Work</a></li>
-										<li><a href="#">Kundan</a></li>
+										{% for sub_cat in cat.subcategory_set.all %}
+									   		<li><a href="/user/shop?sub={{ sub_cat.name }}">{{ sub_cat.name }}</a></li>
+										{% endfor %}
 								</ul>
 							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									<h4 style="font-family:sans-serif">Salwar Suit<span class="caret"></span></h4></a>
-								<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Anarkali</a></li>
-										<li><a href="#">Bollywood</a></li> 
-										<li><a href="#">Wedding(Khat)</a></li> 
-										<li><a href="#">Designer</a></li> 
-										<li><a href="#">Punjabi</a></li> 
-										<li><a href="#">Chudidar</a></li> 
-										<li><a href="#">Casual</a></li> 
-										<li><a href="#">Cotton</a></li> 
-										<li><a href="#">Gowns</a></li>
-										<li><a href="#">Party Wear</a></li>
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									<h4 style="font-family:sans-serif">Sarees<span class="caret"></span></h4></a>
-								<ul class="dropdown-menu" role="menu">
-									   <li><a href="#">Wedding</a></li> 
-										<li><a href="#">Designer</a></li> 
-										<li><a href="#">Bridal</a></li> 
-										<li><a href="#">Party Wear</a></li> 
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <h4 style="font-family:sans-serif">Kurta <span class="caret"></span></h4></a>
-								<ul class="dropdown-menu" role="menu">
-									     <li><a href="#">Long</a></li> 
-										<li><a href="#">Short</a></li> 
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								<h4 style="font-family:sans-serif">Chaniya Choli<span class="caret"></h4></span></a>
-								<ul class="dropdown-menu" role="menu">
-									     <li><a href="#">Traditional</a></li> 
-										<li><a href="#">Wedding</a></li> 
-								</ul>
-							</li>
-							<li><a href="#"><h4 style="font-family:sans-serif">Best Sellers</h4></i></a></li> 
-							
-							</ul>
-					</div>
-				</div>
-			</nav>
-		</div>
-	 
-	 
+						{% endif %}
+					{% endfor %}
 	</header>
 	<body>
 	<section id="slider"><!--slider-->
@@ -226,7 +185,7 @@
          <h3>Thumbnail label</h3>
          <p>Some sample text. Some sample text.</p>
          <p>
-            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+            <a href="#" class="btn btn-default">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
          </p>
       </div>
    </div>
@@ -239,12 +198,8 @@
          <h3>Thumbnail label</h3>
          <p>Some sample text. Some sample text.</p>
          <p>
-            <a href="#" class="btn btn-primary" role="button">
-               Button
-            </a> 
-            <a href="#" class="btn btn-default" role="button">
-               Button
-            </a>
+            <a href="#" class="btn btn-default">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+        
          </p>
       </div>
    </div>
@@ -257,12 +212,8 @@
          <h3>Thumbnail label</h3>
          <p>Some sample text. Some sample text.</p>
          <p>
-            <a href="#" class="btn btn-primary" role="button">
-               Button
-            </a> 
-            <a href="#" class="btn btn-default" role="button">
-               Button
-            </a>
+            <a href="#" class="btn btn-default">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+        
          </p>
       </div>
    </div>
@@ -275,12 +226,8 @@
          <h3>Thumbnail label</h3>
          <p>Some sample text. Some sample text.</p>
          <p>
-            <a href="#" class="btn btn-primary" role="button">
-               Button
-            </a> 
-            <a href="#" class="btn btn-default" role="button">
-               Button
-            </a>
+            <a href="#" class="btn btn-default">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+        
          </p>
       </div>
    </div>
@@ -293,12 +240,8 @@
          <h3>Thumbnail label</h3>
          <p>Some sample text. Some sample text.</p>
          <p>
-            <a href="#" class="btn btn-primary" role="button">
-               Button
-            </a> 
-            <a href="#" class="btn btn-default" role="button">
-               Button
-            </a>
+           <a href="#" class="btn btn-default">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+         
          </p>
       </div>
    </div>
@@ -325,25 +268,31 @@
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<h3>Subscribe to us</h3>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
+						{{ state }}
+							<form action="/user/subscribe/" class="searchform" method="POST">
+							{% csrf_token %}
+								<input type="email" name ="subscriber" placeholder="Your email address" />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
 							</form>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
 
-			
-	
-	<script src="{% static 'js/jquery.js'}"></script>
-	<script src="{%static 'js/jquery.scrollUp.min.js'}"></script>
-	<script src="{%static 'js/price-range.js'}"></script>
-	<script src="{%static 'js/jquery.prettyPhoto.js'}"></script>
-	<script src="{%static 'js/main.js'}"></script>
-	<script src="{%static 'js/bootstrap.min.js'}"></script>
-  
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.scrollUp.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/rango-jquery.js"></script>
+    <script src="https://togetherjs.com/togetherjs-min.js"></script>
+ 
 </body>
 </html>

@@ -31,15 +31,15 @@
 
 <body>
 	<header id="header"><!--header-->
-		<div class="header_top"><!--header_top-->
+		<div class="header_top" style = "background-color:#000"><!--header_top-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="/user/home/">Home</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="about.html">Store Location</a></li>
+								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
+								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
+								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
 							</ul>
 						</div>
 					</div>
@@ -47,8 +47,8 @@
 						<div class="social-icons pull-right">
 							<ul class="nomargin">
 
-								<li><a href="/user/login/"><i class="fa fa-lock"></i>Login/ Register</a></li>
-								<li><a href="#"><i class="fa fa-phone"></i> Contact</a></li>
+								<li><a href="/user/login/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Login/ Register</a></li>
+								<li><a href="#" style = "color:#fff"><i class="fa fa-phone" style = "color:#fff"></i> Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -135,6 +135,9 @@
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
 							</form>
 					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -147,6 +150,8 @@
 	<script src="{%static 'js/jquery.prettyPhoto.js'}"></script>
 	<script src="{%static 'js/main.js'}"></script>
 	<script src="{%static 'js/bootstrap.min.js'}"></script>
+    <script src="https://togetherjs.com/togetherjs-min.js"></script>
+
 
 </body>
 </html>

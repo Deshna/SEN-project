@@ -28,7 +28,7 @@
   bottom: 0;
 }
 .slider.slider-horizontal .slider-handle {
-  margin-left: -12px;
+  margin-left: -4px;
   margin-top: 2px;
 }
 
@@ -98,7 +98,7 @@
 
 .slider-selection {
   -moz-box-sizing: border-box;
-  background: none repeat scroll 0 0 #FE980F;
+  background: none repeat scroll 0 0 #646464;
   border-radius: 15px;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
   position: absolute;

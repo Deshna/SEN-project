@@ -90,7 +90,7 @@
 		var handle = this.element.data('slider-handle')||options.handle;
 		switch(handle) {
 			case 'round':
-				this.handle1.addClass('round left-round');
+				this.handle1.addClass('round');
 				this.handle2.addClass('round');
 				break
 			case 'triangle':

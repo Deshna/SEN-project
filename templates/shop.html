@@ -1,0 +1,668 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shop | Niks-Creations</title>
+
+	<link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/bootstrap.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/prettyPhoto.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/price-range.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/animate.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/jquery.simplecolorpicker.css' %}" rel = "stylesheet">
+    <link href = "{% static 'css/jquery.simplecolorpicker-regularfont.css' %}" rel = "stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<style>
+	h4{
+		font-size: 120%;
+	}
+	</style>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top" style = "background-color:#000"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
+								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
+								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nomargin">
+
+								{% if user.is_authenticated %}
+    								<li><a href="/user/profile/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>My account</a></li>
+								{% else %}
+    									<li><a href="/user/login/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Login/ Register</a></li>
+								{% endif %}
+								<li><a href="#" style = "color:#fff"><i class="fa fa-phone" style = "color:#fff"></i> Contact</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+	 <!-- Page Content -->
+<div style = "background-color:#F3F781">
+<div class="container">
+	<div class="row">
+	<div class="col-lg-12 text-center">
+		<h1 style="color:#000">Niks-Creations.</h1>
+		<p class="lead" style="font-family:Helvetica;color:#000">Taste originality and creativity at it's best.</p>
+		<ul class="list-unstyled">
+		</ul>
+	</div>
+	</div>
+<!-- /.row -->
+</div>				 
+</div>
+
+	<div class="header-botttom">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" style = "color:#000" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:sans-serif">Embroidery<span class="caret"></span></h4></a>
+								<ul class="dropdown-menu" role="menu">
+									   <li><a href="#">Machine</a></li>
+										<li><a href="#">Computer</a></li> 
+										<li><a href="#">Jardozi(Khat)</a></li> 
+										<li><a href="#">Kutchhi</a></li> 
+										<li><a href="#">Marodi</a></li> 
+										<li><a href="#">Applique/Patch Work</a></li> 
+										<li><a href="#">Pitta Work</a></li> 
+										<li><a href="#">Gota Work</a></li> 
+										<li><a href="#">Aari Work</a></li>
+										<li><a href="#">Beads</a></li> 
+										<li><a href="#">Booti Work</a></li>
+										<li><a href="#">Kundan</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+									<h4 style="font-family:sans-serif;color:#000" >Salwar Suit<span class="caret"></span></h4></a>
+								<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Anarkali</a></li>
+										<li><a href="#">Bollywood</a></li> 
+										<li><a href="#">Wedding(Khat)</a></li> 
+										<li><a href="#">Designer</a></li> 
+										<li><a href="#">Punjabi</a></li> 
+										<li><a href="#">Chudidar</a></li> 
+										<li><a href="#">Casual</a></li> 
+										<li><a href="#">Cotton</a></li> 
+										<li><a href="#">Gowns</a></li>
+										<li><a href="#">Party Wear</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+									<h4 style="font-family:sans-serif;color:#000">Sarees<span class="caret"></span></h4></a>
+								<ul class="dropdown-menu" role="menu">
+									   <li><a href="#">Wedding</a></li> 
+										<li><a href="#">Designer</a></li> 
+										<li><a href="#">Bridal</a></li> 
+										<li><a href="#">Party Wear</a></li> 
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <h4 style="font-family:sans-serif;color:#000">Kurta <span class="caret"></span></h4></a>
+								<ul class="dropdown-menu" role="menu">
+									     <li><a href="#">Long</a></li> 
+										<li><a href="#">Short</a></li> 
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								<h4 style="font-family:sans-serif;color:#000">Chaniya Choli<span class="caret"></h4></span></a>
+								<ul class="dropdown-menu" role="menu">
+									     <li><a href="#">Traditional</a></li> 
+										<li><a href="#">Wedding</a></li> 
+								</ul>
+							</li>
+							<li><a href="#"><h4 style="font-family:sans-serif;color:#000">Best Sellers</h4></i></a></li> 
+							
+							</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+			</header>	
+	 
+	
+
+	<section>
+			<div class="row">
+				<div class="col-sm-3">
+
+					<div class="left-sidebar">
+
+						<div class="price-range"><!--price-range-->
+							<h2>FILTER BY PRICE</h2>
+							<div class="well">
+								<form action = "/user/filter_price/" method = "POST">
+								 <input style="padding:25px;margin-left:20px;width:130%" name = "filter_price" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="50" data-slider-value="[0,10000]" id="sl2" ><br />
+								 
+								 <b>0</b> <b class="pull-right">10000</b>
+								 </form>
+							</div>
+						</div><!--/price-range-->
+
+
+						<h2>FILTER BY COLOR</h2>
+
+						<div class="well"style="margin:30px auto 50px;">
+						<select name="colorpicker-shortlist">
+							<option value="#7bd148">Green</option>
+							<option value="#5484ed">Bold blue</option>
+							<option value="#a4bdfc">Blue</option>
+							<option value="#46d6db">Turquoise</option>
+							<option value="#7ae7bf">Light green</option>
+							<option value="#51b749">Bold green</option>
+							<option value="#fbd75b">Yellow</option>
+							<option value="#ffb878">Orange</option>
+							<option value="#ff887c">Red</option>
+							<option value="#dc2127">Bold red</option>
+							<option value="#dbadff">Purple</option>
+							<!-- <option value="#e1e1e1">Gray</option> -->
+						</select>						</div>
+
+						<h2>FILTER BY OCASSIONS</h2>
+						<div class="well">
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Bridal</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Casual</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Festive</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Party</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Reception</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						</div>
+
+						<h2>FILTER BY OCASSIONS</h2>
+						<div class="well" style="max-height:20em;overflow-y: scroll;">
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Bridal</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Casual</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Festive</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Party</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Reception</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						</div>
+						
+						<h2>FILTER BY OCASSIONS</h2>
+						<div class="well">
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Bridal</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Casual</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Festive</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Party</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Reception</label>
+						</div>
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" value="">Wedding</label>
+						</div>
+						</div>
+						
+						
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						
+						<div class="col-sm-7">
+						<h2 class="title" style="color:#000;font-family=sans-serif">Embroidery</h2>
+						</div>
+						<div class="col-sm-5 social-icons1">
+						 <ul>	
+							<li style="padding:10px;font-family:sans-serif"><a href="" style = "font-family:sans-serif"><h5>Latest </h5></a></li>
+							<li style="padding:10px"><a href="" style = "font-family:sans-serif"><h5>Price Low to High</h5></a></li>
+							<li style="padding:10px"><a href="" style="font-family:sans-serif"><h5>Price High to Low</h5></a></li>
+						
+						</ul>
+						</div>	
+
+						{% for p in products.object_list %}
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<a href = "?item={{ p.name }}"><img src="{{ STATIC_URL }}images/home/{{ p.name }}" alt="" width = "207" height = "250"/></a>
+										<h2>{{ p.price }} rs.</h2>
+										<p>{{ p.name_clean }}</p>
+										<form method = "POST" action = "/user/cart/">
+										{% csrf_token %}
+										<input type = "hidden" name = "addcart" value = {{ p.name }}>
+										<button type = "submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</form>
+									</div>
+
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href=""><i class="fa fa-plus-square"></i>Track Price</a></li>
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						{% if products.object_list and products.paginator.num_pages > 1 %}
+        				<div class="pagination">
+            				<span class="step-links">
+				                {% if products.has_previous %}
+				                <body onload = "myFunction()">
+                				    <a href= "/user/shop/?page={{ products.previous_page_number }}">previous &lt;&lt; </a>
+                				{% endif %}
+
+				                <span class="current">
+                				    &nbsp;Page {{ products.number }} of {{ products.paginator.num_pages }}
+                				</span>
+
+                				{% if products.has_next %}
+                    				<a href="/user/shop/?page={{ products.next_page_number }}"> &gt;&gt; next</a>
+                				{% endif %}
+            				</span>
+        				</div>
+				        {% endif %}
+
+
+
+	<footer id="footer"><!--Footer-->
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class = "row">
+					<div class = "col-sm-2">
+						<div class="single-widget">
+							<h2><b>Policies</b></h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Terms of Use</a></li>
+								<li><a href="#">Privecy Policy</a></li>
+								<li><a href="#">Refund Policy</a></li>
+								<li><a href="#">Billing System</a></li>
+								<li><a href="#">Ticket System</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<h3>Subscribe to us</h3>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br />our site and be updated your self...</p>
+							</form>
+					</div>
+						<div class="col-sm-3 col-sm-offset-1">
+							<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+	
+	
+    <!--<script src="{%static 'js/simplecolorpicker.js'}"></script>
+    <script src="{% static 'js/rango-jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.js'}"></script>
+	<script src="{%static 'js/jquery.scrollUp.min.js'}"></script>
+	<script src="{%static 'js/price-range.js'}"></script>
+	<script src="{%static 'js/jquery.prettyPhoto.js'}"></script>
+	<script src="{%static 'js/main.js'}"></script>
+	<script src="{%static 'js/bootstrap.min.js'}"></script>
+    <script src="{%static 'js/imagezoom.js'}"></script>
+    -->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.simplecolorpicker.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.scrollUp.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/imagezoom.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/rango-jquery.js"></script>
+    <script src="https://togetherjs.com/togetherjs-min.js"></script>
+
+	<script>
+
+function myFunction() {
+    var x = document.URL;
+    document.getElementById("demo").innerHTML = x;
+}
+	$(document).ready(function() {
+
+        // JQuery code to be added in here.
+
+        (function($) {
+  'use strict';
+
+  /**
+   * Constructor.
+   */
+  var SimpleColorPicker = function(select, options) {
+    this.init('simplecolorpicker', select, options);
+  };
+
+  /**
+   * SimpleColorPicker class.
+   */
+  SimpleColorPicker.prototype = {
+    constructor: SimpleColorPicker,
+
+    init: function(type, select, options) {
+      var self = this;
+
+      self.type = type;
+
+      self.$select = $(select);
+      self.$select.hide();
+
+      self.options = $.extend({}, $.fn.simplecolorpicker.defaults, options);
+
+      self.$colorList = null;
+
+      if (self.options.picker === true) {
+        var selectText = self.$select.find('> option:selected').text();
+        self.$icon = $('<span class="simplecolorpicker icon"'
+                     + ' title="' + selectText + '"'
+                     + ' style="background-color: ' + self.$select.val() + ';"'
+                     + ' role="button" tabindex="0">'
+                     + '</span>').insertAfter(self.$select);
+        self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
+
+        self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
+        self.$colorList = self.$picker;
+
+        // Hide picker when clicking outside
+        $(document).on('mousedown.' + self.type, $.proxy(self.hidePicker, self));
+        self.$picker.on('mousedown.' + self.type, $.proxy(self.mousedown, self));
+      } else {
+        self.$inline = $('<span class="simplecolorpicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
+        self.$colorList = self.$inline;
+      }
+
+      // Build the list of colors
+      // <span class="color selected" title="Green" style="background-color: #7bd148;" role="button"></span>
+      self.$select.find('> option').each(function() {
+        var $option = $(this);
+        var color = $option.val();
+
+        var isSelected = $option.is(':selected');
+        var isDisabled = $option.is(':disabled');
+
+        var selected = '';
+        if (isSelected === true) {
+          selected = ' data-selected';
+        }
+
+        var disabled = '';
+        if (isDisabled === true) {
+          disabled = ' data-disabled';
+        }
+
+        var title = '';
+        if (isDisabled === false) {
+          title = ' title="' + $option.text() + '"';
+        }
+
+        var role = '';
+        if (isDisabled === false) {
+          role = ' role="button" tabindex="0"';
+        }
+
+        var $colorSpan = $('<span class="color"'
+                         + title
+                         + ' style="background-color: ' + color + ';"'
+                         + ' data-color="' + color + '"'
+                         + selected
+                         + disabled
+                         + role + '>'
+                         + '</span>');
+
+        self.$colorList.append($colorSpan);
+        $colorSpan.on('click.' + self.type, $.proxy(self.colorSpanClicked, self));
+
+        var $next = $option.next();
+        if ($next.is('optgroup') === true) {
+          // Vertical break, like hr
+          self.$colorList.append('<span class="vr"></span>');
+        }
+      });
+    },
+
+    /**
+     * Changes the selected color.
+     *
+     * @param color the hexadecimal color to select, ex: '#fbd75b'
+     */
+    selectColor: function(color) {
+      var self = this;
+
+      var $colorSpan = self.$colorList.find('> span.color').filter(function() {
+        return $(this).data('color').toLowerCase() === color.toLowerCase();
+      });
+
+      if ($colorSpan.length > 0) {
+        self.selectColorSpan($colorSpan);
+      } else {
+        console.error("The given color '" + color + "' could not be found");
+      }
+    },
+
+    showPicker: function() {
+      var pos = this.$icon.offset();
+      this.$picker.css({
+        // Remove some pixels to align the picker icon with the icons inside the dropdown
+        left: pos.left - 6,
+        top: pos.top + this.$icon.outerHeight()
+      });
+
+      this.$picker.show(this.options.pickerDelay);
+    },
+
+    hidePicker: function() {
+      this.$picker.hide(this.options.pickerDelay);
+    },
+
+    /**
+     * Selects the given span inside $colorList.
+     *
+     * The given span becomes the selected one.
+     * It also changes the HTML select value, this will emit the 'change' event.
+     */
+    selectColorSpan: function($colorSpan) {
+      var color = $colorSpan.data('color');
+      var title = $colorSpan.prop('title');
+
+      // Mark this span as the selected one
+      $colorSpan.siblings().removeAttr('data-selected');
+      $colorSpan.attr('data-selected', '');
+
+      if (this.options.picker === true) {
+        this.$icon.css('background-color', color);
+        this.$icon.prop('title', title);
+        this.hidePicker();
+      }
+
+      // Change HTML select value
+      this.$select.val(color);
+    },
+
+    /**
+     * The user clicked on a color inside $colorList.
+     */
+    colorSpanClicked: function(e) {
+      // When a color is clicked, make it the new selected one (unless disabled)
+      if ($(e.target).is('[data-disabled]') === false) {
+        this.selectColorSpan($(e.target));
+        this.$select.trigger('change');
+      }
+    },
+
+    /**
+     * Prevents the mousedown event from "eating" the click event.
+     */
+    mousedown: function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+    },
+
+    destroy: function() {
+      if (this.options.picker === true) {
+        this.$icon.off('.' + this.type);
+        this.$icon.remove();
+        $(document).off('.' + this.type);
+      }
+
+      this.$colorList.off('.' + this.type);
+      this.$colorList.remove();
+
+      this.$select.removeData(this.type);
+      this.$select.show();
+    }
+  };
+
+  /**
+   * Plugin definition.
+   * How to use: $('#id').simplecolorpicker()
+   */
+  $.fn.simplecolorpicker = function(option) {
+    var args = $.makeArray(arguments);
+    args.shift();
+
+    // For HTML element passed to the plugin
+    return this.each(function() {
+      var $this = $(this),
+        data = $this.data('simplecolorpicker'),
+        options = typeof option === 'object' && option;
+      if (data === undefined) {
+        $this.data('simplecolorpicker', (data = new SimpleColorPicker(this, options)));
+      }
+      if (typeof option === 'string') {
+        data[option].apply(data, args);
+      }
+    });
+  };
+
+  /**
+   * Default options.
+   */
+  $.fn.simplecolorpicker.defaults = {
+    // No theme by default
+    theme: '',
+
+    // Show the picker or make it inline
+    picker: false,
+
+    // Animation delay in milliseconds
+    pickerDelay: 0
+  };
+
+})(jQuery);
+
+      $('select[name="colorpicker-longlist"]').simplecolorpicker();
+      $('select[name="colorpicker-shortlist"]').simplecolorpicker();
+
+  	 	$('#init').on('click', function() {
+  	 		$('select[name="colorpicker-shortlist"]').simplecolorpicker();
+  	 		$('select[name="colorpicker-longlist"]').simplecolorpicker();
+  	 	});
+
+  	 	$('#destroy').on('click', function() {
+  	 		$('select').simplecolorpicker('destroy');
+  	 	});
+
+  	 	$('#init').trigger('click');
+	});
+	</script>
+
+</body>
+</html>

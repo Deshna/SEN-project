@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,7 +83,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
@@ -98,6 +98,8 @@ STATICFILES_DIRS = (
     ),
 )
 
+MEDIA_ROOT = '/opt/myenv/myproject/static/images/'
+MEDIA_URL = '/images/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
@@ -105,3 +107,8 @@ TEMPLATE_DIRS = (
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PASSWORD = 'ryomaechizen'
+EMAIL_HOST_USER = 'desai.deshna@gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
