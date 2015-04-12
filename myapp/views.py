@@ -174,11 +174,47 @@ def add_wish(request):
         products.append(Product.objects.get(productID = wish.wish_products))
     return render_to_response('user-wishlist.html', {'products':products}, context_instance=RequestContext(request))
 
+
+def price(request):
+    price = request.POST.get("price")
+    tokens = price.split(",")
+    lower_limit = tokens[0]
+    upper_limit = tokens[1]
+    productlist = Product.objects.all()
+    products = []
+    for p in productlist:
+        if int(p.price) >= int(lower_limit) and int(p.price)<= int(upper_limit):
+            products.append(p)
+
+    p = Paginator(products,9)
+
+    try: page = int(request.GET.get("page", '1'))
+    except ValueError: page = 1
+
+    try:
+        products = p.page(page)
+    except (InvalidPage, EmptyPage):
+        products = p.page(paginator.num_pages)
+    return render_to_response('shop4.html', {'products' : products}, context_instance=RequestContext(request))
+
+    
+
 def filter_color(request):
     color = request.POST.get("colorpicker-shortlist")
-    print color
+    color_instances = Color.objects.get(colors = color)
+    products = color_instances.product.all()
 
-    shop(RequestContext(request))
+    p = Paginator(products,9)
+
+    try: page = int(request.GET.get("page", '1'))
+    except ValueError: page = 1
+
+    try:
+        products = p.page(page)
+    except (InvalidPage, EmptyPage):
+        products = p.page(paginator.num_pages)
+    return render_to_response('shop3.html', {'products' : products}, context_instance=RequestContext(request))
+
 
 def filter_occasion(request):
     products = []

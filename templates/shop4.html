@@ -174,10 +174,9 @@
 							<h2>FILTER BY PRICE</h2>
 							<div class="well">
 								<form action = "/user/price/" method = "POST">
-								{% csrf_token %}
-								 <input style="padding:25px;margin-left:20px;width:130%" name = "price" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="50" data-slider-value="[0,10000]" id="sl2" ><br />							 
-								 <b>0</b> <b class="pull-right">10000</b><br>
-								 <input type="submit" value= "submit" />
+								 <input type = "submit" style="padding:25px;margin-left:20px;width:130%" name = "filter_price" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="50" data-slider-value="[0,10000]" id="sl2" ><br />
+								 
+								 <b>0</b> <b class="pull-right">10000</b>
 								 </form>
 							</div>
 						</div><!--/price-range-->
@@ -231,7 +230,7 @@
 						</form>
 						</div>
 
-						<h2>FILTER BY FABRIC</h2>
+						<h2>FILTER BY OCASSIONS</h2>
 						<div class="well" style="max-height:20em;overflow-y: scroll;">
 						<div class="checkbox checkboxes">
 							<label><input type="checkbox" value="">Bridal</label>
@@ -277,7 +276,7 @@
 						</div>
 						</div>
 						
-						<h2>FILTER BY WORK</h2>
+						<h2>FILTER BY OCASSIONS</h2>
 						<div class="well">
 						<div class="checkbox checkboxes">
 							<label><input type="checkbox" value="">Bridal</label>
@@ -348,7 +347,7 @@
             				<span class="step-links">
 				                {% if products.has_previous %}
 				                <body onload = "myFunction()">
-                				    <a href= "/user/shop/?sub={{ sub }}&page={{ products.previous_page_number }}">previous &lt;&lt; </a>
+                				    <a href= "/user/price/?page={{ products.previous_page_number }}">previous &lt;&lt; </a>
                 				{% endif %}
 
 				                <span class="current">
@@ -356,7 +355,7 @@
                 				</span>
 
                 				{% if products.has_next %}
-                    				<a href="/user/shop/?sub={{ sub }}&page={{ products.next_page_number }}"> &gt;&gt; next</a>
+                    				<a href="/user/price/?page={{ products.next_page_number }}"> &gt;&gt; next</a>
                 				{% endif %}
             				</span>
         				</div>

@@ -28,6 +28,9 @@ urlpatterns = patterns('',
     url(r'profile', views.user_profile,
         name='user_profile',),
 
+    url(r'price', views.price,
+        name='price',),
+
     url(r'filter_color', views.filter_color,
         name='filter_color',),
 

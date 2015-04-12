@@ -40,6 +40,9 @@ class SubCategory(models.Model):
 
 	def __str__(self):              
 		return self.name
+'''
+def get_upload_file_name(instance, filename):
+	return "%s_%s" % (str(time()).replace('.','_'),filename)'''
 
 class Product(models.Model):
 	#image = models.ImageField(upload_to = 'media/', blank = True, null = True) #, height_field = '', width_field = '')
@@ -56,6 +59,10 @@ class Product(models.Model):
 
 	def __str__(self):             
 		return self.productID
+'''
+class Images(models.Model):
+	image = models.ImageField(upload_to = get_uploaded_file_name)
+	product = models.ForeignKey(Product, null = True)'''
 
 class Fabric(models.Model):
     fabrics = models.CharField(max_length = 60)
