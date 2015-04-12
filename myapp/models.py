@@ -23,9 +23,6 @@ class UserProfile(models.Model):
     exp_month = models.CharField(max_length=50, null=True, blank=True)
     exp_year = models.IntegerField(null=True,blank=True)
     cvv = models.IntegerField(null=True,blank=True)
-    pastorders_no = models.CommaSeparatedIntegerField(max_length = 40, null = True, blank = True)
-    wishlist = models.CommaSeparatedIntegerField(max_length = 40, null = True, blank = True)
-    cart = models.CommaSeparatedIntegerField(max_length = 40, null = True, blank = True)
 
 class Category(models.Model):
 	name = models.CharField(max_length = 30)
@@ -54,17 +51,39 @@ class Product(models.Model):
 	description = models.CharField(max_length = 300,default = "none")
 	unitsInStock = models.IntegerField(default = 0)
 	unitsInOrder = models.IntegerField(default = 0)
-	#COLOR_CHOICES = ((RED,'RED'),(BLUE,'BLUE'),(BLACK,'BLACK'),)
-	color = models.CharField(max_length = 10)
-	work = models.CharField(max_length = 30, default = "none")
-	fabric = models.CharField(max_length = 30, default = "", blank = True, null = True)
-	style = models.CharField(max_length = 30, default = "", blank = True, null = True)
-	occasion = models.CharField(max_length = 30, default = "", blank = True, null = True)
 	subcategory = models.ForeignKey(SubCategory, null = True)
 	views = models.IntegerField(null = True)
 
 	def __str__(self):             
 		return self.productID
+
+class Fabric(models.Model):
+    fabrics = models.CharField(max_length = 60)
+    product = models.ManyToManyField(Product, null = True)
+
+class Color(models.Model):
+    colors = models.CharField(max_length = 60)
+    product = models.ManyToManyField(Product, null = True)
+
+class Occasion(models.Model):
+    occasions = models.CharField(max_length = 60)
+    product = models.ManyToManyField(Product, null = True)
+
+class Work(models.Model):
+    works = models.CharField(max_length = 60)
+    product = models.ManyToManyField(Product, null = True)
+
+class Cart(models.Model):
+    cart_products = models.CharField(max_length = 60,null=True)
+    user = models.ForeignKey(UserProfile, null = True)
+
+class Wishlist(models.Model):
+	wish_products = models.IntegerField()
+	user = models.ForeignKey(UserProfile,null = True)
+
+class Pastorders(models.Model):
+	orderno = models.IntegerField()
+	user = models.ForeignKey(UserProfile,null = True)
 
 class Order(models.Model):
 	orderID = models.IntegerField(primary_key = True)

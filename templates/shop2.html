@@ -344,7 +344,7 @@
             				<span class="step-links">
 				                {% if products.has_previous %}
 				                <body onload = "myFunction()">
-                				    <a href= "/user/shop/?sub={{ sub }}&page={{ products.previous_page_number }}">previous &lt;&lt; </a>
+                				    <a href= "/user/filter_occasion/?page={{ products.previous_page_number }}">previous &lt;&lt; </a>
                 				{% endif %}
 
 				                <span class="current">
@@ -352,7 +352,7 @@
                 				</span>
 
                 				{% if products.has_next %}
-                    				<a href="/user/shop/?sub={{ sub }}&page={{ products.next_page_number }}"> &gt;&gt; next</a>
+                    				<a href="/user/filter_occasion/?page={{ products.next_page_number }}"> &gt;&gt; next</a>
                 				{% endif %}
             				</span>
         				</div>

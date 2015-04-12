@@ -63,10 +63,8 @@ def user_profile_address(request):
     state_ = "Please enter the billing address details carefully."
 
     if request.method == "POST":    
-        print "enter"
         userprofile = UserProfile.objects.get_or_create(user = request.user)
         userprofile = UserProfile.objects.get(user = request.user)
-        print "enter"
         userprofile.address_line1 = request.POST.get('address1')
         userprofile.address_line2 = request.POST.get('address2')
         userprofile.city = request.POST.get('city')
@@ -99,25 +97,16 @@ def user_profile_creditcard(request):
 
 @login_required(login_url = '/user/login/')
 def user_profile_pastorders(request):
+    
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
+    
+    pastorders = userprofile.pastorders_set.all()
 
-    pastorders = userprofile.pastorders_no
-    print pastorders
-    plist = []
-    strord = ''
     products = []
-    for wish in pastorders:
-        print wish
-        if wish!='[' and wish!=']' and wish!=' 'and wish!=',':
-            strord= strord+str(wish)
-        if wish == ',' or wish == ']':
-            plist.append(strord)
-            strord = ''
-    print plist
-    for wish in plist:
-        p = Product.objects.get(productID = wish)
-        products.append(p)
+    for order in pastorders:
+        products.append(Product.objects.get(productID = order.orderno))
+
     return render_to_response('user-pastorders.html', {'products':products}, context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
@@ -153,53 +142,175 @@ def user_profile_sizechart(request):
 
 @login_required(login_url = '/user/login/')
 def user_profile_wishlist(request):
+
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
+    
+    wishlist = userprofile.wishlist_set.all()
 
-    wishlist = userprofile.wishlist
-    wlist = []
-    strwish = ''
     products = []
     for wish in wishlist:
-        print wish + "fhiwei"
-        if wish!='[' and wish!=']' and wish!=' 'and wish!=',':
-            print wish + " fiji"
-            strwish = strwish+str(wish)
-        if wish == ',' or wish == ']':
-            wlist.append(strwish)
-            strwish = ''
+        products.append(Product.objects.get(productID = wish.wish_products))
 
-    print wlist
-    for wish in wlist:
-        print wish
-        p = Product.objects.get(productID = wish)
-        products.append(p)
     return render_to_response('user-wishlist.html', {'products':products}, context_instance=RequestContext(request))
 
+def add_wish(request):
+    productID = str(request.GET.get("product",""))
 
+    userprofile = UserProfile.objects.get_or_create(user = request.user)
+    userprofile = UserProfile.objects.get(user = request.user)
+    
+    if len(productID)>0:
+        print productID
+        wish = Wishlist.objects.create(wish_products = productID)
+        userprofile.wishlist_set.add(wish)
+        userprofile.save()
 
-def shop(request):
-    subcat = SubCategory.objects.get(name = "Bestseller")
+    wishlist = userprofile.wishlist_set.all()
+    print wishlist
+
+    products = []
+    for wish in wishlist:
+        products.append(Product.objects.get(productID = wish.wish_products))
+    return render_to_response('user-wishlist.html', {'products':products}, context_instance=RequestContext(request))
+
+def filter_color(request):
+    color = request.POST.get("colorpicker-shortlist")
+    print color
+
+    shop(RequestContext(request))
+
+def filter_occasion(request):
+    products = []
+    productlist = []
     if request.method == "POST":
-        sub = str(request.POST.get("subcat"))
-        print sub,"sgifdigjid"
-        if len(sub) == 0:
-            categories = Category.objects.all()   
-            state = "Please enter your email ID below"
-            return render_to_response('index.html', {'state': state, 'categories' : categories}, context_instance = RequestContext(request))
-        string = sub.split("/")
-        sub = string[0]
-        subcat = SubCategory.objects.get(name = sub)
+        if request.POST.get("Bridal"):
+            b = Occasion.objects.get(occasions = "Bridal")
+            try:
+                for p in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Casual"):
+            b = Occasion.objects.get(occasions = "Casual")
+            try:
+                for p in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Festive"):
+            b = Occasion.objects.get(occasions = "Festive")
+            try:
+                for p in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Party"):
+            b = Occasion.objects.get_or_create(occasions = "Party")
+            try:
+                for p in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Reception"):
+            b = Occasion.objects.get_or_create(occasions = "Reception")
+            try:
+                for p in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("wedding"):
+            b = Occasion.objects.get_or_create(occasions = "Wedding")
+            try:
+                for p in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+
+        newproducts = []
+        for p in products:
+            if p not in newproducts:
+                newproducts.append(p)
+
+        for p in newproducts:
+            print p
+            productlist.append(Product.objects.get(name = p))
+        
+    products = productlist
+    
+    p = Paginator(productlist,9)
+
+    try: page = int(request.GET.get("page", '1'))
+    except ValueError: page = 1
+
+    try:
+        products = p.page(page)
+    except (InvalidPage, EmptyPage):
+        products = p.page(paginator.num_pages)
+    return render_to_response('shop2.html', {'products' : products}, context_instance=RequestContext(request))
+
+def item(request):
+    try: 
+        item = str(request.GET.get("item",""))
+        print item
+        product = Product.objects.get(name = item)
+        print product.views
+        if product.views is None:
+            product.views = 0
+        product.views = product.views+1
+        product.save()
+
+        state = "Please enter your email ID below"
+        state_ = "Please enter the size in inches"
+        userprofile = UserProfile.objects.get_or_create(user = request.user)
+        userprofile = UserProfile.objects.get(user = request.user)
+        if request.method == "POST":
+            bust = request.POST.get('bust')
+            neck_back = request.POST.get('neck_back')
+            neck_front = request.POST.get('neck_front')
+            sleeve_width = request.POST.get('sleeve_width')
+            sleeve_length = request.POST.get('sleeve_length')
+            shoulder = request.POST.get('shoulder')
+            length_blouse = request.POST.get('length_blouse')
+            waist_blouse = request.POST.get('waist_blouse')
+
+            userprofile = UserProfile.objects.get_or_create(user = request.user)
+            userprofile = UserProfile.objects.get(user = request.user)
+            userprofile.bust = bust
+            userprofile.neck_front = neck_front
+            userprofile.neck_back = neck_back
+            userprofile.sleeve_length = sleeve_length
+            userprofile.sleeve_width = sleeve_width
+            userprofile.shoulder = shoulder
+            userprofile.length_blouse = length_blouse
+            userprofile.waist_blouse = waist_blouse
+            userprofile.save() # if rememberme == True
+            state_ = "The measurements are updated successfully. Thank you."
+        return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile}, context_instance=RequestContext(request))
+    except:
+        categories = Category.objects.all()   
+        print request.user.is_authenticated()
+        state = "Please enter your email ID below"
+        return render_to_response('index.html', {'state': state, 'categories' : categories},context_instance=RequestContext(request))
+
+def shop(request): 
+    sub = str(request.GET.get("sub",""))
+    string = sub.split("/")
+    sub = string[0]
+    subcat = SubCategory.objects.get(name = "Machine")
         
 
     products = subcat.product_set.all()
-    for n in products:
+    for p in products:
+        print p.name
+    '''for n in products:
         string = n.name.split('.')
         n.name_clean = string[0]
-        n.save()
+        n.save()'''
+    print "-------------"
 
     p = Paginator(products,9)
-
+    print "PAGINATED"
     '''try: 
         item = str(request.GET.get("item",""))
         print "detects"
@@ -216,53 +327,34 @@ def shop(request):
         products = p.page(paginator.num_pages)
 
 
-    return render_to_response('shop.html', {'products' : products, 'sub':sub}, context_instance=RequestContext(request))
+    return render_to_response('shop.html', {'products' : products,'sub':sub}, context_instance=RequestContext(request))
 
 def product_details(request):
     #Add view to Page views
     return render_to_response('product-details.html',context_instance = RequestContext(request))
 
 def cart(request):
-    cartoon = []
-    if request.method == "POST":
-        addcart = request.POST.get('addcart')
-        print addcart
-        userprofile = UserProfile.objects.get_or_create(user = request.user)
-        userprofile = UserProfile.objects.get(user = request.user)
-        print userprofile.cart
-        if not userprofile.cart:
-            print "Enter"
-            userprofile.cart = [str(addcart)]
-            userprofile.save()
-        else:
-            cartoon = userprofile.cart
-            print cartoon
-            if addcart not in cartoon:
-                cartoon.append(str(addcart))
-            userprofile.cart = cartoon
-            userprofile.save()
-
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
+    stop = True
+    if request.method == "POST":
+        addcart = request.POST.get('addcart')
+        userprofile = UserProfile.objects.get_or_create(user = request.user)
+        userprofile = UserProfile.objects.get(user = request.user)
+        for item in userprofile.cart_set.all():
+            if item.cart_products == addcart:
+                stop = False
+                break
+        if stop:
+            cart_item = Cart.objects.create(cart_products = addcart)
+            userprofile.cart_set.add(cart_item)
 
-    pastorders = userprofile.cart
-    print pastorders
-    plist = []
-    strord = ''
+    cart_items = userprofile.cart_set.all()
     products = []
-    for wish in pastorders:
-        print wish
-        if wish!='[' and wish!=']' and wish!=' 'and wish!=',':
-            strord= strord+str(wish)
-        if wish == ',' or wish == ']':
-            plist.append(strord)
-            strord = ''
-    print plist
-    for wish in plist:
-        p = Product.objects.get(productID = wish)
-        products.append(p)
-    return render_to_response('user-pastorders.html', {'products':products}, context_instance=RequestContext(request))
-    return render_to_response('cart.html',context_instance = RequestContext(request))
+    for item in cart_items:
+        product = Product.objects.get(name = item.cart_products)
+        products.append(product)
+    return render_to_response('cart.html',{'products':products},context_instance = RequestContext(request))
     
 def login_user(request):
     state = "Please log in below."
