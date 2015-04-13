@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     url(r'logout', views.logout_user,
         name='logout_user',),
 
+    url(r'createdress', views.createdress,
+        name='createdress',),
+
     url(r'showproducts', views.showproducts,
         name='showproducts',),
 

@@ -13,7 +13,9 @@ def home(request):
     print request.user.is_authenticated()
     state = "Please enter your email ID below"
 
-    return render_to_response('index.html', {'state': state, 'categories' : categories},context_instance=RequestContext(request))
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    products = newarrivals.product_set.all()
+    return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
 def addcategory(request):
     current_user =  request.user
@@ -98,6 +100,7 @@ def addproduct(request):
     if request.method == "POST":
         image = request.FILES.get("image")
         name = request.POST.get("name")
+        print name
         productID = request.POST.get("primaryID")
         subcategory = request.POST.get("subcategory")
         price = request.POST.get("price")
@@ -108,14 +111,19 @@ def addproduct(request):
         occasion = request.POST.get("occasion")
         work = request.POST.get("work")
 
+        print productID
+        print subcategory
+        print price
+        print description
+        print unitsinorder
+        print fabrics
+        print color
+        print occasion
+        print work
+
         try:
             sub = SubCategory.objects.get(SubCategoryID = subcategory)
             print "PROBLEM1"
-            print name 
-            print productID
-            print price
-            print description
-            print unitsinorder
             #p = Product.objects.create(image = image, name = name, productID = productID, price = price, subcategory = sub, unitsInStock = 1, description = description, unitsInOrder = unitsinorder, views = 0)
         except: 
             state = "Please fill in Product details carefully. Not validated. Make sure ProductID is unique, subcategoryID is correct."
@@ -126,27 +134,49 @@ def addproduct(request):
         o = occasion.split(",")
         w = work.split(",")
 
-        p = Product.objects.get(productID = productID)
+        try:
+            p = Product.objects.get(productID = productID)
+            state = "Product already exists. If not, check Product ID."
+            return render_to_response('addproduct.html',{'state':state},context_instance = RequestContext(request))
+        except:
+            p = Product.objects.create(image = image, name = name, productID = productID, price = price, subcategory = sub, unitsInStock = 1, description = description, unitsInOrder = unitsinorder, views = 0)
+            p.save()
+            p = Product.objects.get(productID = productID)
         print p.name
         '''MAKE SURE THESE ARE NOT PREVIOUSLY ADDED FABRICS, COLORS, OCCASIONS, WORKS. COVER EDGE CASE.'''
         for token in f:
             print token
-            fab =Fabric.objects.create(fabrics = token)
-            fab.save()            
+            try:
+                fab =Fabric.objects.get(fabrics = token)
+            except:
+                fab =Fabric.objects.create(fabrics = token)
+                fab.save()            
             fab.product.add(p)
 
         for token in c:
-            col =Color.objects.create(colors = token)
-            col.save()
+            try:
+                col =Color.objects.get(colors = token)
+            except:
+                col =Fabric.objects.create(colors = token)
+                col.save()            
             col.product.add(p)
+
         for token in o:
-            occ =Occasion.objects.create(occasions = token)
-            occ.save()
+            try:
+                occ =Occasion.objects.get(occasions = token)
+            except:
+                occ =Occasion.objects.create(occasions = token)
+                occ.save()            
             occ.product.add(p)
+
         for token in w:
-            work =Work.objects.create(works = token)
-            work.save()
+            try:
+                work =Work.objects.get(works = token)
+            except:
+                work =Work.objects.create(works = token)
+                work.save()            
             work.product.add(p)
+
         state = "successfully created"
     return render_to_response('addproduct.html',{'state':state},context_instance = RequestContext(request))
 
@@ -201,7 +231,9 @@ def logout_user(request):
     categories = Category.objects.all()
     state = "Please enter your email ID below"
     print request.user.is_authenticated()
-    return render_to_response('index.html', {'state': state, 'categories' : categories},context_instance=RequestContext(request))
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    products = newarrivals.product_set.all()
+    return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def user_profile(request):
@@ -423,21 +455,21 @@ def filter_occasion(request):
             except:
                 pass
         if request.POST.get("Party"):
-            b = Occasion.objects.get_or_create(occasions = "Party")
+            b = Occasion.objects.get(occasions = "Party")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("Reception"):
-            b = Occasion.objects.get_or_create(occasions = "Reception")
+            b = Occasion.objects.get(occasions = "Reception")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("wedding"):
-            b = Occasion.objects.get_or_create(occasions = "Wedding")
+            b = Occasion.objects.get(occasions = "Wedding")
             try:
                 for p in b.product.all():
                     products.append(p.name)
@@ -508,7 +540,9 @@ def item(request):
         categories = Category.objects.all()   
         print request.user.is_authenticated()
         state = "Please enter your email ID below"
-        return render_to_response('index.html', {'state': state, 'categories' : categories},context_instance=RequestContext(request))
+        newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+        products = newarrivals.product_set.all()
+        return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
 def shop(request): 
     sub = str(request.GET.get("sub",""))
@@ -623,7 +657,9 @@ def subscribe(request):
         mail.save()
     categories = Category.objects.all()  
 
-    return render_to_response('index.html', {'state' :state, 'categories' : categories},context_instance = RequestContext(request))
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    products = newarrivals.product_set.all()
+    return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
 
 def search(request):
     if request.method == "POST":
@@ -645,14 +681,9 @@ def search(request):
 
     state = "Please enter your email ID below"
     categories = Category.objects.all() 
-    return render_to_response('index.html', {'state' :state, 'categories' : categories},context_instance = RequestContext(request))
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    products = newarrivals.product_set.all()
+    return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
 
-def filter_price(request):
-    if request.method == "POST":
-        price_range = request.POST.get('filter_price')
-        print price_range
 
-    categories = Category.objects.all()  
-    state = "Please enter your email ID below"
-    return render_to_response('index.html', {'state' :state, 'categories' : categories},context_instance = RequestContext(request))
 

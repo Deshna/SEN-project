@@ -46,7 +46,7 @@ def get_upload_file_name(instance, filename):
 
 class Product(models.Model):
 	#image = models.ImageField(upload_to = 'media/', blank = True, null = True) #, height_field = '', width_field = '')
-	image = models.ImageField(upload_to = "home/")
+	image = models.ImageField(upload_to = "home/",null = True)
 	name = models.CharField(max_length = 30)
 	price = models.IntegerField()
 	productID = models.IntegerField(primary_key = True)
@@ -109,3 +109,24 @@ class OrderProduct(models.Model):
 
 class Mailinglist(models.Model):
 	mail = models.CharField(max_length = 50, null = True)
+
+class Border(models.Model):
+	image = models.ImageField(upload_to = "border/")
+	borderID = models.IntegerField(primary_key = True)
+
+class Base(models.Model):
+	mask_suit = models.ImageField(upload_to = "base/")
+	mask_model = models.ImageField(upload_to = "base/")
+	mask_sideborder = models.ImageField(upload_to = "base/")
+	mask_neckborder = models.ImageField(upload_to = "base/")
+	mask_bottomborder = models.ImageField(upload_to = "base/")
+	image = models.ImageField(upload_to = "base/")
+	baseID = models.IntegerField(primary_key = True)
+
+class Pattern(models.Model):
+	image = models.ImageField(upload_to = "pattern/")
+	patternID = models.IntegerField(primary_key = True)
+
+class Butta(models.Model):
+	image = models.ImageField(upload_to = "butta/")
+	buttaID = models.IntegerField(primary_key = True)
