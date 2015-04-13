@@ -25,6 +25,24 @@ urlpatterns = patterns('',
     url(r'logout', views.logout_user,
         name='logout_user',),
 
+    url(r'showproducts', views.showproducts,
+        name='showproducts',),
+
+    url(r'addproduct', views.addproduct,
+        name='addproduct',),
+
+    url(r'addcategory', views.addcategory,
+        name='addcategory',),
+
+    url(r'addsubcategory', views.addsubcategory,
+        name='addsubcategory',),
+
+    url(r'admin_deleteproduct', views.deleteproduct,
+        name='deleteproduct',),
+
+    url(r'adminupload', views.adminupload,
+        name='adminupload',),
+
     url(r'profile', views.user_profile,
         name='user_profile',),
 

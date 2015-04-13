@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from myapp.models import *
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.http import Http404 
 
 def home(request):
     categories = Category.objects.all()   
@@ -13,6 +14,187 @@ def home(request):
     state = "Please enter your email ID below"
 
     return render_to_response('index.html', {'state': state, 'categories' : categories},context_instance=RequestContext(request))
+
+def addcategory(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+
+    state = "Please add a Category"
+    if request.method == "POST":
+        name = request.POST.get("name")
+        categoryID = request.POST.get("categoryID")
+        description = request.POST.get("description")
+
+        try:
+            c = Category.objects.create(name = name, description = description, categoryID = categoryID)
+            state = "Category successfully created"
+        except:
+            state = "Category NOT created. Check CategoryID entered."
+    return render_to_response("addcategory.html",{'state':state},context_instance = RequestContext(request))
+
+def addsubcategory(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    state = "Please add a SubCategory"
+    if request.method == "POST":
+        name = request.POST.get("name")
+        subcategoryID = request.POST.get("subcategoryID")
+        categoryID = request.POST.get("categoryID")
+
+        try:
+            print "PROBLEM1"
+            c = Category.objects.get(categoryID = categoryID)
+            print "PROBLEM2"
+            s = SubCategory.objects.create(name = name, category = c, SubCategoryID = subcategoryID)
+            state = "SubCategory successfully created"
+        except:
+            state = "Category NOT created. Check CategoryID entered."
+    return render_to_response("addsubcategory.html",{'state':state},context_instance = RequestContext(request))
+
+def deletecategory(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    state = "Please select a Product to delete"
+    cat = Category.objects.all()
+    if request.method == "POST":
+        categoryID = request.POST.get("categoryID")
+        try:
+            p = Category.objects.get(categoryID = categoryID)
+            p.delete()
+            state = "Product successfully deleted"
+        except:
+            state = "System ran into an error. Check ID provided."
+    return render_to_response('deletecategory.html',{'state':state,'category':cat},context_instance = RequestContext(request))
+
+def deletesubcategory(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    state = "Please select a Product to delete"
+    subcat = SubCategory.objects.all()
+    if request.method == "POST":
+        subcategoryID = request.POST.get("subcategoryID")
+        try:
+            p = SubCategory.objects.get(subcategoryID = subcategoryID)
+            p.delete()
+            state = "Subcategory successfully deleted"
+        except:
+            state = "System ran into an error. Check ID provided."
+    return render_to_response('deletecategory.html',{'state':state,'subcategory':subcat},context_instance = RequestContext(request))
+
+def addproduct(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    state = "Please add a product"
+    if request.method == "POST":
+        image = request.FILES.get("image")
+        name = request.POST.get("name")
+        productID = request.POST.get("primaryID")
+        subcategory = request.POST.get("subcategory")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        unitsinorder = request.POST.get("unitsinorder")
+        fabrics = request.POST.get("fabrics")
+        color = request.POST.get("color")
+        occasion = request.POST.get("occasion")
+        work = request.POST.get("work")
+
+        try:
+            sub = SubCategory.objects.get(SubCategoryID = subcategory)
+            print "PROBLEM1"
+            print name 
+            print productID
+            print price
+            print description
+            print unitsinorder
+            #p = Product.objects.create(image = image, name = name, productID = productID, price = price, subcategory = sub, unitsInStock = 1, description = description, unitsInOrder = unitsinorder, views = 0)
+        except: 
+            state = "Please fill in Product details carefully. Not validated. Make sure ProductID is unique, subcategoryID is correct."
+            return render_to_response('addproduct.html',{'state':state},context_instance = RequestContext(request))
+
+        f = fabrics.split(",")
+        c = color.split(",")
+        o = occasion.split(",")
+        w = work.split(",")
+
+        p = Product.objects.get(productID = productID)
+        print p.name
+        '''MAKE SURE THESE ARE NOT PREVIOUSLY ADDED FABRICS, COLORS, OCCASIONS, WORKS. COVER EDGE CASE.'''
+        for token in f:
+            print token
+            fab =Fabric.objects.create(fabrics = token)
+            fab.save()            
+            fab.product.add(p)
+
+        for token in c:
+            col =Color.objects.create(colors = token)
+            col.save()
+            col.product.add(p)
+        for token in o:
+            occ =Occasion.objects.create(occasions = token)
+            occ.save()
+            occ.product.add(p)
+        for token in w:
+            work =Work.objects.create(works = token)
+            work.save()
+            work.product.add(p)
+        state = "successfully created"
+    return render_to_response('addproduct.html',{'state':state},context_instance = RequestContext(request))
+
+def deleteproduct(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    state = "Please select a Product to delete"
+    products = Product.objects.all()
+    if request.method == "POST":
+        productID = request.POST.get("productID")
+        p = Product.objects.get(productID = productID)
+        p.delete()
+        state = "Product successfully deleted"
+    return render_to_response('add.html',{'state':state,'products':products},context_instance = RequestContext(request))
+
+def adminupload(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    '''only ADMIN must have the permissions to upload.
+    '''
+    state = "please upload an image"
+    if request.method == "POST":
+        image = request.FILES.get("image")
+        name = request.POST.get("name")
+        primaryID = request.POST.get("primaryID")
+        try:
+            print primaryID
+            p = Product.objects.get(productID = int(primaryID))
+            print primaryID
+            i = Images.objects.create(image = image, name = name, product = p)
+            print "not creating?"
+            state = "image uploaded and linked successfully"
+        except:
+            i = Images.objects.create(image = image, name = name)
+            state = "image uploaded but not linked"
+    return render_to_response('image.html',{'state':state},context_instance=RequestContext(request))
+
+def showproducts(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
+    products = Product.objects.all()
+    return render_to_response('showproducts.html',{'products':products},context_instance = RequestContext(request))
 
 def logout_user(request):
     logout(request)
@@ -174,7 +356,6 @@ def add_wish(request):
         products.append(Product.objects.get(productID = wish.wish_products))
     return render_to_response('user-wishlist.html', {'products':products}, context_instance=RequestContext(request))
 
-
 def price(request):
     price = request.POST.get("price")
     tokens = price.split(",")
@@ -331,9 +512,7 @@ def item(request):
 
 def shop(request): 
     sub = str(request.GET.get("sub",""))
-    string = sub.split("/")
-    sub = string[0]
-    subcat = SubCategory.objects.get(name = "Machine")
+    subcat = SubCategory.objects.get(name = sub)
         
 
     products = subcat.product_set.all()
@@ -375,6 +554,7 @@ def cart(request):
     stop = True
     if request.method == "POST":
         addcart = request.POST.get('addcart')
+        print addcart
         userprofile = UserProfile.objects.get_or_create(user = request.user)
         userprofile = UserProfile.objects.get(user = request.user)
         for item in userprofile.cart_set.all():
@@ -382,13 +562,15 @@ def cart(request):
                 stop = False
                 break
         if stop:
+            print "ENTERING"
             cart_item = Cart.objects.create(cart_products = addcart)
             userprofile.cart_set.add(cart_item)
 
     cart_items = userprofile.cart_set.all()
     products = []
     for item in cart_items:
-        product = Product.objects.get(name = item.cart_products)
+        print item.cart_products
+        product = Product.objects.get(productID = int(item.cart_products))
         products.append(product)
     return render_to_response('cart.html',{'products':products},context_instance = RequestContext(request))
     

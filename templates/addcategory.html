@@ -1,0 +1,20 @@
+<form action="/user/addcategory/" method="POST">
+
+    {{ state }}
+	{% csrf_token %}
+                
+                 <p>
+                    <input type = "text" name="name" placeholder = "Enter name of Category">
+
+                </p>
+                <p>
+                    <input type = "text" name="categoryID" placeholder = "Enter ID of Category">
+
+                </p>
+              
+                <p>
+                    <input type = "text" name="description" placeholder = "Enter Description of Category">
+
+                </p>
+                <input type="submit" value="Submit" />
+</form>

@@ -1,0 +1,50 @@
+
+<form action="/user/addproduct/" method="POST" enctype="multipart/form-data">
+
+    {{ state }}
+	{% csrf_token %}
+                <p>
+                    <input id="id_image" type="file" class="" name="image">
+                 </p>
+                 <p>
+                    <input type = "text" name="name" placeholder = "Enter name of Image">
+
+                </p>
+                <p>
+                    <input type = "text" name="primaryID" placeholder = "Enter ID of Primary Image">
+
+                </p>
+                <p>
+                    <input type = "text" name="price" placeholder = "Enter price of product">
+
+                </p>
+                <p>
+                    <input type = "text" name="description" placeholder = "Enter Description of product">
+
+                </p>
+                <p>
+                    <input type = "text" name="unitsinorder" placeholder = "Enter number of units in order of product">
+
+                </p>
+                <p>
+                    <input type = "text" name="subcategory" placeholder = "Enter subcategory of product">
+
+                </p>
+                <p>
+                    <input type = "text" name="fabrics" placeholder = "Enter fabrics of product"> Seperate by commas
+
+                </p>
+                <p>
+                    <input type = "text" name="color" placeholder = "Enter color of product"> Seperate by commas
+
+                </p>
+                <p>
+                    <input type = "text" name="occasion" placeholder = "Enter occasion of product"> Seperate by commas
+
+                </p>
+                <p>
+                    <input type = "text" name="work" placeholder = "Enter work of product"> Seperate by commas
+
+                </p>
+                <input type="submit" value="Submit" />
+</form>

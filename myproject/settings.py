@@ -98,8 +98,8 @@ STATICFILES_DIRS = (
     ),
 )
 
-MEDIA_ROOT = '/opt/myenv/myproject/static/images/'
-MEDIA_URL = '/images/'
+MEDIA_ROOT = '/opt/myenv/myproject/static/'
+MEDIA_URL = ''
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
@@ -107,8 +107,3 @@ TEMPLATE_DIRS = (
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PASSWORD = 'ryomaechizen'
-EMAIL_HOST_USER = 'desai.deshna@gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587

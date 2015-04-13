@@ -46,23 +46,23 @@ def get_upload_file_name(instance, filename):
 
 class Product(models.Model):
 	#image = models.ImageField(upload_to = 'media/', blank = True, null = True) #, height_field = '', width_field = '')
-	path = models.CharField(max_length=512)
+	image = models.ImageField(upload_to = "home/")
 	name = models.CharField(max_length = 30)
-	name_clean = models.CharField(max_length = 30, null = True, blank = True)
 	price = models.IntegerField()
 	productID = models.IntegerField(primary_key = True)
 	description = models.CharField(max_length = 300,default = "none")
-	unitsInStock = models.IntegerField(default = 0)
 	unitsInOrder = models.IntegerField(default = 0)
+	unitsInStock = models.IntegerField(default = 0)
 	subcategory = models.ForeignKey(SubCategory, null = True)
 	views = models.IntegerField(null = True)
 
 	def __str__(self):             
 		return self.productID
-'''
+
 class Images(models.Model):
-	image = models.ImageField(upload_to = get_uploaded_file_name)
-	product = models.ForeignKey(Product, null = True)'''
+	image = models.ImageField(upload_to = "home/")
+	name = models.CharField(max_length = 50)
+	product = models.ForeignKey(Product, null = True)
 
 class Fabric(models.Model):
     fabrics = models.CharField(max_length = 60)

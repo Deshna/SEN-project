@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% for p in products %}
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+
+										<img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "207" height = "250"/></a>
+										<h2>{{ p.price }} rs.</h2>
+										<p>{{ p.name }}</p>
+										<p>{{ p.image.url }}</p>
+									</div>
+
+								</div>
+								{% for i in p.images_set.all %}
+									<h2>{{ i.name }}</h2>
+									<p>{{ i.image.url }}</p>
+									<img src ="{{STATIC_URL}}{{ i.image.url }}" width = "207" height = "250">
+								{% endfor %}
+							</div>
+						</div>
+						{% endfor %}
