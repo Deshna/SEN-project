@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'base.html'%}
+{%block title%}Create Dress{%endblock%}
+{%block body%}
+<div class="col-sm-12 padding-right">
+					
+					<h2 class="title" align="center"> Select a Base Type</h2>
+					<div class="features_items"><!--features_items-->
+					
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										{% for b in bases %}
+										<img src="{{STATIC_URL}}{{ b.image.url }}" alt="" />
+								
+										<a href="#" class="btn btn-default">Select</a>
+										{% endfor %}
+									</div>
+
+								</div>
+								
+							</div>
+						</div>
+						
+					</div><!--features_items-->
+				</div>
+{%endblock%}

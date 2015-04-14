@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GMaps.js &mdash; Markers</title>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="js/gmaps.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" type="text/css" href="css/gmaps.css" />
+  <script type="text/javascript">
+    var map;
+    $(document).ready(function(){
+      map = new GMaps({
+        el: '#map',
+        lat: 23.07999,
+        lng: 72.53906
+      });
+      map.addMarker({
+        lat: 23.07999,
+        lng:  72.53906,
+        title: 'Niks Creations',
+        details: {
+          database_id: 42,
+          author: 'HPNeo'
+        },
+        click: function(e){
+          if(console.log)
+            console.log(e);
+          alert('You clicked in this marker');
+        },
+        mouseover: function(e){
+          if(console.log)
+            console.log(e);
+        }
+      });
+    
+    });
+  </script>
+</head>
+<body>
+  <div class=" well col-sm-4 col-sm-offset-1"style="margin-top:20px" >
+   
+    <h2 class="title">Nicks Creations</h2>
+    <div style="margin:16px">
+    <p>Address Line 1</p>
+    <p>Address Line 2</p>
+    <p>Ahmedabad, Gujrat.</p>
+    <p>Phone: +911e18u8998</p>
+    <p>Email: nikscreation@gmail.com</p>
+
+   </div >
+
+  </div> 
+<!--   <div class="col-sm-4 col-sm-offset-1"><strong>Location</strong><p></p>
+<div>
+<h2 style="font-size: 14px;">Address Line 1</h2>
+<p>Address Line 2</p>
+<p>Ahemdabad, Gujrat.</p>
+<p>&nbsp;</p>
+<p>Phone:+911e18u8998</p>
+</div>
+<div><strong>Contact Information</strong><p></p>
+<p id="ci">nikscreations@gmail.com</p>
+</div>
+</div> -->
+
+  <div class="col-sm-7">
+      <div id="map"></div>
+    </div>
+ 
+</body>
+</html>

@@ -1,77 +1,10 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Home | NIKScreations</title>
-    
-	<link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/bootstrap.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
-	<style>
-	h4{
-		font-size: 120%;
-	}
-	</style>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
-
-<body>
-	<header id="header"><!--header-->
-		<div class="header_top" style = "background-color:#000"><!--header_top-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
-								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
-								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nomargin">
-
-								<li><a href="/user/login/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Login/ Register</a></li>
-								<li><a href="#" style = "color:#fff"><i class="fa fa-phone" style = "color:#fff"></i> Contact</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header_top-->
-	 <!-- Page Content -->
-<div class="container">
-	<div class="row">
-	<div class="col-lg-12 text-center">
-		<h1>Niks-Creations.</h1>
-		<p class="lead">Taste originality and creativity at it's best.</p>
-		<ul class="list-unstyled">
-		</ul>
-	</div>
-	</div>
-<!-- /.row -->
-</div>				 
-	</header>
+{% extends 'base.html'%}
+{%block title %}Login{%endblock%}
+{%block body%}
 	<section id="form"><!--form-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-sm-4 col-sm-offset-2">
 					<div class="login-form" id = "wrapper"><!--login form-->
 						<h2><b>Login to your account</b></h2>
 						{{ state }}
@@ -108,50 +41,5 @@
 			</div>
 		</div>
 	</section><!--/form-->
+	{%endblock%}
 	
-	
-	<footer id="footer"><!--Footer-->
-		
-		<div class="footer-widget">
-			<div class="container">
-				<div class = "row">
-					<div class = "col-sm-2">
-						<div class="single-widget">
-							<h2><b>Policies</b></h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Privecy Policy</a></li>
-								<li><a href="#">Refund Policy</a></li>
-								<li><a href="#">Billing System</a></li>
-								<li><a href="#">Ticket System</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<h3>Subscribe to us</h3>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Get the most recent updates from <br />our site and be updated your self...</p>
-							</form>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-
-	<script src="{% static 'js/jquery.js'}"></script>
-	<script src="{%static 'js/jquery.scrollUp.min.js'}"></script>
-	<script src="{%static 'js/price-range.js'}"></script>
-	<script src="{%static 'js/jquery.prettyPhoto.js'}"></script>
-	<script src="{%static 'js/main.js'}"></script>
-	<script src="{%static 'js/bootstrap.min.js'}"></script>
-    <script src="https://togetherjs.com/togetherjs-min.js"></script>
-
-
-</body>
-</html>

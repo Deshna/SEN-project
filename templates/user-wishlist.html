@@ -1,9 +1,6 @@
 {%extends 'base.html'%}
 {%block title%}Wishlist{%endblock%}
 
-{% block ShopTogether %}
-	<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
-{% endblock %}
 
 {%block body%}
 <div class="row">
@@ -55,7 +52,7 @@
 						{% for p in products %}
 						<tr>
 							<td class = "cart_product">
-								<a href = ""><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "150" height = "150"></a>/
+								<a href = ""><img src="{{ STATIC_URL }}{{ p.image.url }}" alt=""></a>/
 							</td>
 							<td class="cart_description">
 								<h4><a href="">{{ p.name }}</a></h4>
