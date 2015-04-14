@@ -6,6 +6,16 @@ from myapp import views
 urlpatterns = patterns('',
     url(r'home', views.home,
         name='home',),
+
+    url(r'about', views.aboutus,
+        name='aboutus',),
+
+    url(r'item_cart', views.item_cart,
+        name='item_cart',),
+
+    url(r'cart_delete', views.cart_delete,
+        name='cart_delete',),
+
     url(r'login', views.login_user,
         name='login_user',),
     url(r'register', views.register_user,
@@ -19,8 +29,7 @@ urlpatterns = patterns('',
 
     url(r'search', views.search,
         name='search',),
-    url(r'cart', views.cart,
-        name='cart',),
+
     url(r'logout', views.logout_user,
         name='logout_user',),
 

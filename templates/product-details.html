@@ -1,141 +1,17 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Shop | Niks-Creations</title>
-	
-	<link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/bootstrap.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/prettyPhoto.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/price-range.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/animate.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-	<style>
-	h4{
-		font-size: 120%;
-	}
-	</style>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
+{% extends 'base.html'%}
+{%block title%}Product-Details{%endblock%}
 
-	<header id="header"><!--header-->
-		<div class="header_top" style = "background-color:#1F7964"><!--header_top-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
-								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
-								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nomargin">
-								{% if user.is_authenticated %}
-    								<li><a href="/user/profile/"><i class="fa fa-lock"></i>My account</a></li>
-    								<li><a href="/user/logout/"><i class="fa fa-lock"></i>Logout</a></li>
-								{% else %}
-    									<li><a href="/user/login/"><i class="fa fa-lock"></i>Login/ Register</a></li>
-								{% endif %}
-								
-								<li><a href="#"><i class="fa fa-phone"></i> Contact</a></li>
+{%block stylesheets%}    <link href = "{{STATIC_URL}}css/price-range.css" rel = "stylesheet">{%endblock%}
 
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header_top-->
+{% block ShopTogether %}
+<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
+{% endblock %}
 
-		
-		<div class="header-middle" style="background-color:white" ><!--header-middle-->
-			<div class="container">
-				<div class="row" >
-					<div class="col-md-7" >
-						<div class="logo pull-left">
-							
-							<a href="index.html" style="color:rgb(16,145,115);float:left"><h2 style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif"><b>NIKS</b></h2></a>
-							<a href="index.html" style="color:gray;"><h2 style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif">-Creations</h2></a>
-							
-							
-							<p class="lead" style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif;color:gray"><small>"Taste the originality and creativity at it's best."</small></p>
-						</div>			
-					</div>
-					<div class="col-md-4 pull-right">
-						<div class = "pull-right menuButtons" style="margin-top:15px ">
-							<a href="/user/createdress/" class="btn btn-default btn-lg" >Create a Dress</a>
-							<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
-						</div><br>
-						<div class="search_box pull-right">
-							<form action = "/user/search/" method = "POST">
-							{% csrf_token %}
-							<input type="text" style = "color:rgb(16,145,115)" name = "search" placeholder="Search"/>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header-middle-->
+{% block body%}
+<section>
+	<div class="container">
+		<div class="row">
 
-	<div class="header-botttom">
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						
-					</div>
-
-					
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-					{% for cat in categories %}
-						{% if cat.name != "New Arrivals"%}
-							<li class="dropdown">
-
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:'Open Sans',Arial,sans-serif">{{ cat.name }}<span class="caret"></span></h4></a>
-								<ul class="dropdown-menu" role="menu">
-										{% for sub_cat in cat.subcategory_set.all %}
-									   		<li><a href="/user/shop?sub={{ sub_cat.name }}">{{ sub_cat.name }}</a></li>
-										{% endfor %}
-								</ul>
-							</li>
-							
-						{% endif %}
-					{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
-</header>
-			<section>
-				<div class="container">
-					<div class="row">
-		
 
 			<div id="myModal" class="modal fade">
 				<div class="modal-dialog">
@@ -150,83 +26,83 @@
 								<fieldset>
 
 									<div class="form-group" style="margin-top:2px">
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Length(Blouse)</label>  </div>
-																			<div class="col-md-2">
-																				<input  name="length_blouse" type="text" placeholder={{ userprofile.length_blouse }} class="form-control input-md">
+										<div class="col-md-4" >
+											<label class="pull-right control-label" for="textinput">Length(Blouse)</label>  </div>
+											<div class="col-md-2">
+												<input  name="length_blouse" type="text" placeholder={{ userprofile.length_blouse }} class="form-control input-md">
 
-																			</div>
+											</div>
 
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Bust/Chest</label>  </div>
-																			<div class="col-md-2">
-																				<input  name="bust" type="text" placeholder={{ userprofile.bust}} class="form-control input-md">
+											<div class="col-md-4" >
+												<label class="pull-right control-label" for="textinput">Bust/Chest</label>  </div>
+												<div class="col-md-2">
+													<input  name="bust" type="text" placeholder={{ userprofile.bust}} class="form-control input-md">
 
-																			</div>
+												</div>
 
 
+											</div>
+
+
+											<div class="form-group">
+												<div class="col-md-4" >
+													<label class="pull-right control-label" for="textinput">Waist(Blouse)</label>  </div>
+													<div class="col-md-2">
+														<input id="textinput" name="waist_blouse" type="text" placeholder={{ userprofile.waist_blouse }} class="form-control input-md" >
+
+													</div>
+
+													<div class="col-md-4" >
+														<label class="pull-right control-label" for="textinput">Shoulder</label>  </div>
+														<div class="col-md-2">
+															<input id="textinput" name="shoulder" type="text" placeholder={{ userprofile.shoulder }} class="form-control input-md">
+
+														</div>
+
+
+													</div>
+
+													<div class="form-group">
+														<div class="col-md-4" >
+															<label class="pull-right control-label" for="textinput">Sleeve(Length)</label>  </div>
+															<div class="col-md-2">
+																<input id="textinput" name="sleeve_length" type="text" placeholder={{ userprofile.sleeve_length}} class="form-control input-md">
+
+															</div>
+
+															<div class="col-md-4" >
+																<label class="pull-right control-label" for="textinput">Sleeve(Width)</label>  </div>
+																<div class="col-md-2">
+																	<input id="textinput" name="sleeve_width" type="text" placeholder={{ userprofile.sleeve_width }} class="form-control input-md">
+
+																</div>
+
+
+															</div>
+
+															<div class="form-group">
+																<div class="col-md-4" >
+																	<label class="pull-right control-label" for="textinput">Neck(Front)</label>  </div>
+																	<div class="col-md-2">
+																		<input id="textinput" name="neck_front" type="text" placeholder={{ userprofile.neck_front }} class="form-control input-md">
+
+																	</div>
+
+																	<div class="col-md-4" >
+																		<label class="pull-right control-label" for="textinput">Neck(Back)</label>  </div>
+																		<div class="col-md-2">
+																			<input id="textinput" name="neck_back" type="text" placeholder={{ userprofile.neck_back }} class="form-control input-md">
 																		</div>
-
-
-																		<div class="form-group">
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Waist(Blouse)</label>  </div>
-																			<div class="col-md-2">
-																				<input id="textinput" name="waist_blouse" type="text" placeholder={{ userprofile.waist_blouse }} class="form-control input-md" >
-
-																			</div>
-
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Shoulder</label>  </div>
-																			<div class="col-md-2">
-																				<input id="textinput" name="shoulder" type="text" placeholder={{ userprofile.shoulder }} class="form-control input-md">
-
-																			</div>
-
-
-																		</div>
-
-																		<div class="form-group">
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Sleeve(Length)</label>  </div>
-																			<div class="col-md-2">
-																				<input id="textinput" name="sleeve_length" type="text" placeholder={{ userprofile.sleeve_length}} class="form-control input-md">
-
-																			</div>
-
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Sleeve(Width)</label>  </div>
-																			<div class="col-md-2">
-																				<input id="textinput" name="sleeve_width" type="text" placeholder={{ userprofile.sleeve_width }} class="form-control input-md">
-
-																			</div>
-
-
-																		</div>
-
-																		<div class="form-group">
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Neck(Front)</label>  </div>
-																			<div class="col-md-2">
-																				<input id="textinput" name="neck_front" type="text" placeholder={{ userprofile.neck_front }} class="form-control input-md">
-
-																			</div>
-
-																			<div class="col-md-4" >
-																			<label class="pull-right control-label" for="textinput">Neck(Back)</label>  </div>
-																			<div class="col-md-2">
-																				<input id="textinput" name="neck_back" type="text" placeholder={{ userprofile.neck_back }} class="form-control input-md">
-																			</div>
-																		</div>
+																	</div>
 																</fieldset>
 
-															
-														
-														<div class="modal-footer">
-															<button type="button" class="btn btn-primary" value = "submit" style="margin:5px">     Ok    </button>
+
+
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-primary" value = "submit" style="margin:5px">     Ok    </button>
+																</div>
+															</form>
 														</div>
-														</form>
-													</div>
 													</div>
 												</div>
 											</div>
@@ -239,58 +115,73 @@
 														<div id="similar-product" class="carousel slide" data-ride="carousel">
 
 															<div class="carousel-inner">
-															{% for i in product.images_set.all %}
+																{% for i in product.images_set.all %}
+
+
+																{% if forloop.first%}
 																<div class="item active">
-																	<a href=""><img src ="{{STATIC_URL}}{{ i.image.url }}" alt=""></a>
-																</div>
-															{% endfor %}
-																
-															</div>
+																	{% elif forloop.counter|divisibleby:4%}
+																	<div class="item">
+																		{%endif %}
 
 
-															<a class="left item-control" href="#similar-product" data-slide="prev">
-																<i class="fa fa-angle-left"></i>
-															</a>
-															<a class="right item-control" href="#similar-product" data-slide="next">
-																<i class="fa fa-angle-right"></i>
-															</a>
-														</div> 
-
-													</div>
-													<div class="col-sm-8">
-														<div class="product-information">
-															<!-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> -->
-															<h2>{{ product.name }}</h2>
-															<p>{{ product.description }} (Slight variation in color is possible.)</p>
-															<span>
-
-																<div class="row">
-																	<div class="col-sm-12">
-																		<div  >
-																			<label >
-																				<input type="radio" style="width:15px;height:15px;margin:15px;padding-left:10px"id="q128" name="q" value="1" /> Stiched
-																			</label> 
-																			<label >
-																				<input type="radio" style="width:15px;height:15px;margin:15px" id="q129" name="q" checked="checked" value="2"/> Unstiched
-																			</label>
+																		<div class="col-sm-6">
+																			<a href=""><img src ="{{STATIC_URL}}{{ i.image.url }}" alt="" style="width:100%;height:100%"></a>
 
 																		</div>
+																		{% if forloop.counter|divisibleby:3 or forloop.last %}
 																	</div>
+																	{%endif%}
+
+
+																	{% endfor %}
+
 																</div>
 
-																<span>Rs.{{ product.price }}</span>
 
-																<form method = "POST" action = "/user/cart/">
-																{% csrf_token %}
-																<input type = "hidden" name = "addcart" value = {{ p.productID }}>
-																<button type = "submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-																</form>
-															</span>
+																<a class="left item-control" href="#similar-product" data-slide="prev">
+																	<i class="fa fa-angle-left"></i>
+																</a>
+																<a class="right item-control" href="#similar-product" data-slide="next">
+																	<i class="fa fa-angle-right"></i>
+																</a>
+															</div> 
+
+														</div>
+														<div class="col-sm-8">
+															<div class="product-information">
+																<!-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> -->
+																<h2>{{ product.name }}</h2>
+																<p>{{ product.description }} (Slight variation in color is possible.)</p>
+																<span>
+
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<div  >
+																				<label >
+																					<input type="radio" style="width:15px;height:15px;margin:15px;padding-left:10px"id="q128" name="q" value="1" /> Stiched
+																				</label> 
+																				<label >
+																					<input type="radio" style="width:15px;height:15px;margin:15px" id="q129" name="q" checked="checked" value="2"/> Unstiched
+																				</label>
+
+																			</div>
+																		</div>
+																	</div>
+
+																	<span>Rs.{{ product.price }}</span>
+
+																	<form method = "POST" action = "/user/item_cart/">
+																		{% csrf_token %}
+																		<input type = "hidden" name = "addcart" value = {{ p.productID }}>
+																		<button type = "submit" value="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+																	</form>
+																</span>
 														<!-- <p><b>Availability:</b> In Stock</p>
 														<p><b>Condition:</b> New</p> -->
 														<div class="choose">
 															<ul class="nav nav-pills nav-justified">
-															<li><a href="/user/add_wish?product={{ p.productID }}"><i class="fa fa-plus-square"></i>Add to Wishlist</a></li>
+																<li><a href="/user/add_wish?product={{ p.productID }}"><i class="fa fa-plus-square"></i>Add to Wishlist</a></li>
 															</ul>
 														</div>
 													</div>
@@ -313,25 +204,25 @@
 															<td width="15%">Occasion</td>
 															<td width="1%">:</td>
 															<td width="45%">
-															{% for i in product.occasion_set.all %}
+																{% for i in product.occasion_set.all %}
 																<span><a href="">{{ i.occasions }}</a></span>
-															{% endfor %}
+																{% endfor %}
 															</td>
 															<td width="15%">Fabric</td>
 															<td width="1%">:</td>
 															<td width="45%">
-															{% for i in product.fabric_set.all %}
+																{% for i in product.fabric_set.all %}
 																<span><a href="">{{ i.fabrics }}</a></span>
-															{% endfor %}
+																{% endfor %}
 															</td>
 														</tr>
 														<tr>
 															<td width="15%">Colour</td>
 															<td width="1%">:</td>
 															<td width="45%">
-															{% for i in product.color_set.all %}
+																{% for i in product.color_set.all %}
 																<span><a href="">{{ i.colors }}</a></span>
-															{% endfor %}
+																{% endfor %}
 															</td>
 															<td width="15%">Catalog No.</td>
 															<td width="1%">:</td>
@@ -341,9 +232,9 @@
 															<td width="15%">Work</td>
 															<td width="1%">:</td>
 															<td width="45%">
-															{% for i in product.work_set.all %}
+																{% for i in product.work_set.all %}
 																<span><a href="">{{ i.works }}</a></span>
-															{% endfor %}
+																{% endfor %}
 															</td>
 														</tr>
 													</table> 
@@ -356,131 +247,96 @@
 											<div class="col-sm-12">
 												<ul class="nav nav-tabs">
 													<li><a href="#details" data-toggle="tab">More Details</a></li>
-													<li><a href="#companyprofile" data-toggle="tab">product FAQ</a></li>
+													<!-- 	<li><a href="#faqs" data-toggle="tab">product FAQ</a></li> -->
 													<!-- <li><a href="#tag" data-toggle="tab">Tag</a></li> -->
 													<li class="active"><a href="#reviews" data-toggle="tab">Reviews(5)</a></li>
 												</ul>
 											</div>
-								<div class="tab-content" style="margin-bottom:0px">
-									<div class="additional-details tab-pane fade"  id="details" >
-									<p style="margin-top:30px">Wash Care: Dry Wash Only</p>
-									<p>Length: 6.3 meters  (including 85 cms blouse fabric) Blouse Fabric attached with saree</p>
-									<ul>
-										<li type="square">The shades may vary slightly from the colors displayed on your screen.</li>
-										<li>
-											The first wash of the garment should always be Dry-Cleaned.</li>
-											<li>
-												The bright shade seen is the best closer view of fabric's color.</li>
-											</ul>
+											<div class="tab-content" style="margin-bottom:0px">
+												<div class="additional-details tab-pane fade"  id="details" >
+													<p style="margin-top:30px">Wash Care: Dry Wash Only</p>
+													<p>Length: 6.3 meters  (including 85 cms blouse fabric) Blouse Fabric attached with saree</p>
+													<ul>
+														<li type="square">The shades may vary slightly from the colors displayed on your screen.</li>
+														<li>
+															The first wash of the garment should always be Dry-Cleaned.</li>
+															<li>
+																The bright shade seen is the best closer view of fabric's color.</li>
+															</ul>
 
+														</div>
+
+
+
+
+
+														<div class="col-sm-12 additional-details tab-pane fade active in" style="max-height:25em;overflow-y:scroll;" id="reviews" >
+
+															{% for r in product.review_set.all %}
+															<div style="margin-bottom:50px" >
+
+
+																<ul >
+																	<li><a href=""><i class="fa fa-user"></i><b>{{ r.user }}</b></a></li>
+																	<li><a href=""><i class="fa fa-clock-o"></i><b>{{ r.time }}</b></a></li>
+																</ul>
+
+																<div class="rating3"></div>
+
+																<p>{{ r.description }}</p>
+															</div>
+															{% endfor %}
+
+
+
+														</div>
+													</div>
+												</div>
+
+
+
+												<div class="col-sm-12" id="reviews1">
+													<p><b>Write Your Review</b></p>
+
+													<form style="margin-top:20px"action = "/user/review/" method = "POST">
+														{% csrf_token %}
+														<div id="ratings"></div>
+														<span>
+															<input type="text" name = "user" placeholder="Your Name"/>
+														</span>
+														<textarea name="description" ></textarea>
+														<input type = "hidden" name = "productID" value = {{ product.productID }}>
+
+														<button type="submit" class="btn btn-default pull-right">
+															Submit
+														</button>
+													</form>
+												</div>
+
+											</div>
 										</div>
+									</section>
 
-									</div>
+									{%endblock%}	
+									{%block scripts%}
 
-								
-									
-									<div class="additional-details tab-pane fade active in" style="max-height:25em;overflow-y:scroll;" id="reviews" >
-										
-										{% for r in product.review_set.all %}
-										<div style="margin-bottom:50px" >
+									<script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
 
+									<script type="text/javascript" src="{{ STATIC_URL }}js/imagezoom.js"></script>
+									<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.raty.js"></script>
+									<script src="https://togetherjs.com/togetherjs-min.js"></script>
 
-										<ul >
-											<li><a href=""><i class="fa fa-user"></i><b>{{ r.user }}</b></a></li>
-											<li><a href=""><i class="fa fa-clock-o"></i><b>{{ r.time }}</b></a></li>
-										</ul>
-										
-										<div class="rating3"></div>
+									<script>
+										$(document).ready(function(){
+											$("#q128").change(function(){
+												$("#myModal").modal('show');
+											});
 
-										<p>{{ r.description }}</p>
-										</div>
-										{% endfor %}
-										
-										
-
-									</div>
-
-								</div>
-							
-							</div>
-							
-							<di class="col-sm-12" id="reviews1">
-							<p><b>Write Your Review</b></p>
-										
-										<form style="margin-top:20px"action = "/user/review/" method = "POST">
-										{% csrf_token %}
-										<div id="ratings"></div>
-											<span>
-												<input type="text" name = "user" placeholder="Your Name"/>
-											</span>
-											<textarea name="description" ></textarea>
-											<input type = "hidden" name = "productID" value = {{ product.productID }}>
-											
-											<button type="submit" class="btn btn-default pull-right">
-												Submit
-											</button>
-										</form>
-							</div>
-
-						</div>
-
-					</div>
-				</section>
-
-	<footer id="footer"><!--Footer-->
-		
-		<div class="footer-widget">
-			<div class="container">
-				<div class = "row">
-					<div class = "col-sm-2">
-						<div class="single-widget">
-							<h2><b>Policies</b></h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Privecy Policy</a></li>
-								<li><a href="#">Refund Policy</a></li>
-								<li><a href="#">Billing System</a></li>
-								<li><a href="#">Ticket System</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<h3>Subscribe to us</h3>
-						{{ state }}
-							<form action="/user/subscribe/" class="searchform" method="POST">
-							{% csrf_token %}
-								<input type="email" name ="subscriber" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Get the most recent updates from <br />our site and be updated your self...</p>
-							</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-				<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.scrollUp.min.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.prettyPhoto.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/rango-jquery.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/imagezoom.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.raty.js"></script>
-    			<script src="https://togetherjs.com/togetherjs-min.js"></script>
-
-				<script>
-				$(document).ready(function(){
-					$("#q128").change(function(){
-						$("#myModal").modal('show');
-					});
-
-					$("#ratings").raty({
-						starHalf    : '{{ STATIC_URL }}images/product-details/star-half.png',
-						starOn      : '{{ STATIC_URL }}images/product-details/star-on.png',
-						starOff     : '{{ STATIC_URL }}images/product-details/star-off.png',    
-					});
+											$("#ratings").raty({
+												starHalf    : '{{ STATIC_URL }}images/product-details/star-half.png',
+												starOn      : '{{ STATIC_URL }}images/product-details/star-on.png',
+												starOff     : '{{ STATIC_URL }}images/product-details/star-off.png',    
+											});
 
 
 					// var elements3 = document.getElementsByName( 'rating3');
@@ -501,6 +357,6 @@
 					});
 
 				});
-				</script>
-			</body>
-			</html>
+									</script>
+									{%endblock%}
+

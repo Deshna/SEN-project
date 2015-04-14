@@ -1,0 +1,2786 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO root;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO root;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO root;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO root;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO root;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO root;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO root;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO root;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO root;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO root;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO root;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO root;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO root;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO root;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO root;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO root;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO root;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO root;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO root;
+
+--
+-- Name: myapp_base; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_base (
+    mask_suit character varying(100) NOT NULL,
+    mask_model character varying(100) NOT NULL,
+    mask_sideborder character varying(100) NOT NULL,
+    mask_neckborder character varying(100) NOT NULL,
+    mask_bottomborder character varying(100) NOT NULL,
+    image character varying(100) NOT NULL,
+    "baseID" integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_base OWNER TO root;
+
+--
+-- Name: myapp_border; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_border (
+    image character varying(100) NOT NULL,
+    "borderID" integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_border OWNER TO root;
+
+--
+-- Name: myapp_butta; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_butta (
+    image character varying(100) NOT NULL,
+    "buttaID" integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_butta OWNER TO root;
+
+--
+-- Name: myapp_cart; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_cart (
+    id integer NOT NULL,
+    cart_products character varying(60),
+    user_id integer
+);
+
+
+ALTER TABLE public.myapp_cart OWNER TO root;
+
+--
+-- Name: myapp_cart_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_cart_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_cart_id_seq OWNER TO root;
+
+--
+-- Name: myapp_cart_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_cart_id_seq OWNED BY myapp_cart.id;
+
+
+--
+-- Name: myapp_category; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_category (
+    name character varying(30) NOT NULL,
+    description character varying(300) NOT NULL,
+    "categoryID" integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_category OWNER TO root;
+
+--
+-- Name: myapp_color; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_color (
+    id integer NOT NULL,
+    colors character varying(60) NOT NULL
+);
+
+
+ALTER TABLE public.myapp_color OWNER TO root;
+
+--
+-- Name: myapp_color_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_color_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_color_id_seq OWNER TO root;
+
+--
+-- Name: myapp_color_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_color_id_seq OWNED BY myapp_color.id;
+
+
+--
+-- Name: myapp_color_product; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_color_product (
+    id integer NOT NULL,
+    color_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_color_product OWNER TO root;
+
+--
+-- Name: myapp_color_product_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_color_product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_color_product_id_seq OWNER TO root;
+
+--
+-- Name: myapp_color_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_color_product_id_seq OWNED BY myapp_color_product.id;
+
+
+--
+-- Name: myapp_fabric; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_fabric (
+    id integer NOT NULL,
+    fabrics character varying(60) NOT NULL
+);
+
+
+ALTER TABLE public.myapp_fabric OWNER TO root;
+
+--
+-- Name: myapp_fabric_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_fabric_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_fabric_id_seq OWNER TO root;
+
+--
+-- Name: myapp_fabric_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_fabric_id_seq OWNED BY myapp_fabric.id;
+
+
+--
+-- Name: myapp_fabric_product; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_fabric_product (
+    id integer NOT NULL,
+    fabric_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_fabric_product OWNER TO root;
+
+--
+-- Name: myapp_fabric_product_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_fabric_product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_fabric_product_id_seq OWNER TO root;
+
+--
+-- Name: myapp_fabric_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_fabric_product_id_seq OWNED BY myapp_fabric_product.id;
+
+
+--
+-- Name: myapp_images; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_images (
+    id integer NOT NULL,
+    image character varying(100) NOT NULL,
+    name character varying(50) NOT NULL,
+    product_id integer
+);
+
+
+ALTER TABLE public.myapp_images OWNER TO root;
+
+--
+-- Name: myapp_images_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_images_id_seq OWNER TO root;
+
+--
+-- Name: myapp_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_images_id_seq OWNED BY myapp_images.id;
+
+
+--
+-- Name: myapp_mailinglist; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_mailinglist (
+    id integer NOT NULL,
+    mail character varying(50)
+);
+
+
+ALTER TABLE public.myapp_mailinglist OWNER TO root;
+
+--
+-- Name: myapp_mailinglist_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_mailinglist_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_mailinglist_id_seq OWNER TO root;
+
+--
+-- Name: myapp_mailinglist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_mailinglist_id_seq OWNED BY myapp_mailinglist.id;
+
+
+--
+-- Name: myapp_occasion; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_occasion (
+    id integer NOT NULL,
+    occasions character varying(60) NOT NULL
+);
+
+
+ALTER TABLE public.myapp_occasion OWNER TO root;
+
+--
+-- Name: myapp_occasion_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_occasion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_occasion_id_seq OWNER TO root;
+
+--
+-- Name: myapp_occasion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_occasion_id_seq OWNED BY myapp_occasion.id;
+
+
+--
+-- Name: myapp_occasion_product; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_occasion_product (
+    id integer NOT NULL,
+    occasion_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_occasion_product OWNER TO root;
+
+--
+-- Name: myapp_occasion_product_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_occasion_product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_occasion_product_id_seq OWNER TO root;
+
+--
+-- Name: myapp_occasion_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_occasion_product_id_seq OWNED BY myapp_occasion_product.id;
+
+
+--
+-- Name: myapp_order; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_order (
+    "orderID" integer NOT NULL,
+    "customerID" integer NOT NULL,
+    "orderDate" integer NOT NULL,
+    "shipperID" integer NOT NULL,
+    "billID" integer NOT NULL,
+    totalprice integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_order OWNER TO root;
+
+--
+-- Name: myapp_orderproduct; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_orderproduct (
+    id integer NOT NULL,
+    order_id integer NOT NULL,
+    "productID_id" integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_orderproduct OWNER TO root;
+
+--
+-- Name: myapp_orderproduct_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_orderproduct_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_orderproduct_id_seq OWNER TO root;
+
+--
+-- Name: myapp_orderproduct_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_orderproduct_id_seq OWNED BY myapp_orderproduct.id;
+
+
+--
+-- Name: myapp_pastorders; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_pastorders (
+    id integer NOT NULL,
+    orderno integer NOT NULL,
+    user_id integer
+);
+
+
+ALTER TABLE public.myapp_pastorders OWNER TO root;
+
+--
+-- Name: myapp_pastorders_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_pastorders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_pastorders_id_seq OWNER TO root;
+
+--
+-- Name: myapp_pastorders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_pastorders_id_seq OWNED BY myapp_pastorders.id;
+
+
+--
+-- Name: myapp_pattern; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_pattern (
+    image character varying(100) NOT NULL,
+    "patternID" integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_pattern OWNER TO root;
+
+--
+-- Name: myapp_product; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_product (
+    name character varying(30) NOT NULL,
+    price integer NOT NULL,
+    "productID" integer NOT NULL,
+    description character varying(300) NOT NULL,
+    "unitsInStock" integer NOT NULL,
+    "unitsInOrder" integer NOT NULL,
+    subcategory_id character varying(30),
+    views integer,
+    image character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.myapp_product OWNER TO root;
+
+--
+-- Name: myapp_review; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_review (
+    id integer NOT NULL,
+    "user" character varying(50) NOT NULL,
+    description character varying(300) NOT NULL,
+    "time" timestamp with time zone NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_review OWNER TO root;
+
+--
+-- Name: myapp_review_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_review_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_review_id_seq OWNER TO root;
+
+--
+-- Name: myapp_review_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_review_id_seq OWNED BY myapp_review.id;
+
+
+--
+-- Name: myapp_subcategory; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_subcategory (
+    name character varying(30) NOT NULL,
+    category_id integer NOT NULL,
+    "SubCategoryID" integer
+);
+
+
+ALTER TABLE public.myapp_subcategory OWNER TO root;
+
+--
+-- Name: myapp_userprofile; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_userprofile (
+    id integer NOT NULL,
+    fullname character varying(30),
+    length_blouse integer,
+    waist_blouse integer,
+    sleeve_length integer,
+    neck_front integer,
+    bust integer,
+    shoulder integer,
+    sleeve_width integer,
+    neck_back integer,
+    user_id integer NOT NULL,
+    address_line1 character varying(100),
+    address_line2 character varying(100),
+    cardname character varying(100),
+    cardno integer,
+    city character varying(50),
+    cvv integer,
+    exp_month character varying(50),
+    exp_year integer,
+    postcode integer,
+    state character varying(50)
+);
+
+
+ALTER TABLE public.myapp_userprofile OWNER TO root;
+
+--
+-- Name: myapp_userprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_userprofile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_userprofile_id_seq OWNER TO root;
+
+--
+-- Name: myapp_userprofile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_userprofile_id_seq OWNED BY myapp_userprofile.id;
+
+
+--
+-- Name: myapp_wishlist; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_wishlist (
+    id integer NOT NULL,
+    wish_products integer NOT NULL,
+    user_id integer
+);
+
+
+ALTER TABLE public.myapp_wishlist OWNER TO root;
+
+--
+-- Name: myapp_wishlist_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_wishlist_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_wishlist_id_seq OWNER TO root;
+
+--
+-- Name: myapp_wishlist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_wishlist_id_seq OWNED BY myapp_wishlist.id;
+
+
+--
+-- Name: myapp_work; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_work (
+    id integer NOT NULL,
+    works character varying(60) NOT NULL
+);
+
+
+ALTER TABLE public.myapp_work OWNER TO root;
+
+--
+-- Name: myapp_work_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_work_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_work_id_seq OWNER TO root;
+
+--
+-- Name: myapp_work_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_work_id_seq OWNED BY myapp_work.id;
+
+
+--
+-- Name: myapp_work_product; Type: TABLE; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE TABLE myapp_work_product (
+    id integer NOT NULL,
+    work_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.myapp_work_product OWNER TO root;
+
+--
+-- Name: myapp_work_product_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE myapp_work_product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.myapp_work_product_id_seq OWNER TO root;
+
+--
+-- Name: myapp_work_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE myapp_work_product_id_seq OWNED BY myapp_work_product.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_cart ALTER COLUMN id SET DEFAULT nextval('myapp_cart_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_color ALTER COLUMN id SET DEFAULT nextval('myapp_color_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_color_product ALTER COLUMN id SET DEFAULT nextval('myapp_color_product_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_fabric ALTER COLUMN id SET DEFAULT nextval('myapp_fabric_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_fabric_product ALTER COLUMN id SET DEFAULT nextval('myapp_fabric_product_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_images ALTER COLUMN id SET DEFAULT nextval('myapp_images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_mailinglist ALTER COLUMN id SET DEFAULT nextval('myapp_mailinglist_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_occasion ALTER COLUMN id SET DEFAULT nextval('myapp_occasion_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_occasion_product ALTER COLUMN id SET DEFAULT nextval('myapp_occasion_product_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_orderproduct ALTER COLUMN id SET DEFAULT nextval('myapp_orderproduct_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_pastorders ALTER COLUMN id SET DEFAULT nextval('myapp_pastorders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_review ALTER COLUMN id SET DEFAULT nextval('myapp_review_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_userprofile ALTER COLUMN id SET DEFAULT nextval('myapp_userprofile_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_wishlist ALTER COLUMN id SET DEFAULT nextval('myapp_wishlist_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_work ALTER COLUMN id SET DEFAULT nextval('myapp_work_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_work_product ALTER COLUMN id SET DEFAULT nextval('myapp_work_product_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add user profile	7	add_userprofile
+20	Can change user profile	7	change_userprofile
+21	Can delete user profile	7	delete_userprofile
+22	Can add category	8	add_category
+23	Can change category	8	change_category
+24	Can delete category	8	delete_category
+25	Can add sub category	9	add_subcategory
+26	Can change sub category	9	change_subcategory
+27	Can delete sub category	9	delete_subcategory
+28	Can add product	10	add_product
+29	Can change product	10	change_product
+30	Can delete product	10	delete_product
+31	Can add images	11	add_images
+32	Can change images	11	change_images
+33	Can delete images	11	delete_images
+34	Can add fabric	12	add_fabric
+35	Can change fabric	12	change_fabric
+36	Can delete fabric	12	delete_fabric
+37	Can add color	13	add_color
+38	Can change color	13	change_color
+39	Can delete color	13	delete_color
+40	Can add occasion	14	add_occasion
+41	Can change occasion	14	change_occasion
+42	Can delete occasion	14	delete_occasion
+43	Can add work	15	add_work
+44	Can change work	15	change_work
+45	Can delete work	15	delete_work
+46	Can add cart	16	add_cart
+47	Can change cart	16	change_cart
+48	Can delete cart	16	delete_cart
+49	Can add wishlist	17	add_wishlist
+50	Can change wishlist	17	change_wishlist
+51	Can delete wishlist	17	delete_wishlist
+52	Can add pastorders	18	add_pastorders
+53	Can change pastorders	18	change_pastorders
+54	Can delete pastorders	18	delete_pastorders
+55	Can add order	19	add_order
+56	Can change order	19	change_order
+57	Can delete order	19	delete_order
+58	Can add order product	20	add_orderproduct
+59	Can change order product	20	change_orderproduct
+60	Can delete order product	20	delete_orderproduct
+61	Can add mailinglist	21	add_mailinglist
+62	Can change mailinglist	21	change_mailinglist
+63	Can delete mailinglist	21	delete_mailinglist
+64	Can add border	22	add_border
+65	Can change border	22	change_border
+66	Can delete border	22	delete_border
+67	Can add base	23	add_base
+68	Can change base	23	change_base
+69	Can delete base	23	delete_base
+70	Can add pattern	24	add_pattern
+71	Can change pattern	24	change_pattern
+72	Can delete pattern	24	delete_pattern
+73	Can add butta	25	add_butta
+74	Can change butta	25	change_butta
+75	Can delete butta	25	delete_butta
+76	Can add review	26	add_review
+77	Can change review	26	change_review
+78	Can delete review	26	delete_review
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 78, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+2	pbkdf2_sha256$15000$l0GBTNDRdc9U$yT2m60e2d+z6RgQbNVePqrZiQMJM3QazPzBBZq6mgro=	2015-04-13 02:42:56.871646+05:30	f	John			John@gmail.com	f	t	2015-04-13 02:42:50.368935+05:30
+1	pbkdf2_sha256$15000$a3qbhLZtz1Sg$YpeCF+vJZ2hKehy0IU3Y6i4cjEz7Gg9fWJ0A3S9xR+o=	2015-04-14 19:48:30.157574+05:30	t	admin			desai.deshna@gmail.com	t	t	2015-04-13 00:11:41.560676+05:30
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 2, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2015-04-14 01:04:26.590591+05:30	1	Base object	1		23	1
+2	2015-04-14 01:55:56.259137+05:30	100	Border object	1		22	1
+3	2015-04-14 01:56:04.75315+05:30	101	Border object	1		22	1
+4	2015-04-14 01:56:13.378748+05:30	102	Border object	1		22	1
+5	2015-04-14 01:56:21.879668+05:30	103	Border object	1		22	1
+6	2015-04-14 01:56:35.07654+05:30	104	Border object	1		22	1
+7	2015-04-14 01:56:43.665836+05:30	105	Border object	1		22	1
+8	2015-04-14 01:57:02.741246+05:30	200	Pattern object	1		24	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 8, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	log entry	admin	logentry
+2	permission	auth	permission
+3	group	auth	group
+4	user	auth	user
+5	content type	contenttypes	contenttype
+6	session	sessions	session
+7	user profile	myapp	userprofile
+8	category	myapp	category
+9	sub category	myapp	subcategory
+10	product	myapp	product
+11	images	myapp	images
+12	fabric	myapp	fabric
+13	color	myapp	color
+14	occasion	myapp	occasion
+15	work	myapp	work
+16	cart	myapp	cart
+17	wishlist	myapp	wishlist
+18	pastorders	myapp	pastorders
+19	order	myapp	order
+20	order product	myapp	orderproduct
+21	mailinglist	myapp	mailinglist
+22	border	myapp	border
+23	base	myapp	base
+24	pattern	myapp	pattern
+25	butta	myapp	butta
+26	review	myapp	review
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 26, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2015-04-13 00:11:20.207816+05:30
+2	auth	0001_initial	2015-04-13 00:11:21.14092+05:30
+3	admin	0001_initial	2015-04-13 00:11:21.385287+05:30
+5	myapp	0002_subcategory_subcategoryid	2015-04-13 00:11:21.907832+05:30
+6	myapp	0003_product_subcategory	2015-04-13 00:11:22.074868+05:30
+7	myapp	0004_auto_20150407_1319	2015-04-13 00:11:22.119678+05:30
+8	myapp	0005_auto_20150407_1319	2015-04-13 00:11:22.174383+05:30
+9	myapp	0006_remove_product_subcategory	2015-04-13 00:11:22.230186+05:30
+10	myapp	0007_product_subcategory	2015-04-13 00:11:22.410211+05:30
+11	myapp	0008_auto_20150407_1334	2015-04-13 00:11:22.465342+05:30
+12	myapp	0009_remove_product_subcategory	2015-04-13 00:11:22.521132+05:30
+13	myapp	0010_product_smth	2015-04-13 00:11:22.576462+05:30
+14	myapp	0011_auto_20150407_1347	2015-04-13 00:11:22.687584+05:30
+15	myapp	0012_product_views	2015-04-13 00:11:22.765115+05:30
+16	myapp	0013_mailinglist	2015-04-13 00:11:22.876258+05:30
+17	myapp	0014_auto_20150407_1518	2015-04-13 00:11:22.942787+05:30
+18	myapp	0015_userprofile	2015-04-13 00:11:23.120776+05:30
+19	myapp	0016_remove_userprofile_email	2015-04-13 00:11:23.209039+05:30
+20	myapp	0017_auto_20150409_2305	2015-04-13 00:11:23.486755+05:30
+21	myapp	0018_auto_20150410_1444	2015-04-13 00:11:23.720357+05:30
+22	myapp	0019_userprofile_cart	2015-04-13 00:11:23.84198+05:30
+23	myapp	0020_product_name_clean	2015-04-13 00:11:23.975128+05:30
+24	myapp	0021_auto_20150411_2157	2015-04-13 00:11:24.219699+05:30
+25	myapp	0022_auto_20150411_2208	2015-04-13 00:11:24.508352+05:30
+26	myapp	0023_auto_20150411_2240	2015-04-13 00:11:24.740972+05:30
+27	myapp	0024_auto_20150411_2333	2015-04-13 00:11:26.051812+05:30
+28	myapp	0025_images	2015-04-13 00:11:26.31903+05:30
+29	sessions	0001_initial	2015-04-13 00:11:26.507562+05:30
+30	myapp	0001_initial	2015-04-14 00:08:21.504346+05:30
+31	myapp	0002_auto_20150413_1834	2015-04-14 00:12:12.654108+05:30
+32	myapp	0003_base_border_butta_pattern	2015-04-14 00:40:16.526769+05:30
+33	myapp	0004_review	2015-04-14 05:40:22.700585+05:30
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 33, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+n3rt4h2jzq0qg6e55jr6l8dpsvypqyle	NDNhMGZhMGViYTZmY2Y4NjQxMGE5OTQ4ZWQ4YjNlNGEwN2EwYzYxOTp7fQ==	2015-04-27 02:42:34.837401+05:30
+yso49pkmx00wme6ww2db5xqpvg0cl7qj	OTg2NmM1ODBkMWI1MDFkMzgyOGExYzAxOTc4OWZiMmM1Njc5MDAwNDp7Il9hdXRoX3VzZXJfaGFzaCI6ImZkMjRkNDQ0ODVkMjk4ZmJiNDMyM2EzZGRhMWIzNjQxNTEwYzBhOTciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9	2015-04-28 19:26:00.751421+05:30
+0bma1px2cpf8zvporx5qr1yoa46zd5f0	NjJlZWNkN2YzY2Q0YmQ4OWM2YjdkNTU5OTZiNmYwYmRlYzYzOTNlZTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZkMjRkNDQ0ODVkMjk4ZmJiNDMyM2EzZGRhMWIzNjQxNTEwYzBhOTciLCJfYXV0aF91c2VyX2lkIjoxLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCJ9	2015-04-28 19:48:30.194663+05:30
+\.
+
+
+--
+-- Data for Name: myapp_base; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_base (mask_suit, mask_model, mask_sideborder, mask_neckborder, mask_bottomborder, image, "baseID") FROM stdin;
+base/kurta-1.png	base/kurta-1-model.png	base/kurta-1-side-border-area.png	base/kurta-1-neck-border-area.png	base/kurta-1-bottom-border-area.png	base/kurta-1.jpg	1
+\.
+
+
+--
+-- Data for Name: myapp_border; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_border (image, "borderID") FROM stdin;
+border/border-2.png	100
+border/border-3.png	101
+border/border-4.png	102
+border/border-5.png	103
+border/side-border-1.png	104
+border/side-border-2.png	105
+\.
+
+
+--
+-- Data for Name: myapp_butta; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_butta (image, "buttaID") FROM stdin;
+\.
+
+
+--
+-- Data for Name: myapp_cart; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_cart (id, cart_products, user_id) FROM stdin;
+7	111	2
+8	112	\N
+11	115	\N
+10	116	\N
+9	114	\N
+6	111	\N
+12	115	\N
+13	114	\N
+14	115	1
+15	114	1
+16		1
+\.
+
+
+--
+-- Name: myapp_cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_cart_id_seq', 16, true);
+
+
+--
+-- Data for Name: myapp_category; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_category (name, description, "categoryID") FROM stdin;
+Kurta	It is a traditional item of clothing worn in Pakistan, India, Nepal, Bangladesh, and Sri Lanka.	1
+Sarees	The most common style is for the sari to be wrapped around the waist, with the loose end of the drape to be worn over the shoulder, baring the midriff.	2
+Lehenga Choli	It is a combination outfit of a Lehenga, tight Choli and a Dupatta.	3
+Shalwar Qameez	The shalwar and the kameez are two garments which have been combined to form the shalwar kameez outfit.	4
+Embroidery	Different types of Embroidery work employed	5
+Best Sellers	Best sellers based on number of products sold.	6
+New Arrivals	Category needs to be maintained.	7
+\.
+
+
+--
+-- Data for Name: myapp_color; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_color (id, colors) FROM stdin;
+1	Black
+2	White
+3	Grey
+4	Black
+5	White
+6	Grey
+7	#7bd148
+8	#5484ed
+9	#a4bdfc
+10	#46d6db
+11	#7ae7bf
+12	#51b749
+13	#fbd75b
+14	#ffb878
+15	#ff887c
+16	#dc2127
+17	#dbadff
+\.
+
+
+--
+-- Name: myapp_color_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_color_id_seq', 17, true);
+
+
+--
+-- Data for Name: myapp_color_product; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_color_product (id, color_id, product_id) FROM stdin;
+1	1	111
+2	2	111
+3	3	111
+4	4	111
+5	5	111
+6	6	111
+7	17	112
+8	17	113
+9	9	114
+10	9	115
+\.
+
+
+--
+-- Name: myapp_color_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_color_product_id_seq', 10, true);
+
+
+--
+-- Data for Name: myapp_fabric; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_fabric (id, fabrics) FROM stdin;
+1	Kittenfur
+2	Kittenfur
+3	Kittenfur
+4	Kittenwool
+5	Kittenball
+6	Kittenfur
+7	Kittenwool
+8	Kittenball
+9	Kittenfur
+10	Kittenwool
+11	Kittenball
+12	Faux Georgette
+13	Net
+\.
+
+
+--
+-- Name: myapp_fabric_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_fabric_id_seq', 13, true);
+
+
+--
+-- Data for Name: myapp_fabric_product; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_fabric_product (id, fabric_id, product_id) FROM stdin;
+10	12	112
+11	13	113
+12	13	114
+13	12	115
+14	12	116
+\.
+
+
+--
+-- Name: myapp_fabric_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_fabric_product_id_seq', 14, true);
+
+
+--
+-- Data for Name: myapp_images; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_images (id, image, name, product_id) FROM stdin;
+1	home/product4.jpg	Woman in black	111
+\.
+
+
+--
+-- Name: myapp_images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_images_id_seq', 1, true);
+
+
+--
+-- Data for Name: myapp_mailinglist; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_mailinglist (id, mail) FROM stdin;
+\.
+
+
+--
+-- Name: myapp_mailinglist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_mailinglist_id_seq', 1, false);
+
+
+--
+-- Data for Name: myapp_occasion; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_occasion (id, occasions) FROM stdin;
+1	Fun
+2	Party
+3	Sad
+4	Fun
+5	Party
+6	Sad
+7	Wedding
+8	Reception
+9	Party
+10	Casual
+11	Bridal
+12	Festive
+13	Festival
+\.
+
+
+--
+-- Name: myapp_occasion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_occasion_id_seq', 13, true);
+
+
+--
+-- Data for Name: myapp_occasion_product; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_occasion_product (id, occasion_id, product_id) FROM stdin;
+1	1	111
+2	2	111
+3	3	111
+4	4	111
+5	5	111
+6	6	111
+7	13	112
+8	13	113
+9	13	114
+10	13	115
+11	8	115
+\.
+
+
+--
+-- Name: myapp_occasion_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_occasion_product_id_seq', 11, true);
+
+
+--
+-- Data for Name: myapp_order; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_order ("orderID", "customerID", "orderDate", "shipperID", "billID", totalprice) FROM stdin;
+\.
+
+
+--
+-- Data for Name: myapp_orderproduct; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_orderproduct (id, order_id, "productID_id") FROM stdin;
+\.
+
+
+--
+-- Name: myapp_orderproduct_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_orderproduct_id_seq', 1, false);
+
+
+--
+-- Data for Name: myapp_pastorders; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_pastorders (id, orderno, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: myapp_pastorders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_pastorders_id_seq', 1, false);
+
+
+--
+-- Data for Name: myapp_pattern; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_pattern (image, "patternID") FROM stdin;
+pattern/star-on.png	200
+\.
+
+
+--
+-- Data for Name: myapp_product; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_product (name, price, "productID", description, "unitsInStock", "unitsInOrder", subcategory_id, views, image) FROM stdin;
+Salwar churidar white	2189	112	Conspicuous off white faux  georgette churidar salwar suit with embroidery, resham, zari and patch border work. And santoon bottom and chiffon dupatta comes along with this.	1	0	New Arrivals for All	0	home/conspicuous-off-white-faux-georgette-churidar-salwar-suit_xi9Vcng.jpg
+Blue net designer salwar suit	2180	114	Breathtaking blue net designer salwar suit designed with resham, embroidery, zari, lace and patch border work. Available with matching bottom and dupatta	1	0	New Arrivals for All	2	home/breathtaking-blue-net-designer-salwar-suit.jpg
+Blue Resham Work Churidar Suit	3000	115	Ameesha patel blue resham work churidar suit designed with zari, resham, stone, lace and patch border work. Available with matching bottom and dupatta	1	0	New Arrivals for All	1	home/ameesha-patel-blue-resham-work-churidar-suit.jpg
+Off white net resham suit	2180	113	Delightful off white net resham work anarkali suit designed with embroidery, zari, lace and patch border work. Available with matching bottom and dupatta.	1	0	New Arrivals for All	2	home/delightful-off-white-net-resham-work-anarkali-suit.jpg
+Red Georgette Pant Style Suit	5883	116	Desirable red georgette pant style suit designed with embroidery, resham, zari, stone, lace and patch border work. Available with matching bottom and dupatta	1	0	New Arrivals for All	1	home/desirable-red-georgette-pant-style-suit.jpg
+Test Product	200	111	Kittens are the mose adorable creatures on this Planet	1	0	Long Kurta/Kurti	92	home/kittens_TxxKjNF.jpg
+\.
+
+
+--
+-- Data for Name: myapp_review; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_review (id, "user", description, "time", product_id) FROM stdin;
+1	EUGEN	ekgnkfgmekdfjjjjkjdgldlcvldmoeoejrienfkdkdfmkejfkkdf	2015-04-14 06:04:16.479378+05:30	111
+2	EUGEN	ekgnkfgmekdfjjjjkjdgldlcvldmoeoejrienfkdkdfmkejfkkdf	2015-04-14 06:05:00.424125+05:30	111
+3	esfiskdk	orjfrkgfslfmsdkfmskdnfksfnowjro4kro24krdmfksdnvksdk	2015-04-14 06:05:22.122631+05:30	111
+4	EUGEN	This product is lovely. A must buy. The shades are excellent.	2015-04-14 16:51:26.473305+05:30	114
+\.
+
+
+--
+-- Name: myapp_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_review_id_seq', 4, true);
+
+
+--
+-- Data for Name: myapp_subcategory; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_subcategory (name, category_id, "SubCategoryID") FROM stdin;
+Machine Embroidery	5	51
+Computerized Embroidery	5	52
+Zardozi	5	53
+Kutch Embroidery	5	54
+Marodi Embroidery	5	55
+Applique Embroidery	5	56
+Pitta Embroidery	5	57
+Gota Embroidery	5	58
+Aari Embroidery	5	59
+Beads	5	510
+Booti Embroidery	5	511
+Kundan embroidery	5	512
+Anarkali	4	41
+Punjabi	4	42
+Chudidar	4	43
+Casual	4	44
+Cotton	4	45
+Designer/Bollywood	4	46
+Wedding	2	21
+Designer	2	22
+Bridal	2	23
+Traditional	3	31
+Wedding Choli	3	32
+Long Kurta/Kurti	1	11
+Short Kurta/Kurti	1	12
+Best Sellers for All	6	61
+New Arrivals for All	7	71
+\.
+
+
+--
+-- Data for Name: myapp_userprofile; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_userprofile (id, fullname, length_blouse, waist_blouse, sleeve_length, neck_front, bust, shoulder, sleeve_width, neck_back, user_id, address_line1, address_line2, cardname, cardno, city, cvv, exp_month, exp_year, postcode, state) FROM stdin;
+2	\N	\N	\N	\N	\N	\N	\N	\N	\N	2	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+1	\N	656	56	46	89	5	5	8	7	1	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- Name: myapp_userprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_userprofile_id_seq', 2, true);
+
+
+--
+-- Data for Name: myapp_wishlist; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_wishlist (id, wish_products, user_id) FROM stdin;
+8	111	1
+9	113	1
+10	113	1
+11	113	1
+12	113	1
+\.
+
+
+--
+-- Name: myapp_wishlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_wishlist_id_seq', 12, true);
+
+
+--
+-- Data for Name: myapp_work; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_work (id, works) FROM stdin;
+1	Play
+2	Sleep
+3	Eat
+4	Play
+5	Sleep
+6	Eat
+7	Resham Work
+8	Zari Work
+9	Embroidered
+\.
+
+
+--
+-- Name: myapp_work_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_work_id_seq', 9, true);
+
+
+--
+-- Data for Name: myapp_work_product; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY myapp_work_product (id, work_id, product_id) FROM stdin;
+1	1	111
+2	2	111
+3	3	111
+4	4	111
+5	5	111
+6	6	111
+7	7	112
+8	7	113
+9	8	114
+10	9	115
+\.
+
+
+--
+-- Name: myapp_work_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('myapp_work_product_id_seq', 10, true);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_45f3b1d93ec8c61c_uniq; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_45f3b1d93ec8c61c_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: myapp_base_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_base
+    ADD CONSTRAINT myapp_base_pkey PRIMARY KEY ("baseID");
+
+
+--
+-- Name: myapp_border_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_border
+    ADD CONSTRAINT myapp_border_pkey PRIMARY KEY ("borderID");
+
+
+--
+-- Name: myapp_butta_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_butta
+    ADD CONSTRAINT myapp_butta_pkey PRIMARY KEY ("buttaID");
+
+
+--
+-- Name: myapp_cart_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_cart
+    ADD CONSTRAINT myapp_cart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_category_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_category
+    ADD CONSTRAINT myapp_category_pkey PRIMARY KEY ("categoryID");
+
+
+--
+-- Name: myapp_color_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_color
+    ADD CONSTRAINT myapp_color_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_color_product_color_id_product_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_color_product
+    ADD CONSTRAINT myapp_color_product_color_id_product_id_key UNIQUE (color_id, product_id);
+
+
+--
+-- Name: myapp_color_product_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_color_product
+    ADD CONSTRAINT myapp_color_product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_fabric_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_fabric
+    ADD CONSTRAINT myapp_fabric_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_fabric_product_fabric_id_product_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_fabric_product
+    ADD CONSTRAINT myapp_fabric_product_fabric_id_product_id_key UNIQUE (fabric_id, product_id);
+
+
+--
+-- Name: myapp_fabric_product_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_fabric_product
+    ADD CONSTRAINT myapp_fabric_product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_images_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_images
+    ADD CONSTRAINT myapp_images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_mailinglist_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_mailinglist
+    ADD CONSTRAINT myapp_mailinglist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_occasion_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_occasion
+    ADD CONSTRAINT myapp_occasion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_occasion_product_occasion_id_product_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_occasion_product
+    ADD CONSTRAINT myapp_occasion_product_occasion_id_product_id_key UNIQUE (occasion_id, product_id);
+
+
+--
+-- Name: myapp_occasion_product_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_occasion_product
+    ADD CONSTRAINT myapp_occasion_product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_order_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_order
+    ADD CONSTRAINT myapp_order_pkey PRIMARY KEY ("orderID");
+
+
+--
+-- Name: myapp_orderproduct_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_orderproduct
+    ADD CONSTRAINT myapp_orderproduct_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_orderproduct_productID_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_orderproduct
+    ADD CONSTRAINT "myapp_orderproduct_productID_id_key" UNIQUE ("productID_id");
+
+
+--
+-- Name: myapp_pastorders_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_pastorders
+    ADD CONSTRAINT myapp_pastorders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_pattern_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_pattern
+    ADD CONSTRAINT myapp_pattern_pkey PRIMARY KEY ("patternID");
+
+
+--
+-- Name: myapp_product_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_product
+    ADD CONSTRAINT myapp_product_pkey PRIMARY KEY ("productID");
+
+
+--
+-- Name: myapp_review_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_review
+    ADD CONSTRAINT myapp_review_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_subcategory_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_subcategory
+    ADD CONSTRAINT myapp_subcategory_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: myapp_userprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_userprofile
+    ADD CONSTRAINT myapp_userprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_userprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_userprofile
+    ADD CONSTRAINT myapp_userprofile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: myapp_wishlist_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_wishlist
+    ADD CONSTRAINT myapp_wishlist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_work_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_work
+    ADD CONSTRAINT myapp_work_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_work_product_pkey; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_work_product
+    ADD CONSTRAINT myapp_work_product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: myapp_work_product_work_id_product_id_key; Type: CONSTRAINT; Schema: public; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY myapp_work_product
+    ADD CONSTRAINT myapp_work_product_work_id_product_id_key UNIQUE (work_id, product_id);
+
+
+--
+-- Name: auth_group_name_253ae2a6331666e8_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_253ae2a6331666e8_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_51b3b110094b8aae_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_51b3b110094b8aae_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_461cfeaa630ca218_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_461cfeaa630ca218_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: myapp_cart_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_cart_e8701ad4 ON myapp_cart USING btree (user_id);
+
+
+--
+-- Name: myapp_color_product_399a0583; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_color_product_399a0583 ON myapp_color_product USING btree (color_id);
+
+
+--
+-- Name: myapp_color_product_9bea82de; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_color_product_9bea82de ON myapp_color_product USING btree (product_id);
+
+
+--
+-- Name: myapp_fabric_product_0c4809fb; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_fabric_product_0c4809fb ON myapp_fabric_product USING btree (fabric_id);
+
+
+--
+-- Name: myapp_fabric_product_9bea82de; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_fabric_product_9bea82de ON myapp_fabric_product USING btree (product_id);
+
+
+--
+-- Name: myapp_images_9bea82de; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_images_9bea82de ON myapp_images USING btree (product_id);
+
+
+--
+-- Name: myapp_occasion_product_080e33bb; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_occasion_product_080e33bb ON myapp_occasion_product USING btree (occasion_id);
+
+
+--
+-- Name: myapp_occasion_product_9bea82de; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_occasion_product_9bea82de ON myapp_occasion_product USING btree (product_id);
+
+
+--
+-- Name: myapp_orderproduct_69dfcb07; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_orderproduct_69dfcb07 ON myapp_orderproduct USING btree (order_id);
+
+
+--
+-- Name: myapp_pastorders_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_pastorders_e8701ad4 ON myapp_pastorders USING btree (user_id);
+
+
+--
+-- Name: myapp_product_79f70305; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_product_79f70305 ON myapp_product USING btree (subcategory_id);
+
+
+--
+-- Name: myapp_review_9bea82de; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_review_9bea82de ON myapp_review USING btree (product_id);
+
+
+--
+-- Name: myapp_subcategory_b583a629; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_subcategory_b583a629 ON myapp_subcategory USING btree (category_id);
+
+
+--
+-- Name: myapp_subcategory_name_630e4b839226e137_like; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_subcategory_name_630e4b839226e137_like ON myapp_subcategory USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: myapp_wishlist_e8701ad4; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_wishlist_e8701ad4 ON myapp_wishlist USING btree (user_id);
+
+
+--
+-- Name: myapp_work_product_84c7ac35; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_work_product_84c7ac35 ON myapp_work_product USING btree (work_id);
+
+
+--
+-- Name: myapp_work_product_9bea82de; Type: INDEX; Schema: public; Owner: root; Tablespace: 
+--
+
+CREATE INDEX myapp_work_product_9bea82de ON myapp_work_product USING btree (product_id);
+
+
+--
+-- Name: auth_content_type_id_508cf46651277a81_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_content_type_id_508cf46651277a81_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djan_content_type_id_697914295151027a_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT djan_content_type_id_697914295151027a_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp__productID_id_3991cfee4d1c9230_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_orderproduct
+    ADD CONSTRAINT "myapp__productID_id_3991cfee4d1c9230_fk_myapp_product_productID" FOREIGN KEY ("productID_id") REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_cart_user_id_28d5d56636f7d14d_fk_myapp_userprofile_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_cart
+    ADD CONSTRAINT myapp_cart_user_id_28d5d56636f7d14d_fk_myapp_userprofile_id FOREIGN KEY (user_id) REFERENCES myapp_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_category_id_76c44790e7032653_fk_myapp_category_categoryID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_subcategory
+    ADD CONSTRAINT "myapp_category_id_76c44790e7032653_fk_myapp_category_categoryID" FOREIGN KEY (category_id) REFERENCES myapp_category("categoryID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_co_product_id_7c5608077b52d8d8_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_color_product
+    ADD CONSTRAINT "myapp_co_product_id_7c5608077b52d8d8_fk_myapp_product_productID" FOREIGN KEY (product_id) REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_color_product_color_id_65b34b96525986fa_fk_myapp_color_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_color_product
+    ADD CONSTRAINT myapp_color_product_color_id_65b34b96525986fa_fk_myapp_color_id FOREIGN KEY (color_id) REFERENCES myapp_color(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_fab_product_id_1f67c95138b9dab_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_fabric_product
+    ADD CONSTRAINT "myapp_fab_product_id_1f67c95138b9dab_fk_myapp_product_productID" FOREIGN KEY (product_id) REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_fabric_prod_fabric_id_5bd03ab8cf6952fa_fk_myapp_fabric_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_fabric_product
+    ADD CONSTRAINT myapp_fabric_prod_fabric_id_5bd03ab8cf6952fa_fk_myapp_fabric_id FOREIGN KEY (fabric_id) REFERENCES myapp_fabric(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_im_product_id_38eec39f4dd774ac_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_images
+    ADD CONSTRAINT "myapp_im_product_id_38eec39f4dd774ac_fk_myapp_product_productID" FOREIGN KEY (product_id) REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_oc_product_id_117e9b0a5aabd927_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_occasion_product
+    ADD CONSTRAINT "myapp_oc_product_id_117e9b0a5aabd927_fk_myapp_product_productID" FOREIGN KEY (product_id) REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_occasion_occasion_id_28236f4745e83f6_fk_myapp_occasion_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_occasion_product
+    ADD CONSTRAINT myapp_occasion_occasion_id_28236f4745e83f6_fk_myapp_occasion_id FOREIGN KEY (occasion_id) REFERENCES myapp_occasion(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_orderpro_order_id_222a1baad7d54e12_fk_myapp_order_orderID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_orderproduct
+    ADD CONSTRAINT "myapp_orderpro_order_id_222a1baad7d54e12_fk_myapp_order_orderID" FOREIGN KEY (order_id) REFERENCES myapp_order("orderID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_pastorde_user_id_7b850d8fb2f145c6_fk_myapp_userprofile_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_pastorders
+    ADD CONSTRAINT myapp_pastorde_user_id_7b850d8fb2f145c6_fk_myapp_userprofile_id FOREIGN KEY (user_id) REFERENCES myapp_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_re_product_id_209c940c67cae26a_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_review
+    ADD CONSTRAINT "myapp_re_product_id_209c940c67cae26a_fk_myapp_product_productID" FOREIGN KEY (product_id) REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_subcategory_id_2e6321874a5d588b_fk_myapp_subcategory_name; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_product
+    ADD CONSTRAINT myapp_subcategory_id_2e6321874a5d588b_fk_myapp_subcategory_name FOREIGN KEY (subcategory_id) REFERENCES myapp_subcategory(name) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_userprofile_user_id_49e3a20307ebe9dc_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_userprofile
+    ADD CONSTRAINT myapp_userprofile_user_id_49e3a20307ebe9dc_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_wishlist_user_id_7eaf4366294bdf82_fk_myapp_userprofile_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_wishlist
+    ADD CONSTRAINT myapp_wishlist_user_id_7eaf4366294bdf82_fk_myapp_userprofile_id FOREIGN KEY (user_id) REFERENCES myapp_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_wo_product_id_5536e0c2ce1f0e8b_fk_myapp_product_productID; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_work_product
+    ADD CONSTRAINT "myapp_wo_product_id_5536e0c2ce1f0e8b_fk_myapp_product_productID" FOREIGN KEY (product_id) REFERENCES myapp_product("productID") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: myapp_work_product_work_id_491111c49e8c11fa_fk_myapp_work_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY myapp_work_product
+    ADD CONSTRAINT myapp_work_product_work_id_491111c49e8c11fa_fk_myapp_work_id FOREIGN KEY (work_id) REFERENCES myapp_work(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

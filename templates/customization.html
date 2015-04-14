@@ -450,628 +450,629 @@
 	};	
 
 	$(function(){
-		$('.scale').attr('style','visibility:hidden');
-		$('.scale1').attr('style','visibility:hidden');
-		//base("#fff000");
-		$('select[name="colorpicker-longlist"]').simplecolorpicker();
-		$('select[name="colorpicker-shortlist"]').simplecolorpicker().on('change', function() {
-			setBaseColor($('select[name="colorpicker-shortlist"]').val());
+// 		$('.scale').attr('style','visibility:hidden');
+// 		$('.scale1').attr('style','visibility:hidden');
+// 		//base("#fff000");
+// 		$('select[name="colorpicker-longlist"]').simplecolorpicker();
+// 		$('select[name="colorpicker-shortlist"]').simplecolorpicker().on('change', function() {
+// 			setBaseColor($('select[name="colorpicker-shortlist"]').val());
 			
-		});
-		$('#ex1').slider({
-	// formatter: function(value) {
-	// 	return 'Current value: ' + value;
-	// }
-	tooltip:'hide',
+// 		});
+// 		$('#ex1').slider({
+// 	// formatter: function(value) {
+// 	// 	return 'Current value: ' + value;
+// 	// }
+// 	tooltip:'hide',
 	
-	});
-		var sizeButta=$('#ex1').slider()
-		.on('slide', onSizeChangeButta)
-		.data('slider');
+// 	});
+// 		var sizeButta=$('#ex1').slider()
+// 		.on('slide', onSizeChangeButta)
+// 		.data('slider');
 
 		
-		$('#ex2').slider({
-	// formatter: function(value) {
-	// 	return 'Current value: ' + value;
-	// }
-	tooltip:'hide',
+// 		$('#ex2').slider({
+// 	// formatter: function(value) {
+// 	// 	return 'Current value: ' + value;
+// 	// }
+// 	tooltip:'hide',
 	
-	});
-		var sizePattern=$('#ex2').slider()
-		.on('slide', onSizePattern)
-		.data('slider');
+// 	});
+// 		var sizePattern=$('#ex2').slider()
+// 		.on('slide', onSizePattern)
+// 		.data('slider');
 
 
-		function onSizePattern(){
+// 		function onSizePattern(){
 
-			x2=sizePattern.getValue()/2.5;
-			change();
-		}
+// 			x2=sizePattern.getValue()/2.5;
+// 			change();
+// 		}
 
 
-		$('#ex3').slider({
-	// formatter: function(value) {
-	// 	return 'Current value: ' + value;
-	// }
-	tooltip:'hide',
+// 		$('#ex3').slider({
+// 	// formatter: function(value) {
+// 	// 	return 'Current value: ' + value;
+// 	// }
+// 	tooltip:'hide',
 	
-});
+// });
 
-		var spacePattern=$('#ex3').slider()
-		.on('slide', onSpacePattern)
-		.data('slider');
-
-
+// 		var spacePattern=$('#ex3').slider()
+// 		.on('slide', onSpacePattern)
+// 		.data('slider');
 
 
-		function onSpacePattern(){
 
-			x1=spacePattern.getValue()/2.5;
-			change();
-		}
-// Call a method on the slider
-// scale = mySlider.slider('getValue');
+
+// 		function onSpacePattern(){
+
+// 			x1=spacePattern.getValue()/2.5;
+// 			change();
+// 		}
+// // Call a method on the slider
+// // scale = mySlider.slider('getValue');
+
+// // 		});
+
+// $("#undo").click(function(){
+// 	stackCoord.pop();
+// 	stackUrl.pop();
+// 	stackScale.pop();
+// 	change();
+// 	if(stackScale.length==0){
+// 		$('.doneUndo button').attr('style','display:none');
+// 		$('.scale').attr('style','display:none');	
+// 	}
+// });
+// $("#done").click(function(){
+// 			// stackCoord.pop();
+// 			// stackUrl.pop();
+// 			// change();
+// 			changeMainButta=false;
+// 			$('.doneUndo button').attr('style','display:none');
+// 			$('.scale').attr('style','display:none');
 
 // 		});
 
-$("#undo").click(function(){
-	stackCoord.pop();
-	stackUrl.pop();
-	stackScale.pop();
-	change();
-	if(stackScale.length==0){
-		$('.doneUndo button').attr('style','display:none');
-		$('.scale').attr('style','display:none');	
-	}
-});
-$("#done").click(function(){
-			// stackCoord.pop();
-			// stackUrl.pop();
-			// change();
-			changeMainButta=false;
-			$('.doneUndo button').attr('style','display:none');
-			$('.scale').attr('style','display:none');
+// $('.pattern').click(function() {
 
-		});
+//     setPatternUrl(this.name); // or alert($(this).attr('id'));
+// });
+// $('.sideBorder').click(function() {
+//     setSideBorderUrl(this.name); // or alert($(this).attr('id'));
+//     $('.scale1').attr('style','display:none');
+// });
+// $('.neckBorder').click(function() {
+//     setNeckBorderUrl(this.name); // or alert($(this).attr('id'));
+//     $('.scale1').attr('style','display:none');
+// });
+// $('.bottomBorder').click(function() {
+//     setBottomBorderUrl(this.name); // or alert($(this).attr('id'));
+//     $('.scale1').attr('style','display:none');
+// });
+// $('.mainButta').click(function() {
+// 			//baseColor="#fff000";
+// 			//base();
+// 			$('.scale1').attr('style','display:none');
+//     setMainButtaUrl(this.name); // or alert($(this).attr('id'));
+// });
+// $('.smallButta').click(function() {
+//     setSmallButtaUrl(this.name); // or alert($(this).attr('id'));
+//     $('.scale1').attr('style','display:none');
+// });
 
-$('.pattern').click(function() {
+// var canvas=document.getElementById("canvas");
+// var ctx=canvas.getContext("2d");
+// var stackUrl = [];
+// var stackCoord=[];
+// var stackScale=[];
+// var changeBase=true;
+// var changePattern=false;
+// var changeSideBorder=false;
+// var changeNeckBorder=false;
+// var changeBottomBorder=false;
+// var changeMainButta=false;
+// var changeSmallButta=false;
+// var scaleButta=1.0;
+// var x1=1.0;
+// var x2=1.0;
+// var buttaX=200;
+// var buttaY=200;
+// var img1=new Image();
+// var img2=new Image();
 
-    setPatternUrl(this.name); // or alert($(this).attr('id'));
-});
-$('.sideBorder').click(function() {
-    setSideBorderUrl(this.name); // or alert($(this).attr('id'));
-    $('.scale1').attr('style','display:none');
-});
-$('.neckBorder').click(function() {
-    setNeckBorderUrl(this.name); // or alert($(this).attr('id'));
-    $('.scale1').attr('style','display:none');
-});
-$('.bottomBorder').click(function() {
-    setBottomBorderUrl(this.name); // or alert($(this).attr('id'));
-    $('.scale1').attr('style','display:none');
-});
-$('.mainButta').click(function() {
-			//baseColor="#fff000";
-			//base();
-			$('.scale1').attr('style','display:none');
-    setMainButtaUrl(this.name); // or alert($(this).attr('id'));
-});
-$('.smallButta').click(function() {
-    setSmallButtaUrl(this.name); // or alert($(this).attr('id'));
-    $('.scale1').attr('style','display:none');
-});
+// var baseColor="#ffffff";
+// var url_model="{{ STATIC_URL }}{{ base.mask_model.url }}";
+// var url_kurta="{{ STATIC_URL }}{{ base.mask_suit.url }}";
+// var url_sideBorderArea="{{ STATIC_URL }}{{ base.mask_sideborder.url }}";
+// console.log(url_sideBorderArea);
+// var url_neckBorderArea="{{ STATIC_URL }}{{ base.mask_neckborder.url }}";
+// var url_bottomBorderArea="{{ STATIC_URL }}{{ base.mask_bottomborder.url }}";
+// var url_sideBorder="{{STATIC_URL}}images/customization/border/border-2.png";
+// var url_neckBorder="{{STATIC_URL}}images/customization/borders/border-2.png";
+// var url_bottomBorder="{{STATIC_URL}}images/customization/borders/border-2.png";
+// var url_mainButta="{{STATIC_URL}}images/customization/main-butta/main-butta-1.png";
+// var url_smallButta="{{STATIC_URL}}images/customization/main-butta/main-butta-1.png";
+// var url_pattern="{{STATIC_URL}}images/customization/pattern/star-on.png";
 
-var canvas=document.getElementById("canvas");
-var ctx=canvas.getContext("2d");
-var stackUrl = [];
-var stackCoord=[];
-var stackScale=[];
-var changeBase=true;
-var changePattern=false;
-var changeSideBorder=false;
-var changeNeckBorder=false;
-var changeBottomBorder=false;
-var changeMainButta=false;
-var changeSmallButta=false;
-var scaleButta=1.0;
-var x1=1.0;
-var x2=1.0;
-var buttaX=200;
-var buttaY=200;
-var img1=new Image();
-var img2=new Image();
+// var buttaCoord;
 
-var baseColor="#ffffff";
-var url_model="{{ STATIC_URL }}{{ base.mask_model.url }}";
-var url_kurta="{{ STATIC_URL }}{{ base.mask_suit.url }}";
-var url_sideBorderArea="{{ STATIC_URL }}{{ base.mask_sideborder.url }}";
-var url_neckBorderArea="{{ STATIC_URL }}{{ base.mask_neckborder.url }}";
-var url_bottomBorderArea="{{ STATIC_URL }}{{ base.mask_bottomborder.url }}";
-var url_sideBorder="{{STATIC_URL}}images/customization/borders/border-2.png";
-var url_neckBorder="{{STATIC_URL}}images/customization/borders/border-2.png";
-var url_bottomBorder="{{STATIC_URL}}images/customization/borders/border-2.png";
-var url_mainButta="{{STATIC_URL}}images/customization/main-butta/main-butta-1.png";
-var url_smallButta="{{STATIC_URL}}images/customization/main-butta/main-butta-1.png";
-var url_pattern="{{STATIC_URL}}images/customization/pattern/star-on.png";
+// function setBaseColor(color){
+// 	baseColor=color;
+// 	changeBase=true;
+// 	change();
 
-var buttaCoord;
+// }
+// function setPatternUrl(url){
 
-function setBaseColor(color){
-	baseColor=color;
-	changeBase=true;
-	change();
+// 	if(url!="none"){
+// 		url_pattern=url;
+// 		changePattern=true;
+// 		$('.doneUndo button').attr('style','display:none');
+// 		$('.scale').attr('style','display:none');
+// 		changeMainButta=false;
+// 		$('.scale1').attr('style','display:table');
+// 	}else{
+// 			//changeBase=true;
+// 			changePattern=false;
+// 			$('.scale1').attr('style','display:none');
+// 		}
 
-}
-function setPatternUrl(url){
-
-	if(url!="none"){
-		url_pattern=url;
-		changePattern=true;
-		$('.doneUndo button').attr('style','display:none');
-		$('.scale').attr('style','display:none');
-		changeMainButta=false;
-		$('.scale1').attr('style','display:table');
-	}else{
-			//changeBase=true;
-			changePattern=false;
-			$('.scale1').attr('style','display:none');
-		}
-
-		change();
-	}
+// 		change();
+// 	}
 	
-	function setSideBorderUrl(url){
+// 	function setSideBorderUrl(url){
 
-		if(url!="none"){
-			url_sideBorder=url;
-			changeSideBorder=true;
-		}else{
-			//changeBase=true;
-			changeSideBorder=false;
-		}
+// 		if(url!="none"){
+// 			url_sideBorder=url;
+// 			changeSideBorder=true;
+// 		}else{
+// 			//changeBase=true;
+// 			changeSideBorder=false;
+// 		}
 
-		change();
-	}
-	function setNeckBorderUrl(url){
-		if(url!="none"){
-			url_neckBorder=url;
-			changeNeckBorder=true;
-		}else{
-			changeNeckBorder=false;
-		}
-		change();
-	}
-	function setBottomBorderUrl(url){
-		if(url!="none"){
-			url_bottomBorder=url;
-			changeBottomBorder=true;
-		}else{
-			changeBottomBorder=false;
-		}
-		change();
-	}
-	function setMainButtaUrl(url){
-		if(url!="none"){
-			url_mainButta=url;
-			changeMainButta=true;
-			stackUrl.push(url);
-			stackCoord.push(buttaCoord);
-			stackScale.push(sizeButta.getValue()/2.5);
-    		//ctx.save();
-    		$('.doneUndo button').attr('style','display:table');
-    		$('.scale').attr('style','display:table');
+// 		change();
+// 	}
+// 	function setNeckBorderUrl(url){
+// 		if(url!="none"){
+// 			url_neckBorder=url;
+// 			changeNeckBorder=true;
+// 		}else{
+// 			changeNeckBorder=false;
+// 		}
+// 		change();
+// 	}
+// 	function setBottomBorderUrl(url){
+// 		if(url!="none"){
+// 			url_bottomBorder=url;
+// 			changeBottomBorder=true;
+// 		}else{
+// 			changeBottomBorder=false;
+// 		}
+// 		change();
+// 	}
+// 	function setMainButtaUrl(url){
+// 		if(url!="none"){
+// 			url_mainButta=url;
+// 			changeMainButta=true;
+// 			stackUrl.push(url);
+// 			stackCoord.push(buttaCoord);
+// 			stackScale.push(sizeButta.getValue()/2.5);
+//     		//ctx.save();
+//     		$('.doneUndo button').attr('style','display:table');
+//     		$('.scale').attr('style','display:table');
 
-    	}else{
+//     	}else{
 
-    		changeMainButta=false;
-    		stackUrl=[];
-    		stackCoord=[];
-    		stackScale=[];
-    		change();
-    		$('.doneUndo button').attr('style','display:none');
-    		$('.scale').attr('style','display:none');
-			// while(stackUrl.size()>0){
-			// 	stackUrl.pop();
-			// }
-		}
-		//change();
-	}
-	function setSmallButtaUrl(url){
-		if(url!="none"){
-			url_smallButta=url;
-			changeSmallButta=true;
-		}else{
-			changeSmallButta=false;
-		}
-		change();
-	}
-
-
-	function onSizeChangeButta(){
-		stackScale.pop();
-		stackScale.push(sizeButta.getValue()/2.5);
-		change();
-			//mainButta();
-			//console.log(sizeButta.getValue()/2);
-		}
-
-		canvas.onclick=function(event){
-     //buttaCoord=getOffset(event);
-     if(changeMainButta){
-     	buttaCoord=getOffset(event);
-     	stackCoord.pop();
-     	stackCoord.push(buttaCoord);
-      //console.log(buttaCoord);
-
-      change();
-  }
-}
+//     		changeMainButta=false;
+//     		stackUrl=[];
+//     		stackCoord=[];
+//     		stackScale=[];
+//     		change();
+//     		$('.doneUndo button').attr('style','display:none');
+//     		$('.scale').attr('style','display:none');
+// 			// while(stackUrl.size()>0){
+// 			// 	stackUrl.pop();
+// 			// }
+// 		}
+// 		//change();
+// 	}
+// 	function setSmallButtaUrl(url){
+// 		if(url!="none"){
+// 			url_smallButta=url;
+// 			changeSmallButta=true;
+// 		}else{
+// 			changeSmallButta=false;
+// 		}
+// 		change();
+// 	}
 
 
-function change(){
-	if(changeBase)
-		{base();}
-	if(changePattern){
-			//console.log("pattern");
-			pattern();
-		}
+// 	function onSizeChangeButta(){
+// 		stackScale.pop();
+// 		stackScale.push(sizeButta.getValue()/2.5);
+// 		change();
+// 			//mainButta();
+// 			//console.log(sizeButta.getValue()/2);
+// 		}
 
-		if(changeSideBorder)
-		{	sideBorder();}
-		if (changeNeckBorder) {
-			neckBorder();
-		}
-		if(changeBottomBorder){
-			bottomBorder();
-		}
+// 		canvas.onclick=function(event){
+//      //buttaCoord=getOffset(event);
+//      if(changeMainButta){
+//      	buttaCoord=getOffset(event);
+//      	stackCoord.pop();
+//      	stackCoord.push(buttaCoord);
+//       //console.log(buttaCoord);
+
+//       change();
+//   }
+// }
+
+
+// function change(){
+// 	if(changeBase)
+// 		{base();}
+// 	if(changePattern){
+// 			//console.log("pattern");
+// 			pattern();
+// 		}
+
+// 		if(changeSideBorder)
+// 		{	sideBorder();}
+// 		if (changeNeckBorder) {
+// 			neckBorder();
+// 		}
+// 		if(changeBottomBorder){
+// 			bottomBorder();
+// 		}
 		
-		for(j=0;j<stackCoord.length;j++){
+// 		for(j=0;j<stackCoord.length;j++){
 
-			url_mainButta=stackUrl[j];
-			//console.log(stackCoord[j]);
-			buttaX=stackCoord[j][0];
-			buttaY=stackCoord[j][1];
-			//console.log(buttaX,buttaY);
-			scaleButta=stackScale[j];
-			mainButta();
-		}
+// 			url_mainButta=stackUrl[j];
+// 			//console.log(stackCoord[j]);
+// 			buttaX=stackCoord[j][0];
+// 			buttaY=stackCoord[j][1];
+// 			//console.log(buttaX,buttaY);
+// 			scaleButta=stackScale[j];
+// 			mainButta();
+// 		}
 
-		if(changeSmallButta){
-			smallButta();
-		}
+// 		if(changeSmallButta){
+// 			smallButta();
+// 		}
 
-	}
+// 	}
 
-	function getOffset(evt) {
-		var el = evt.target,
-		x = 0,
-		y = 0;
+// 	function getOffset(evt) {
+// 		var el = evt.target,
+// 		x = 0,
+// 		y = 0;
 
-		while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-			x += el.offsetLeft - el.scrollLeft;
-			y += el.offsetTop - el.scrollTop;
-			el = el.offsetParent;
-		}
+// 		while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+// 			x += el.offsetLeft - el.scrollLeft;
+// 			y += el.offsetTop - el.scrollTop;
+// 			el = el.offsetParent;
+// 		}
 
-		var offsetX=x;
-		var offsetY=y;
+// 		var offsetX=x;
+// 		var offsetY=y;
 
-		x = evt.clientX - x;
-		y = evt.clientY - y;
+// 		x = evt.clientX - x;
+// 		y = evt.clientY - y;
 
- // x=(10.0/6.0)*(x-offsetX)+offsetX;
-  //y=(10.0/6.0)*(y-offsetY)+offsetY;
+//  // x=(10.0/6.0)*(x-offsetX)+offsetX;
+//   //y=(10.0/6.0)*(y-offsetY)+offsetY;
 
-  return [x,y];
-}
+//   return [x,y];
+// }
 
 
-img1.onload=function(){
-           // base("#ffffff");
+// img1.onload=function(){
+//            // base("#ffffff");
 
-           img2.onload=function(){
-           	base();
-           	// sideBorder();
-           	// neckBorder();
-           	// bottomBorder();
-           	// mainButta();
-            //smallButta();
+//            img2.onload=function(){
+//            	base();
+//            	// sideBorder();
+//            	// neckBorder();
+//            	// bottomBorder();
+//            	// mainButta();
+//             //smallButta();
 
-        }
-        img2.src="{{ STATIC_URL }}{{ base.mask_model.url }}";
-    }
-    img1.src="{{ STATIC_URL }}{{ base.mask_suit.url }}";
+//         }
+//         img2.src="{{ STATIC_URL }}/base/kurta-1-model.png";
+//     }
+//     img1.src="{{ STATIC_URL }}/base/kurta-1.png";
     
-    //img.src="images/customization/borders/border-2.png";
+//     //img.src="images/customization/borders/border-2.png";
 
-    //img4.src="images/customization/kurta-1/kurta-1-side-border-area.png";
-
-
-    function base(){
-    	ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-    	ctx.globalAlpha=0.92;
-    	ctx.globalCompositeOperation="copy";
-    	ctx.drawImage(img1,0,0,canvas.width,canvas.height);
-
-    	ctx.globalCompositeOperation="source-atop";
-
-            //var pattern = ctx.createPattern(img, 'repeat');
-
-  //           ctx.save();
-  ctx.rect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle =baseColor;
-  ctx.fill();
-  ctx.globalAlpha=1;
-  ctx.globalCompositeOperation="source-over";
-  ctx.drawImage(img2,0,0,canvas.width,canvas.height);
-
-// ctx.restore();
+//     //img4.src="images/customization/kurta-1/kurta-1-side-border-area.png";
 
 
-            //img4.onload=function() {
-               //ctx.globalCompositeOperation="source-atop";
-               //ctx.drawImage(img4,0,0);
-                // body...
+//     function base(){
+//     	ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+//     	ctx.globalAlpha=0.92;
+//     	ctx.globalCompositeOperation="copy";
+//     	ctx.drawImage(img1,0,0,canvas.width,canvas.height);
+
+//     	ctx.globalCompositeOperation="source-atop";
+
+//             //var pattern = ctx.createPattern(img, 'repeat');
+
+//   //           ctx.save();
+//   ctx.rect(0, 0, canvas.width, canvas.height);
+//   ctx.fillStyle =baseColor;
+//   ctx.fill();
+//   ctx.globalAlpha=1;
+//   ctx.globalCompositeOperation="source-over";
+//   ctx.drawImage(img2,0,0,canvas.width,canvas.height);
+
+// // ctx.restore();
 
 
-
-
-        //ctx.globalAlpha=1;
-        //ctx.drawImage(img1,0,0);
-        //ctx.drawImage(img1,0,0);
-
-    }
-    function pattern(){
-    		//console.log("p11");
-    		var canvas1=document.createElement('canvas');
-    		canvas1.width = 20*x1;
-    		canvas1.height = 20*x1;
-    		var ctx1=canvas1.getContext("2d");
-    		ctx1.globalCompositeOperation="source-over";
-    		patternImg=new Image();
-    		patternImg.onload=function(){
-    			ctx1.drawImage(patternImg,0,0,10*x2,10*x2);
-    			ctx.globalCompositeOperation="source-over";
-    			ctx.rect(0, 0, canvas.width, canvas.height);
-
-    			var pattern = ctx.createPattern(canvas1, 'repeat');
-    			ctx.fillStyle = pattern;
-    			ctx.fill();
-    			ctx.globalAlpha=1;
-    			ctx.drawImage(img2,0,0,canvas.width,canvas.height);
-             //smallButta();
-         }
-         patternImg.src=url_pattern;
-     }
-     function sideBorder(){
-
-     	var c = document.createElement('canvas');
-     	c.id     = "c";
-     	c.width  = canvas.width;
-     	c.height = canvas.height;
-     	var ctx1=c.getContext("2d");
-     	var area=new Image();
-     	var border=new Image();
-
-     	border.onload=function(){
-
-     		area.onload=function(){
-
-
-     			ctx1.clearRect ( 0 , 0 , canvas.width, canvas.height );
-     			ctx1.globalAlpha=0.92;
-     			ctx1.globalCompositeOperation="copy";
-
-     			ctx1.drawImage(area,0,0,c.width,c.height);
-     			ctx1.globalCompositeOperation="source-atop";
-     			ctx1.rect(0, 0, c.width, c.height);
-     			ctx1.fillStyle = baseColor;
-     			ctx1.fill();
-
-
-     			var c3 = document.createElement('canvas');
-     			c3.id     = "c3";
-    			c3.width  = border.width/3;//change to static
-    			c3.height = border.height/3;// change to static
-
-    			var ctx3=c3.getContext("2d");            
-        //ctx3.fillStyle = "#FF0000";
-        ctx3.globalCompositeOperation="copy";
-        ctx3.drawImage(border,0,0,c3.width,c3.height);
-            //c3.height=img.height/3;
-            //c3.width=img.width/3;
-
-
-
-            var pattern = ctx1.createPattern(c3, 'repeat');
-            ctx1.globalCompositeOperation="source-atop";
-            ctx1.rect(0, 0, c.width, c.height);
-            ctx1.fillStyle = pattern;
-            ctx1.fill();
-
-
-            // var pattern = ctx.createPattern(img, 'repeat');
-
-            // ctx.rect(0, 0, canvas.width, canvas.height);
-            // ctx.fillStyle = pattern;
-            // ctx.fill();
-
-        //ctx.globalAlpha=1;
-        ctx.globalCompositeOperation="source-over";
-            //ctx.globalCompositeOperation="copy";
-            ctx.drawImage(c,0,0,canvas.width,canvas.height);
-        //ctx.drawImage(img1,0,0);
-    }
-    area.src=url_sideBorderArea;
-}
-border.src=url_sideBorder;
-
-}
-
-function neckBorder(){
-
-	
-	var c = document.createElement('canvas');
-	c.id     = "c";
-	c.width  = canvas.width;
-	c.height = canvas.height;
-	var ctx1=c.getContext("2d");
-	var area=new Image();
-	var border=new Image();
-
-	border.onload=function(){
-
-		area.onload=function(){
-
-
-			ctx1.clearRect ( 0 , 0 , canvas.width, canvas.height );
-			ctx1.globalAlpha=0.92;
-			ctx1.globalCompositeOperation="copy";
-
-			ctx1.drawImage(area,0,0,c.width,c.height);
-			ctx1.globalCompositeOperation="source-atop";
-			ctx1.rect(0, 0, c.width, c.height);
-			ctx1.fillStyle = baseColor;
-			ctx1.fill();
-
-
-			var c3 = document.createElement('canvas');
-			c3.id     = "c3";
-    			c3.width  = border.width/3;//change to static
-    			c3.height = border.height/3;// change to static
-
-    			var ctx3=c3.getContext("2d");            
-        //ctx3.fillStyle = "#FF0000";
-        ctx3.globalCompositeOperation="copy";
-        ctx3.drawImage(border,0,0,c3.width,c3.height);
-            //c3.height=img.height/3;
-            //c3.width=img.width/3;
-
-
-
-            var pattern = ctx1.createPattern(c3, 'repeat');
-            ctx1.globalCompositeOperation="source-atop";
-            ctx1.rect(0, 0, c.width, c.height);
-            ctx1.fillStyle = pattern;
-            ctx1.fill();
-
-
-            // var pattern = ctx.createPattern(img, 'repeat');
-
-            // ctx.rect(0, 0, canvas.width, canvas.height);
-            // ctx.fillStyle = pattern;
-            // ctx.fill();
-
-        //ctx.globalAlpha=1;
-        ctx.globalCompositeOperation="source-over";
-            //ctx.globalCompositeOperation="copy";
-            ctx.drawImage(c,0,0,canvas.width,canvas.height);
-        //ctx.drawImage(img1,0,0);
-    }
-    area.src=url_neckBorderArea;
-}
-border.src=url_neckBorder;
+//             //img4.onload=function() {
+//                //ctx.globalCompositeOperation="source-atop";
+//                //ctx.drawImage(img4,0,0);
+//                 // body...
 
 
 
 
+//         //ctx.globalAlpha=1;
+//         //ctx.drawImage(img1,0,0);
+//         //ctx.drawImage(img1,0,0);
+
+//     }
+//     function pattern(){
+//     		//console.log("p11");
+//     		var canvas1=document.createElement('canvas');
+//     		canvas1.width = 20*x1;
+//     		canvas1.height = 20*x1;
+//     		var ctx1=canvas1.getContext("2d");
+//     		ctx1.globalCompositeOperation="source-over";
+//     		patternImg=new Image();
+//     		patternImg.onload=function(){
+//     			ctx1.drawImage(patternImg,0,0,10*x2,10*x2);
+//     			ctx.globalCompositeOperation="source-over";
+//     			ctx.rect(0, 0, canvas.width, canvas.height);
+
+//     			var pattern = ctx.createPattern(canvas1, 'repeat');
+//     			ctx.fillStyle = pattern;
+//     			ctx.fill();
+//     			ctx.globalAlpha=1;
+//     			ctx.drawImage(img2,0,0,canvas.width,canvas.height);
+//              //smallButta();
+//          }
+//          patternImg.src=url_pattern;
+//      }
+//      function sideBorder(){
+
+//      	var c = document.createElement('canvas');
+//      	c.id     = "c";
+//      	c.width  = canvas.width;
+//      	c.height = canvas.height;
+//      	var ctx1=c.getContext("2d");
+//      	var area=new Image();
+//      	var border=new Image();
+
+//      	border.onload=function(){
+
+//      		area.onload=function(){
 
 
-}
+//      			ctx1.clearRect ( 0 , 0 , canvas.width, canvas.height );
+//      			ctx1.globalAlpha=0.92;
+//      			ctx1.globalCompositeOperation="copy";
 
-function bottomBorder(){
+//      			ctx1.drawImage(area,0,0,c.width,c.height);
+//      			ctx1.globalCompositeOperation="source-atop";
+//      			ctx1.rect(0, 0, c.width, c.height);
+//      			ctx1.fillStyle = baseColor;
+//      			ctx1.fill();
+
+
+//      			var c3 = document.createElement('canvas');
+//      			c3.id     = "c3";
+//     			c3.width  = border.width/3;//change to static
+//     			c3.height = border.height/3;// change to static
+
+//     			var ctx3=c3.getContext("2d");            
+//         //ctx3.fillStyle = "#FF0000";
+//         ctx3.globalCompositeOperation="copy";
+//         ctx3.drawImage(border,0,0,c3.width,c3.height);
+//             //c3.height=img.height/3;
+//             //c3.width=img.width/3;
+
+
+
+//             var pattern = ctx1.createPattern(c3, 'repeat');
+//             ctx1.globalCompositeOperation="source-atop";
+//             ctx1.rect(0, 0, c.width, c.height);
+//             ctx1.fillStyle = pattern;
+//             ctx1.fill();
+
+
+//             // var pattern = ctx.createPattern(img, 'repeat');
+
+//             // ctx.rect(0, 0, canvas.width, canvas.height);
+//             // ctx.fillStyle = pattern;
+//             // ctx.fill();
+
+//         //ctx.globalAlpha=1;
+//         ctx.globalCompositeOperation="source-over";
+//             //ctx.globalCompositeOperation="copy";
+//             ctx.drawImage(c,0,0,canvas.width,canvas.height);
+//         //ctx.drawImage(img1,0,0);
+//     }
+//     area.src=url_sideBorderArea;
+// }
+// border.src=url_sideBorder;
+
+// }
+
+// function neckBorder(){
 
 	
-	var c = document.createElement('canvas');
-	c.id     = "c";
-	c.width  = canvas.width;
-	c.height = canvas.height;
-	var ctx1=c.getContext("2d");
-	var area=new Image();
-	var border=new Image();
+// 	var c = document.createElement('canvas');
+// 	c.id     = "c";
+// 	c.width  = canvas.width;
+// 	c.height = canvas.height;
+// 	var ctx1=c.getContext("2d");
+// 	var area=new Image();
+// 	var border=new Image();
 
-	border.onload=function(){
+// 	border.onload=function(){
 
-		area.onload=function(){
-
-
-			ctx1.clearRect ( 0 , 0 , canvas.width, canvas.height );
-			ctx1.globalAlpha=0.92;
-			ctx1.globalCompositeOperation="copy";
-
-			ctx1.drawImage(area,0,0,c.width,c.height);
-			ctx1.globalCompositeOperation="source-atop";
-			ctx1.rect(0, 0, c.width, c.height);
-			ctx1.fillStyle = baseColor;
-			ctx1.fill();
+// 		area.onload=function(){
 
 
-			var c3 = document.createElement('canvas');
-			c3.id     = "c3";
-    			c3.width  = border.width/3;//change to static
-    			c3.height = border.height/3;// change to static
+// 			ctx1.clearRect ( 0 , 0 , canvas.width, canvas.height );
+// 			ctx1.globalAlpha=0.92;
+// 			ctx1.globalCompositeOperation="copy";
 
-    			var ctx3=c3.getContext("2d");            
-        //ctx3.fillStyle = "#FF0000";
-        ctx3.globalCompositeOperation="copy";
-        ctx3.drawImage(border,0,0,c3.width,c3.height);
-            //c3.height=img.height/3;
-            //c3.width=img.width/3;
+// 			ctx1.drawImage(area,0,0,c.width,c.height);
+// 			ctx1.globalCompositeOperation="source-atop";
+// 			ctx1.rect(0, 0, c.width, c.height);
+// 			ctx1.fillStyle = baseColor;
+// 			ctx1.fill();
 
 
+// 			var c3 = document.createElement('canvas');
+// 			c3.id     = "c3";
+//     			c3.width  = border.width/3;//change to static
+//     			c3.height = border.height/3;// change to static
 
-            var pattern = ctx1.createPattern(c3, 'repeat');
-            ctx1.globalCompositeOperation="source-atop";
-            ctx1.rect(0, 0, c.width, c.height);
-            ctx1.fillStyle = pattern;
-            ctx1.fill();
-
-
-            // var pattern = ctx.createPattern(img, 'repeat');
-
-            // ctx.rect(0, 0, canvas.width, canvas.height);
-            // ctx.fillStyle = pattern;
-            // ctx.fill();
-
-        //ctx.globalAlpha=1;
-        ctx.globalCompositeOperation="source-over";
-            //ctx.globalCompositeOperation="copy";
-            ctx.drawImage(c,0,0,canvas.width,canvas.height);
-        //ctx.drawImage(img1,0,0);
-    }
-    area.src=url_bottomBorderArea;
-}
-border.src=url_bottomBorder;
+//     			var ctx3=c3.getContext("2d");            
+//         //ctx3.fillStyle = "#FF0000";
+//         ctx3.globalCompositeOperation="copy";
+//         ctx3.drawImage(border,0,0,c3.width,c3.height);
+//             //c3.height=img.height/3;
+//             //c3.width=img.width/3;
 
 
 
+//             var pattern = ctx1.createPattern(c3, 'repeat');
+//             ctx1.globalCompositeOperation="source-atop";
+//             ctx1.rect(0, 0, c.width, c.height);
+//             ctx1.fillStyle = pattern;
+//             ctx1.fill();
 
 
-}
+//             // var pattern = ctx.createPattern(img, 'repeat');
+
+//             // ctx.rect(0, 0, canvas.width, canvas.height);
+//             // ctx.fillStyle = pattern;
+//             // ctx.fill();
+
+//         //ctx.globalAlpha=1;
+//         ctx.globalCompositeOperation="source-over";
+//             //ctx.globalCompositeOperation="copy";
+//             ctx.drawImage(c,0,0,canvas.width,canvas.height);
+//         //ctx.drawImage(img1,0,0);
+//     }
+//     area.src=url_neckBorderArea;
+// }
+// border.src=url_neckBorder;
 
 
-function mainButta(){
 
 
-//console.log("mainButta");
-var i= new Image();
+
+
+// }
+
+// function bottomBorder(){
+
 	
-	 var x=buttaX;
-	 var y=buttaY;
-	 var s=scaleButta;
-i.onload=function(){
+// 	var c = document.createElement('canvas');
+// 	c.id     = "c";
+// 	c.width  = canvas.width;
+// 	c.height = canvas.height;
+// 	var ctx1=c.getContext("2d");
+// 	var area=new Image();
+// 	var border=new Image();
 
-console.log(x,y);
-ctx.globalCompositeOperation="source-over";       
-ctx.drawImage(i,x-50*s,y-50*s,100*s,100*s);
-ctx.drawImage(img2,0,0,canvas.width,canvas.height);
-//ctx.drawImage(c,buttaX,buttaY);
-//ctx.drawImage(c,440,745);
-//ctx.drawImage(c,500,745);
-}
-i.src=url_mainButta;
+// 	border.onload=function(){
 
-}
+// 		area.onload=function(){
+
+
+// 			ctx1.clearRect ( 0 , 0 , canvas.width, canvas.height );
+// 			ctx1.globalAlpha=0.92;
+// 			ctx1.globalCompositeOperation="copy";
+
+// 			ctx1.drawImage(area,0,0,c.width,c.height);
+// 			ctx1.globalCompositeOperation="source-atop";
+// 			ctx1.rect(0, 0, c.width, c.height);
+// 			ctx1.fillStyle = baseColor;
+// 			ctx1.fill();
+
+
+// 			var c3 = document.createElement('canvas');
+// 			c3.id     = "c3";
+//     			c3.width  = border.width/3;//change to static
+//     			c3.height = border.height/3;// change to static
+
+//     			var ctx3=c3.getContext("2d");            
+//         //ctx3.fillStyle = "#FF0000";
+//         ctx3.globalCompositeOperation="copy";
+//         ctx3.drawImage(border,0,0,c3.width,c3.height);
+//             //c3.height=img.height/3;
+//             //c3.width=img.width/3;
+
+
+
+//             var pattern = ctx1.createPattern(c3, 'repeat');
+//             ctx1.globalCompositeOperation="source-atop";
+//             ctx1.rect(0, 0, c.width, c.height);
+//             ctx1.fillStyle = pattern;
+//             ctx1.fill();
+
+
+//             // var pattern = ctx.createPattern(img, 'repeat');
+
+//             // ctx.rect(0, 0, canvas.width, canvas.height);
+//             // ctx.fillStyle = pattern;
+//             // ctx.fill();
+
+//         //ctx.globalAlpha=1;
+//         ctx.globalCompositeOperation="source-over";
+//             //ctx.globalCompositeOperation="copy";
+//             ctx.drawImage(c,0,0,canvas.width,canvas.height);
+//         //ctx.drawImage(img1,0,0);
+//     }
+//     area.src=url_bottomBorderArea;
+// }
+// border.src=url_bottomBorder;
+
+
+
+
+
+// }
+
+
+// function mainButta(){
+
+
+// //console.log("mainButta");
+// var i= new Image();
+	
+// 	 var x=buttaX;
+// 	 var y=buttaY;
+// 	 var s=scaleButta;
+// i.onload=function(){
+
+// console.log(x,y);
+// ctx.globalCompositeOperation="source-over";       
+// ctx.drawImage(i,x-50*s,y-50*s,100*s,100*s);
+// ctx.drawImage(img2,0,0,canvas.width,canvas.height);
+// //ctx.drawImage(c,buttaX,buttaY);
+// //ctx.drawImage(c,440,745);
+// //ctx.drawImage(c,500,745);
+// }
+// i.src=url_mainButta;
+
+// }
 }
 ); // end $(function(){});
 </script>

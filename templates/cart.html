@@ -1,140 +1,11 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Shop | Niks-Creations</title>
+{%extends 'base.html'%}
+{%block title%}Cart{%endblock%}
 
-    <link href = "{{STATIC_URL}}css/bootstrap.min.css" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/bootstrap.css" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/animate.css" rel = "stylesheet"> 
-    <link href = "{{STATIC_URL}}css/font-awesome.min.css" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/prettyPhoto.css" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/price-range.css" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/main.css" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/responsive.css	" rel = "stylesheet">
-    <link href = "{{STATIC_URL}}css/side-menu.css" rel = "stylesheet">
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+{% block ShopTogether %}
+	<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
+{% endblock %}
 
-	<style>
-	h4{
-		font-size: 120%;
-	}
-	</style>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
-
-<body>
-	<header id="header"><!--header-->
-		<div class="header_top" style = "background-color:#1F7964"><!--header_top-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="/user/home/" style = "color:#fff"><b> Home</b></a></li>
-								<li><a href="/user/about/" style = "color:#fff"><b> About</b></a></li>
-								<li><a href="/user/location/" style = "color:#fff"><b> Store Location</b></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nomargin">
-								{% if user.is_authenticated %}
-    								<li><a href="/user/profile/"><i class="fa fa-lock"></i>My account</a></li>
-    								<li><a href="/user/logout/"><i class="fa fa-lock"></i>Logout</a></li>
-								{% else %}
-    									<li><a href="/user/login/"><i class="fa fa-lock"></i>Login/ Register</a></li>
-								{% endif %}
-								
-								<li><a href="#"><i class="fa fa-phone"></i> Contact</a></li>
-
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header_top-->
-
-		<div class="header-middle" style="background-color:white" ><!--header-middle-->
-			<div class="container">
-				<div class="row" >
-					<div class="col-md-7" >
-						<div class="logo pull-left">
-							
-							<a href="index.html" style="color:rgb(16,145,115);float:left"><h2 style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif"><b>NIKS</b></h2></a>
-							<a href="index.html" style="color:gray;"><h2 style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif">-Creations</h2></a>
-							
-							
-							<p class="lead" style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif;color:gray"><small>"Taste the originality and creativity at it's best."</small></p>
-						</div>			
-					</div>
-					<div class="col-md-4 pull-right">
-						<div class = "pull-right menuButtons" style="margin-top:15px ">
-							<a href="/user/createdress/" class="btn btn-default btn-lg" >Create a Dress</a>
-							<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
-
-						</div><br>
-						<div class="search_box pull-right">
-							<form action = "/user/search/" method = "POST">
-							{% csrf_token %}
-							<input type="text" style = "color:rgb(16,145,115)" name = "search" placeholder="Search"/>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header-middle-->
-	<div class="header-botttom">
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						
-					</div>
-
-					
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-					{% for cat in categories %}
-						{% if cat.name != "New Arrivals"%}
-							<li class="dropdown">
-
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:'Open Sans',Arial,sans-serif">{{ cat.name }}<span class="caret"></span></h4></a>
-								<ul class="dropdown-menu" role="menu">
-										{% for sub_cat in cat.subcategory_set.all %}
-									   		<li><a href="/user/shop?sub={{ sub_cat.name }}">{{ sub_cat.name }}</a></li>
-										{% endfor %}
-								</ul>
-							</li>
-							
-						{% endif %}
-					{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
-
-</header>	
+{%block body%}	
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -159,7 +30,7 @@
 					{% for p in products %}
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{ STATIC_URL }}{{ p.image.url }}"  alt="" width = "200" height = "200"></a>
+								<a href=""><img src="{{ STATIC_URL }}{{ p.image.url }}"  width = "200" height = "200" alt=""></a>
 							</td>
 							<td class="cart_description">
 								<h4><a href="">{{ p.name }}</a></h4>
@@ -171,7 +42,24 @@
 							<td class="cart_price">
 								<p>{{ p.price }}</p>
 							</td>
-							
+							<!-- <td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href=""> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs.1999</p>
+							</td>--> 
+							<td class="cart_delete">
+
+							<form method = "POST" action = "/user/cart_delete/">
+							{% csrf_token %}
+								<input type = "hidden" name = "delete" value = {{ p.productID }}>
+								<button  type = "submit" value = "submit" class=" btn btn-default btn-sm cart_quantity_delete"><i class="fa fa-times"></i></button>
+							</form>
+							</td>
 						</tr>
 						{% endfor %}
 						
@@ -182,47 +70,5 @@
 				<a class="btn btn-default check_out" href="">Continue</a>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
-	
-
-	<footer id="footer"><!--Footer-->
-		
-		<div class="footer-widget">
-			<div class="container">
-				<div class = "row">
-					<div class = "col-sm-2">
-						<div class="single-widget">
-							<h2><b>Policies</b></h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Privecy Policy</a></li>
-								<li><a href="#">Refund Policy</a></li>
-								<li><a href="#">Billing System</a></li>
-								<li><a href="#">Ticket System</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<h3>Subscribe to us</h3>
-						{{ state }}
-							<form action="/user/subscribe/" class="searchform" method="POST">
-							{% csrf_token %}
-								<input type="email" name ="subscriber" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Get the most recent updates from <br />our site and be updated your self...</p>
-							</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-				<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.scrollUp.min.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.prettyPhoto.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
-    			<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-    			<script src="https://togetherjs.com/togetherjs-min.js"></script>
-</body>
-</html>
+	</section> 
+	{%endblock%}

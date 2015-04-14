@@ -183,7 +183,7 @@
 									<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "207" height = "250"/></a>
 									<h2>{{ p.price }} rs.</h2>
 									<p>{{ p.name }}</p>
-									<form method = "POST" action = "/user/cart/">
+									<form method = "POST" action = "/user/item_cart/">
 										{% csrf_token %}
 										<input type = "hidden" name = "addcart" value = {{ p.productID }}>
 										<button type = "submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>

@@ -555,6 +555,7 @@ def item(request):
         userprofile = UserProfile.objects.get_or_create(user = request.user)
         userprofile = UserProfile.objects.get(user = request.user)
         if request.method == "POST":
+            print "ENTERS"
             bust = request.POST.get('bust')
             neck_back = request.POST.get('neck_back')
             neck_front = request.POST.get('neck_front')
@@ -577,6 +578,7 @@ def item(request):
             userprofile.save() # if rememberme == True
             state_ = "The measurements are updated successfully. Thank you."
         categories = Category.objects.all()
+        print "ENTERS HERE"
         return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile,'categories':categories}, context_instance=RequestContext(request))
     except:
         categories = Category.objects.all()   
@@ -674,15 +676,18 @@ def shop(request):
 
 
 @login_required(login_url = '/user/login/')
-def cart(request):
+def item_cart(request):
+    print "DOES IT COME TO THIS?"
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
     stop = True
     if request.method == "POST":
+        print "ANDAR NAHI AARA"
         addcart = request.POST.get('addcart')
         print addcart
         userprofile = UserProfile.objects.get_or_create(user = request.user)
         userprofile = UserProfile.objects.get(user = request.user)
+
         for item in userprofile.cart_set.all():
             if item.cart_products == addcart:
                 stop = False
@@ -780,5 +785,27 @@ def search(request):
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
 
+def aboutus(request):
+    return render_to_response('about-us.html',context_instance = RequestContext(request))
 
+@login_required(login_url = '/user/login/')
+def cart_delete(request):
+    if request.method == "POST":
+        productID = request.POST.get("delete")
+        userprofile = UserProfile.objects.get_or_create(user = request.user)
+        userprofile = UserProfile.objects.get(user = request.user)
+        cart_item = []
+        cart_item.append(Cart.objects.get(cart_products = productID))
+        for item in cart_item:
+            userprofile.cart_set.remove(item)
+
+    cart_items = userprofile.cart_set.all()
+    products = []
+    for item in cart_items:
+        print item.cart_products
+        product = Product.objects.get(productID = int(item.cart_products))
+        products.append(product)
+    categories = Category.objects.all()
+    return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
+    
 

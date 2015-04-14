@@ -6,20 +6,23 @@
 {% endblock %}
 
 {%block body%}
-<div class="col-sm-12 padding-right">
+<section>
+<div class="well row col-sm-12 padding-right">
 					
 					<h2 class="title" align="center"> Select a Base Type</h2>
-					<div class="features_items"><!--features_items-->
 					
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
+					
+						<div class="col-sm-3">
+							<div >
 								<div class="single-products">
 									<div class="productinfo text-center">
 									{% for b in bases %}
 										<form action = "/user/customizedress/" method = "POST">
 										{% csrf_token %}
-										<img src="{{STATIC_URL}}{{ b.image.url }}" alt="" />	
-										<input type ="hidden" name = "base" value = {{ b.image.url }} />					
+										<img src="{{STATIC_URL}}{{ b.image.url }}" alt="" style="height:100%; width:100%"/>	
+										<input type ="hidden" name = "base" value = {{ b.image.url }} />
+										<br>	
+										<br>				
 										<button type = "submit" value = "submit" name = "select" class="btn btn-default">Select</button>
 										</form>
 									{% endfor %}
@@ -29,7 +32,7 @@
 								
 							</div>
 						</div>
-						
-					</div><!--features_items-->
+					
 				</div>
+</section>
 {%endblock%}
