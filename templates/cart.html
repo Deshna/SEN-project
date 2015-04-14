@@ -35,7 +35,7 @@
 
 <body>
 	<header id="header"><!--header-->
-		<div class="header_top" style = "background-color:#000"><!--header_top-->
+		<div class="header_top" style = "background-color:#1F7964"><!--header_top-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
@@ -50,114 +50,87 @@
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nomargin">
+								{% if user.is_authenticated %}
+    								<li><a href="/user/profile/"><i class="fa fa-lock"></i>My account</a></li>
+    								<li><a href="/user/logout/"><i class="fa fa-lock"></i>Logout</a></li>
+								{% else %}
+    									<li><a href="/user/login/"><i class="fa fa-lock"></i>Login/ Register</a></li>
+								{% endif %}
+								
+								<li><a href="#"><i class="fa fa-phone"></i> Contact</a></li>
 
-								<li><a href="/user/login/" style = "color:#fff"><i class="fa fa-lock" style = "color:#fff"></i>Login/ Register</a></li>
-								<li><a href="#" style = "color:#fff"><i class="fa fa-phone" style = "color:#fff"></i> Contact</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/header_top-->
-	 <!-- Page Content -->
-<div style = "background-color:#F3F781">
-<div class="container">
-	<div class="row">
-	<div class="col-lg-12 text-center">
-		<h1 style="color:#000">Niks-Creations.</h1>
-		<p class="lead" style="font-family:Helvetica;color:#000">Taste originality and creativity at it's best.</p>
-		<ul class="list-unstyled">
-		</ul>
-	</div>
-	</div>
-<!-- /.row -->
-</div>				 
-</div>
 
+		<div class="header-middle" style="background-color:white" ><!--header-middle-->
+			<div class="container">
+				<div class="row" >
+					<div class="col-md-7" >
+						<div class="logo pull-left">
+							
+							<a href="index.html" style="color:rgb(16,145,115);float:left"><h2 style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif"><b>NIKS</b></h2></a>
+							<a href="index.html" style="color:gray;"><h2 style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif">-Creations</h2></a>
+							
+							
+							<p class="lead" style="font-family:'Open Sans','Open Sans',Arial,sans-serif,sans-serif;color:gray"><small>"Taste the originality and creativity at it's best."</small></p>
+						</div>			
+					</div>
+					<div class="col-md-4 pull-right">
+						<div class = "pull-right menuButtons" style="margin-top:15px ">
+							<a href="/user/createdress/" class="btn btn-default btn-lg" >Create a Dress</a>
+							{% block ShopTogether %}{% endblock %}
 
-	<div class="header-botttom">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-
+						</div><br>
+						<div class="search_box pull-right">
+							<form action = "/user/search/" method = "POST">
+							{% csrf_token %}
+							<input type="text" style = "color:rgb(16,145,115)" name = "search" placeholder="Search"/>
+							</form>
+						</div>
+					</div>
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			</div>
+		</div><!--/header-middle-->
+	<div class="header-botttom">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						
+					</div>
+
+					
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li ><a href="index.html"><h4 style="font-family:Arial">Home <span class="sr-only">(current)</span></h4></a></li>
-						<li class="dropdown active">
-							<a href="shop.html" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:Arial">Embroidery<span class="caret"></span></h4></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="shop.html">Machine</a></li>
-								<li><a href="#">Computer</a></li> 
-								<li><a href="#">Jardozi(Khat)</a></li> 
-								<li><a href="#">Kutchhi</a></li> 
-								<li><a href="#">Marodi</a></li> 
-								<li><a href="#">Applique/Patch Work</a></li> 
-								<li><a href="#">Pitta Work</a></li> 
-								<li><a href="#">Gota Work</a></li> 
-								<li><a href="#">Aari Work</a></li>
-								<li><a href="#">Beads</a></li> 
-								<li><a href="#">Booti Work</a></li>
-								<li><a href="#">Kundan</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								<h4 style="font-family:Arial">Salwar Suit<span class="caret"></span></h4></a>
+					{% for cat in categories %}
+						{% if cat.name != "New Arrivals"%}
+							<li class="dropdown">
+
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4 style="font-family:'Open Sans',Arial,sans-serif">{{ cat.name }}<span class="caret"></span></h4></a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Anarkali</a></li>
-									<li><a href="#">Bollywood</a></li> 
-									<li><a href="#">Wedding(Khat)</a></li> 
-									<li><a href="#">Designer</a></li> 
-									<li><a href="#">Punjabi</a></li> 
-									<li><a href="#">Chudidar</a></li> 
-									<li><a href="#">Casual</a></li> 
-									<li><a href="#">Cotton</a></li> 
-									<li><a href="#">Gowns</a></li>
-									<li><a href="#">Party Wear</a></li>
+										{% for sub_cat in cat.subcategory_set.all %}
+									   		<li><a href="/user/shop?sub={{ sub_cat.name }}">{{ sub_cat.name }}</a></li>
+										{% endfor %}
 								</ul>
 							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									<h4 style="font-family:Arial">Sarees<span class="caret"></span></h4></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Wedding</a></li> 
-										<li><a href="#">Designer</a></li> 
-										<li><a href="#">Bridal</a></li> 
-										<li><a href="#">Party Wear</a></li> 
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <h4 style="font-family:Arial">Kurta <span class="caret"></span></h4></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Long</a></li> 
-										<li><a href="#">Short</a></li> 
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-										<h4 style="font-family:Arial">Chaniya Choli<span class="caret"></span></h4></a>
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">Traditional</a></li> 
-											<li><a href="#">Wedding</a></li> 
-										</ul>
-									</li>
-									<li><a href="#"><h4 style="font-family:Arial">Best Sellers</h4></a></li> 
-									<li><a href="#"><h4 style="font-family:Arial">New Arrivals</h4></a></li> 
-									<li><a href="#"><h4 style="font-family:Arial light">Create your Dress</h4></a></li>
-
-								</ul> 
-							</div>
-						</div>
-					</nav>
+							
+						{% endif %}
+					{% endfor %}
+					</ul>
 				</div>
+			</div>
+		</nav>
+	</div>
 
 			</header>	
 	<section id="cart_items">
@@ -184,7 +157,7 @@
 					{% for p in products %}
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{ STATIC_URL }}{{ p.image.url }}"  alt=""></a>
+								<a href=""><img src="{{ STATIC_URL }}{{ p.image.url }}"  alt="" width = "200" height = "200"></a>
 							</td>
 							<td class="cart_description">
 								<h4><a href="">{{ p.name }}</a></h4>

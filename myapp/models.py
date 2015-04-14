@@ -64,6 +64,12 @@ class Images(models.Model):
 	name = models.CharField(max_length = 50)
 	product = models.ForeignKey(Product, null = True)
 
+class Review(models.Model):
+	user = models.CharField(max_length = 50)
+	description = models.CharField(max_length = 300)
+	time = models.DateTimeField(auto_now_add = True)
+	product = models.ForeignKey(Product)
+
 class Fabric(models.Model):
     fabrics = models.CharField(max_length = 60)
     product = models.ManyToManyField(Product, null = True)

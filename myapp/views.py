@@ -17,6 +17,39 @@ def home(request):
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
+@login_required(login_url = '/user/login/')
+def createdress(request):
+    bases = Base.objects.all()
+    categories = Category.objects.all()   
+    print request.user.is_authenticated()
+    state = "Please enter your email ID below"
+
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    products = newarrivals.product_set.all()
+    return render_to_response('createdress.html',{'bases':bases, 'state':state, 'products':products, 'categories':categories},context_instance=RequestContext(request))
+
+@login_required(login_url = '/user/login/')
+def customizedress(request):
+    print "ENTERS HERE"
+    if request.method == "POST":
+        print "POST"
+        base = request.POST.get("base")
+        print base
+        patterns = Pattern.objects.all()
+        borders = Border.objects.all()
+        butta = Butta.objects.all()
+        categories = Category.objects.all() 
+        return render_to_response('customization.html',{'patterns':patterns,'borders':borders,'butta':butta,'base':base, 'categories':categories},context_instance=RequestContext(request))
+    else:
+        bases = Base.objects.all()
+        categories = Category.objects.all()   
+        print request.user.is_authenticated()
+        state = "Please enter your email ID below"
+
+        newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+        products = newarrivals.product_set.all()
+        return render_to_response('createdress.html',{'bases':bases, 'state':state, 'products':products, 'categories':categories},context_instance=RequestContext(request))
+
 def addcategory(request):
     current_user =  request.user
     print "CURRENT USER: ",current_user.username
@@ -237,6 +270,7 @@ def logout_user(request):
 
 @login_required(login_url = '/user/login/')
 def user_profile(request):
+    categories = Category.objects.all()
     state_ = "Please enter your credentials"
     state = "Please enter your email ID below"
     if request.method == "POST":
@@ -269,12 +303,13 @@ def user_profile(request):
         except: 
             state_ = "Please enter details correctly."
 
-    return render_to_response('user-profile.html', {'state_': state_, 'state': state}, context_instance=RequestContext(request))
+    return render_to_response('user-profile.html', {'state_': state_, 'state': state,'categories':categories}, context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def user_profile_address(request):
     state = "Please enter your email ID below"
     state_ = "Please enter the billing address details carefully."
+    categories = Category.objects.all()
 
     if request.method == "POST":    
         userprofile = UserProfile.objects.get_or_create(user = request.user)
@@ -287,12 +322,13 @@ def user_profile_address(request):
         userprofile.save()
         state_ = "Address details updated successfully. Thank you. "
 
-    return render_to_response('user-address.html', {'state_':state_, 'state':state },context_instance=RequestContext(request))
+    return render_to_response('user-address.html', {'state_':state_, 'state':state ,'categories':categories},context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def user_profile_creditcard(request):
     state = "Please enter your email ID below"
     state_ = "Please enter the billing address details carefully."
+    categories = Category.objects.all()
 
     if request.method == "POST":    
         print "enter"
@@ -307,13 +343,14 @@ def user_profile_creditcard(request):
         userprofile.save()
 
         state_ = "Details updated successfully."
-    return render_to_response('user-creditcard.html', {'state_':state_, 'state':state },context_instance=RequestContext(request))
+    return render_to_response('user-creditcard.html', {'state_':state_, 'state':state , 'categories':categories},context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def user_profile_pastorders(request):
     
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
+    categories = Category.objects.all()
     
     pastorders = userprofile.pastorders_set.all()
 
@@ -321,7 +358,7 @@ def user_profile_pastorders(request):
     for order in pastorders:
         products.append(Product.objects.get(productID = order.orderno))
 
-    return render_to_response('user-pastorders.html', {'products':products}, context_instance=RequestContext(request))
+    return render_to_response('user-pastorders.html', {'products':products,'categories':categories}, context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def user_profile_sizechart(request):
@@ -329,6 +366,7 @@ def user_profile_sizechart(request):
     state_ = "Please enter the size in inches"
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
+    categories = Category.objects.all()
     if request.method == "POST":
         bust = request.POST.get('bust')
         neck_back = request.POST.get('neck_back')
@@ -352,25 +390,25 @@ def user_profile_sizechart(request):
         userprofile.save()
         state_ = "The measurements are updated successfully. Thank you."
 
-    return render_to_response('user-sizechart.html', {'state':state, 'state_':state_, 'userprofile':userprofile}, context_instance=RequestContext(request))
+    return render_to_response('user-sizechart.html', {'state':state, 'state_':state_, 'userprofile':userprofile,'categories':categories}, context_instance=RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def user_profile_wishlist(request):
 
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
-    
+    categories = Category.objects.all()
     wishlist = userprofile.wishlist_set.all()
 
     products = []
     for wish in wishlist:
         products.append(Product.objects.get(productID = wish.wish_products))
 
-    return render_to_response('user-wishlist.html', {'products':products}, context_instance=RequestContext(request))
+    return render_to_response('user-wishlist.html', {'products':products,'categories':categories}, context_instance=RequestContext(request))
 
 def add_wish(request):
     productID = str(request.GET.get("product",""))
-
+    categories = Category.objects.all()
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
     
@@ -386,7 +424,7 @@ def add_wish(request):
     products = []
     for wish in wishlist:
         products.append(Product.objects.get(productID = wish.wish_products))
-    return render_to_response('user-wishlist.html', {'products':products}, context_instance=RequestContext(request))
+    return render_to_response('user-wishlist.html', {'products':products,'categories':categories}, context_instance=RequestContext(request))
 
 def price(request):
     price = request.POST.get("price")
@@ -408,7 +446,8 @@ def price(request):
         products = p.page(page)
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
-    return render_to_response('shop4.html', {'products' : products}, context_instance=RequestContext(request))
+    categories = Category.objects.all()
+    return render_to_response('shop4.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
 
     
 
@@ -426,7 +465,8 @@ def filter_color(request):
         products = p.page(page)
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
-    return render_to_response('shop3.html', {'products' : products}, context_instance=RequestContext(request))
+    categories = Category.objects.all()
+    return render_to_response('shop3.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
 
 
 def filter_occasion(request):
@@ -496,14 +536,15 @@ def filter_occasion(request):
         products = p.page(page)
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
-    return render_to_response('shop2.html', {'products' : products}, context_instance=RequestContext(request))
+    categories = Category.objects.all()
+    return render_to_response('shop2.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
 
 def item(request):
     try: 
         item = str(request.GET.get("item",""))
         print item
-        product = Product.objects.get(name = item)
-        print product.views
+        product = Product.objects.get(productID = (item))
+
         if product.views is None:
             product.views = 0
         product.views = product.views+1
@@ -535,7 +576,8 @@ def item(request):
             userprofile.waist_blouse = waist_blouse
             userprofile.save() # if rememberme == True
             state_ = "The measurements are updated successfully. Thank you."
-        return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile}, context_instance=RequestContext(request))
+        categories = Category.objects.all()
+        return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile,'categories':categories}, context_instance=RequestContext(request))
     except:
         categories = Category.objects.all()   
         print request.user.is_authenticated()
@@ -543,6 +585,58 @@ def item(request):
         newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
         products = newarrivals.product_set.all()
         return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
+
+
+
+def review(request):
+    if request.method == "POST":
+        productID = request.POST.get("productID")
+        user = request.POST.get("user")
+        description = request.POST.get("description")
+
+        product = Product.objects.get(productID = int(productID))
+
+        r = Review.objects.create(product = product, user = user, description = description)
+        r.save()
+        userprofile = UserProfile.objects.get(user = request.user)
+        categories = Category.objects.all()
+        return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile,'categories':categories}, context_instance=RequestContext(request))
+    else:
+        raise Http404
+
+def sizechart_update(request):
+    if request.method == "POST":
+        state_ = "Please enter the size in inches"
+        userprofile = UserProfile.objects.get_or_create(user = request.user)
+        userprofile = UserProfile.objects.get(user = request.user)
+    
+        productID = request.POST.get("productID")
+        bust = request.POST.get('bust')
+        neck_back = request.POST.get('neck_back')
+        neck_front = request.POST.get('neck_front')
+        sleeve_width = request.POST.get('sleeve_width')
+        sleeve_length = request.POST.get('sleeve_length')
+        shoulder = request.POST.get('shoulder')
+        length_blouse = request.POST.get('length_blouse')
+        waist_blouse = request.POST.get('waist_blouse')
+
+        userprofile = UserProfile.objects.get_or_create(user = request.user)
+        userprofile = UserProfile.objects.get(user = request.user)
+        userprofile.bust = bust
+        userprofile.neck_front = neck_front
+        userprofile.neck_back = neck_back
+        userprofile.sleeve_length = sleeve_length
+        userprofile.sleeve_width = sleeve_width
+        userprofile.shoulder = shoulder
+        userprofile.length_blouse = length_blouse
+        userprofile.waist_blouse = waist_blouse
+        userprofile.save()
+        userprofile = UserProfile.objects.get(user = request.user)
+        product = Product.objects.get(productID = productID)
+        categories = Category.objects.all()
+        return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile, 'categories':categories}, context_instance=RequestContext(request))
+    else:
+        raise Http404
 
 def shop(request): 
     sub = str(request.GET.get("sub",""))
@@ -575,13 +669,11 @@ def shop(request):
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
 
+    categories = Category.objects.all()
+    return render_to_response('shop.html', {'products' : products,'sub':sub, 'categories':categories}, context_instance=RequestContext(request))
 
-    return render_to_response('shop.html', {'products' : products,'sub':sub}, context_instance=RequestContext(request))
 
-def product_details(request):
-    #Add view to Page views
-    return render_to_response('product-details.html',context_instance = RequestContext(request))
-
+@login_required(login_url = '/user/login/')
 def cart(request):
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
@@ -606,7 +698,8 @@ def cart(request):
         print item.cart_products
         product = Product.objects.get(productID = int(item.cart_products))
         products.append(product)
-    return render_to_response('cart.html',{'products':products},context_instance = RequestContext(request))
+    categories = Category.objects.all()
+    return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
     
 def login_user(request):
     state = "Please log in below."
@@ -632,8 +725,8 @@ def login_user(request):
             state = "Your username and/or password were incorrect."
 
     print state
-
-    return render_to_response('login.html',{'state':state, 'username': username},context_instance=RequestContext(request))
+    categories = Category.objects.all()
+    return render_to_response('login.html',{'state':state, 'username': username,'categories':categories},context_instance=RequestContext(request))
 
 def register_user(request):
     if request.method == "POST":
@@ -645,7 +738,8 @@ def register_user(request):
         user.save()
 
         state = "Your account is active. Please login to verify."
-    return render_to_response('login.html',{'state':state},context_instance = RequestContext(request))
+    categories = Category.objects.all()
+    return render_to_response('login.html',{'state':state,'categories':categories},context_instance = RequestContext(request))
 
 def subscribe(request):
     state = "Please enter your email ID below"
@@ -676,7 +770,8 @@ def search(request):
             products = p.page(page)
         except (InvalidPage, EmptyPage):
             products = p.page(paginator.num_pages)
-        return render_to_response('shop.html', {'products' : products}, context_instance = RequestContext(request))
+        categories = Category.objects.all()
+        return render_to_response('shop.html', {'products' : products,'categories':categories}, context_instance = RequestContext(request))
 
 
     state = "Please enter your email ID below"

@@ -9,12 +9,13 @@
     <meta name="author" content="">
     <title>{% block title %} Home{% endblock %} | NIKScreations</title>
     
-    <link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/animate.css' %}" rel = "stylesheet"> 
-    <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
-     <link href = "{{STATIC_URL}}css/side-menu.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/bootstrap.min.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/animate.css" rel = "stylesheet"> 
+    <link href = "{{STATIC_URL}}css/font-awesome.min.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/main.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/responsive.css	" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/side-menu.css" rel = "stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -30,7 +31,7 @@
 	</style>
 	{%block stylesheets%}{%endblock%}
 
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    
 
 	
     <!--[if lt IE 9]>
@@ -90,7 +91,7 @@
 					<div class="col-md-4 pull-right">
 						<div class = "pull-right menuButtons" style="margin-top:15px ">
 							<a href="/user/createdress/" class="btn btn-default btn-lg" >Create a Dress</a>
-							<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
+							{% block ShopTogether %}{% endblock %}
 
 						</div><br>
 						<div class="search_box pull-right">
@@ -144,6 +145,7 @@
 	</header>
 	<body>
 	{% block body %}{% endblock%}
+	</body>
 		<footer id="footer"><!--Footer-->
 		
 		<div class="footer-widget">
@@ -185,5 +187,5 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/rango-jquery.js"></script>
     <script src="https://togetherjs.com/togetherjs-min.js"></script>
  {%block scripts%}{%endblock%}
-</body>
+
 </html>

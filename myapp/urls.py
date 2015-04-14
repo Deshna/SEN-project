@@ -16,8 +16,7 @@ urlpatterns = patterns('',
         name='item',),
     url(r'subscribe', views.subscribe,
         name='subscribe',),
-    url(r'product_details', views.product_details,
-        name='product_details',),
+
     url(r'search', views.search,
         name='search',),
     url(r'cart', views.cart,
@@ -25,8 +24,17 @@ urlpatterns = patterns('',
     url(r'logout', views.logout_user,
         name='logout_user',),
 
+    url(r'review', views.review,
+        name='review',),
+
+    url(r'sizechart_update', views.sizechart_update,
+        name='sizechart_update',),
+
     url(r'createdress', views.createdress,
         name='createdress',),
+
+    url(r'customizedress', views.customizedress,
+        name='customizedress',),
 
     url(r'showproducts', views.showproducts,
         name='showproducts',),

@@ -174,7 +174,7 @@
 						</div>
 						<div class="modal-body">
 							<textarea style="background-color:#ffffff"> NOTE: Measurement has to be taken over the body and not previously made garments				</textarea>
-							<form class="form-horizontal" style="margin-top:20px">
+							<form class="form-horizontal" action = "/user/sizechart_update/" method = "POST" 	style="margin-top:20px">
 								<fieldset>
 
 									<div class="form-group" style="margin-top:2px">
@@ -244,29 +244,17 @@
 																			<label class="pull-right control-label" for="textinput">Neck(Back)</label>  </div>
 																			<div class="col-md-2">
 																				<input id="textinput" name="neck_back" type="text" placeholder={{ userprofile.neck_back }} class="form-control input-md">
-
 																			</div>
-
-
 																		</div>
-
-
-
-
-																	<div class="col-md-12">
-																		<div class="checkbox" style="margin:5px">
-																			<label>
-																				<input name = "rememberme" type="checkbox"/> Remember Size
-																			</label>
-																		</div>
-																	</div>
 																</fieldset>
 
-															</form>
-														</div>
+															
+														
 														<div class="modal-footer">
-															<button type="button" class="btn btn-primary" style="margin:5px">     Ok    </button>
+															<button type="button" class="btn btn-primary" value = "submit" style="margin:5px">     Ok    </button>
 														</div>
+														</form>
+													</div>
 													</div>
 												</div>
 											</div>
@@ -274,26 +262,17 @@
 												<div class="product-details"><!--product-details-->
 													<div class="col-sm-4">
 														<div class="view-product">
-															<img src="{{ STATIC_URL }}images/product-details/download.jpg"  class="img-responsive" data-imagezoom="true" style="margin-top:30px"/>
+															<img src="{{ STATIC_URL }}{{ product.image.url }}"  class="img-responsive" data-imagezoom="true" style="margin-top:30px"/>
 														</div>
 														<div id="similar-product" class="carousel slide" data-ride="carousel">
 
 															<div class="carousel-inner">
+															{% for i in product.images_set.all %}
 																<div class="item active">
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar1.jpg" alt=""></a>
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar2.jpg" alt=""></a>
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar3.jpg" alt=""></a>
+																	<a href=""><img src ="{{STATIC_URL}}{{ i.image.url }}" alt=""></a>
 																</div>
-																<div class="item">
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar1.jpg" alt=""></a>
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar2.jpg" alt=""></a>
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar3.jpg" alt=""></a>
-																</div>
-																<div class="item">
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar1.jpg" alt=""></a>
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar2.jpg" alt=""></a>
-																	<a href=""><img src="{{ STATIC_URL }}images/product-details/similar3.jpg" alt=""></a>
-																</div>
+															{% endfor %}
+																
 															</div>
 
 
@@ -309,8 +288,8 @@
 													<div class="col-sm-8">
 														<div class="product-information">
 															<!-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> -->
-															<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-															<p>Conspicuous magenta and maroon velvet lehenga saree with brocade lining designed with resham, zari, lace and patch border work. As shown unstitched blouse is available. (Slight variation in color is possible.)</p>
+															<h2>{{ product.name }}</h2>
+															<p>{{ product.description }} (Slight variation in color is possible.)</p>
 															<span>
 
 																<div class="row">
@@ -327,20 +306,19 @@
 																	</div>
 																</div>
 
-																<span>Rs5999</span>
-																<label>Quantity:</label>
-																<input type="text" value="3" />
-																<button  href="/user/cart/" type="button" class="btn btn-fefault cart">
-																	<i class="fa fa-shopping-cart"></i>
-																	Add to cart
-																</button>
+																<span>Rs.{{ product.price }}</span>
+
+																<form method = "POST" action = "/user/cart/">
+																{% csrf_token %}
+																<input type = "hidden" name = "addcart" value = {{ p.productID }}>
+																<button type = "submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+																</form>
 															</span>
 														<!-- <p><b>Availability:</b> In Stock</p>
 														<p><b>Condition:</b> New</p> -->
-														<div class="social-icons1">
-															<ul>	
-																<li style="padding:10px"><a href=""><span class="glyphicon glyphicon-heart"></span>Add to Wishlist</a></li>
-
+														<div class="choose">
+															<ul class="nav nav-pills nav-justified">
+															<li><a href="/user/add_wish?product={{ p.productID }}"><i class="fa fa-plus-square"></i>Add to Wishlist</a></li>
 															</ul>
 														</div>
 													</div>
@@ -350,7 +328,7 @@
 															<td width="15%">Style</td>
 															<td width="1%">:</td>
 															<td width="38%">
-																<span><a href="">Lehenga Saree</a></span>
+																<span><a href="">{{ product.subcategory.name }}</a></span>
 
 															</td>
 															<td width="25%">Shipping Time</td>
@@ -363,34 +341,38 @@
 															<td width="15%">Occasion</td>
 															<td width="1%">:</td>
 															<td width="45%">
-																<span><a href="">Festival</a></span>
-
-																<span><a href="">Reception</a></span>
+															{% for i in product.occasion_set.all %}
+																<span><a href="">{{ i.occasions }}</a></span>
+															{% endfor %}
 															</td>
 															<td width="15%">Fabric</td>
 															<td width="1%">:</td>
 															<td width="45%">
-																<span><a href="">Velvet</a></span>
-
+															{% for i in product.fabric_set.all %}
+																<span><a href="">{{ i.fabrics }}</a></span>
+															{% endfor %}
 															</td>
 														</tr>
 														<tr>
 															<td width="15%">Colour</td>
 															<td width="1%">:</td>
 															<td width="45%">
-																<span><a href="">Pink</a></span>
-
-																<span><a href="">Maroon</a></span>
-
+															{% for i in product.color_set.all %}
+																<span><a href="">{{ i.colors }}</a></span>
+															{% endfor %}
 															</td>
 															<td width="15%">Catalog No.</td>
 															<td width="1%">:</td>
-															<td width="45%"><span><a href="">SS-1773</a></span></td>
+															<td width="45%"><span><a href="">{{ product.productID }}</a></span></td>
 														</tr>
 														<tr>
 															<td width="15%">Work</td>
 															<td width="1%">:</td>
-															<td width="45%"><span><a href="">Embroidered</a></span></td>
+															<td width="45%">
+															{% for i in product.work_set.all %}
+																<span><a href="">{{ i.works }}</a></span>
+															{% endfor %}
+															</td>
 														</tr>
 													</table> 
 												</div>
@@ -427,46 +409,21 @@
 									
 									<div class="additional-details tab-pane fade active in" style="max-height:25em;overflow-y:scroll;" id="reviews" >
 										
+										{% for r in product.review_set.all %}
 										<div style="margin-bottom:50px" >
 
-										<ul >
-											<li><a href=""><i class="fa fa-user"></i><b>EUGEN</b></a></li>
-											<li><a href=""><i class="fa fa-clock-o"></i><b>12:41 PM</b></a></li>
-											<li><a href=""><i class="fa fa-calendar-o"></i><b>31 DEC 2014</b></a></li>
-										</ul>
 
+										<ul >
+											<li><a href=""><i class="fa fa-user"></i><b>{{ r.user }}</b></a></li>
+											<li><a href=""><i class="fa fa-clock-o"></i><b>{{ r.time }}</b></a></li>
+										</ul>
+										
 										<div class="rating3"></div>
 
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+										<p>{{ r.description }}</p>
 										</div>
+										{% endfor %}
 										
-										<div style="margin-bottom:50px" >
-
-										<ul >
-											<li><a href=""><i class="fa fa-user"></i><b>EUGEN</b></a></li>
-											<li><a href=""><i class="fa fa-clock-o"></i><b>12:41 PM</b></a></li>
-											<li><a href=""><i class="fa fa-calendar-o"></i><b>31 DEC 2014</b></a></li>
-										</ul>
-
-										<div class="rating3"></div>
-
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-										</div>					
-
-										<div style="margin-bottom:50px" >
-
-										<ul >
-											<li><a href=""><i class="fa fa-user"></i><b>EUGEN</b></a></li>
-											<li><a href=""><i class="fa fa-clock-o"></i><b>12:41 PM</b></a></li>
-											<li><a href=""><i class="fa fa-calendar-o"></i><b>31 DEC 2014</b></a></li>
-										</ul>
-
-										<div class="rating3"></div>
-
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-										</div> 
-										
-
 										
 
 									</div>
@@ -477,110 +434,21 @@
 							
 							<di class="col-sm-12" id="reviews1">
 							<p><b>Write Your Review</b></p>
+										
+										<form style="margin-top:20px"action = "/user/review/" method = "POST">
+										{% csrf_token %}
 										<div id="ratings"></div>
-										<form style="margin-top:20px"action="#">
 											<span>
-												<input type="text" placeholder="Your Name"/>
+												<input type="text" name = "user" placeholder="Your Name"/>
 											</span>
-											<textarea name="" ></textarea>
+											<textarea name="description" ></textarea>
+											<input type = "hidden" name = "productID" value = {{ product.productID }}>
 											
-											
-											<button type="button" class="btn btn-default pull-right">
+											<button type="submit" class="btn btn-default pull-right">
 												Submit
 											</button>
 										</form>
 							</div>
-
-							<div style="margin-top:40px"class="col-sm-12 recommended_items"><!--recommended_items-->
-								<h2 class="title text-center">recommended items</h2>
-
-								<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-									<div class="carousel-inner">
-										<div class="item active">	
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}images/home/recommend1.jpg" alt="" />
-															<h2>$56</h2>
-															<p>Easy Polo Black Edition</p>
-															<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}{{ STATIC_URL }}images/home/recommend2.jpg" alt="" />
-															<h2>$56</h2>
-															<p>Easy Polo Black Edition</p>
-															<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}images/home/recommend3.jpg" alt="" />
-															<h2>$56</h2>
-															<p>Easy Polo Black Edition</p>
-															<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="item">	
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}images/home/recommend1.jpg" alt="" />
-															<h2>$56</h2>
-															<p>Easy Polo Black Edition</p>
-															<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}images/home/recommend2.jpg" alt="" />
-															<h2>$56</h2>
-															<p>Easy Polo Black Edition</p>
-															<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="product-image-wrapper">
-													<div class="single-products">
-														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}images/home/recommend3.jpg" alt="" />
-															<h2>$56</h2>
-															<p>Easy Polo Black Edition</p>
-															<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-										<i class="fa fa-angle-left"></i>
-									</a>
-									<a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-										<i class="fa fa-angle-right"></i>
-									</a>			
-								</div>
-							</div><!--/recommended_items-->
 
 						</div>
 

@@ -4,11 +4,15 @@
 {% block title%}Shop{%endblock%}
 
 
-{% block styleSheets%}
+{% block stylesheets%}
 <link href = "{{STATIC_URL}}css/price-range.css" rel = "stylesheet">
 <link href = "{{STATIC_URL}}css/jquery.simplecolorpicker.css" rel = "stylesheet">
-<link href = "{{STATIC_URL}}css/simplecolorpicker-regularfont.css" rel = "stylesheet">
+<link href = "{{STATIC_URL}}css/jquery.simplecolorpicker-regularfont.css" rel = "stylesheet">
 {%endblock%}
+
+{% block ShopTogether %}
+	<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
+{% endblock %}
 
 {% block body%}
 <section>
@@ -220,12 +224,8 @@
 
 				{% block scripts %}
 				<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.simplecolorpicker.js"></script>
-			
 				<script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
-			
 				<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
-			
-				<script type="text/javascript" src="{{ STATIC_URL }}js/rango-jquery.js"></script>
 				<script src="https://togetherjs.com/togetherjs-min.js"></script>
 
 				<script>
@@ -234,6 +234,14 @@
 						var x = document.URL;
 						document.getElementById("demo").innerHTML = x;
 					}
+
+					$('#sl2').slider();
+					var RGBChange = function() {
+	  					$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+					};
+
+
+
 					$(document).ready(function() {
 
         // JQuery code to be added in here.
