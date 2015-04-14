@@ -181,7 +181,7 @@
 						<div class="product-image-wrapper">
 							<div class="single-products">
 								<div class="productinfo text-center">
-									<a href = "/user/item/?item={{ p.name }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "207" height = "250"/></a>
+									<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "207" height = "250"/></a>
 									<h2>{{ p.price }} rs.</h2>
 									<p>{{ p.name }}</p>
 									<form method = "POST" action = "/user/cart/">

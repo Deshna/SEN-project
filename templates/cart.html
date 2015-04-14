@@ -8,15 +8,17 @@
     <meta name="author" content="">
     <title>Shop | Niks-Creations</title>
 
-	<link href = "{% static 'css/bootstrap.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/bootstrap.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/font-awesome.min.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/prettyPhoto.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/price-range.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/animate.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/main.css' %}" rel = "stylesheet">
-    <link href = "{% static 'css/responsive.css' %}" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/bootstrap.min.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/bootstrap.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/animate.css" rel = "stylesheet"> 
+    <link href = "{{STATIC_URL}}css/font-awesome.min.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/prettyPhoto.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/price-range.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/main.css" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/responsive.css	" rel = "stylesheet">
+    <link href = "{{STATIC_URL}}css/side-menu.css" rel = "stylesheet">
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
 	<style>
 	h4{
 		font-size: 120%;
@@ -82,7 +84,7 @@
 					<div class="col-md-4 pull-right">
 						<div class = "pull-right menuButtons" style="margin-top:15px ">
 							<a href="/user/createdress/" class="btn btn-default btn-lg" >Create a Dress</a>
-							{% block ShopTogether %}{% endblock %}
+							<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
 
 						</div><br>
 						<div class="search_box pull-right">
@@ -132,7 +134,7 @@
 		</nav>
 	</div>
 
-			</header>	
+</header>	
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -169,19 +171,7 @@
 							<td class="cart_price">
 								<p>{{ p.price }}</p>
 							</td>
-							<!-- <td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">Rs.1999</p>
-							</td> 
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>-->
+							
 						</tr>
 						{% endfor %}
 						
@@ -194,82 +184,7 @@
 		</div>
 	</section> <!--/#cart_items-->
 	
-	<!-- <section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-				<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="chose_area">
-						<ul class="user_option">
-							<li>
-								<input type="checkbox">
-								<label>Use Coupon Code</label>
-							</li>
-							<li>
-								<input type="checkbox">
-								<label>Use Gift Voucher</label>
-							</li>
-							<li>
-								<input type="checkbox">
-								<label>Estimate Shipping & Taxes</label>
-							</li>
-						</ul>
-						<ul class="user_info">
-							<li class="single_field">
-								<label>Country:</label>
-								<select>
-									<option>United States</option>
-									<option>Bangladesh</option>
-									<option>UK</option>
-									<option>India</option>
-									<option>Pakistan</option>
-									<option>Ucrane</option>
-									<option>Canada</option>
-									<option>Dubai</option>
-								</select>
-								
-							</li>
-							<li class="single_field">
-								<label>Region / State:</label>
-								<select>
-									<option>Select</option>
-									<option>Dhaka</option>
-									<option>London</option>
-									<option>Dillih</option>
-									<option>Lahore</option>
-									<option>Alaska</option>
-									<option>Canada</option>
-									<option>Dubai</option>
-								</select>
-							
-							</li>
-							<li class="single_field zip-field">
-								<label>Zip Code:</label>
-								<input type="text">
-							</li>
-						</ul>
-						<a class="btn btn-default update" href="">Get Quotes</a>
-						<a class="btn btn-default check_out" href="">Continue</a>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
-							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
-						</ul>
-							<a class="btn btn-default update" href="">Update</a>
-							<a class="btn btn-default check_out" href="">Check Out</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><!-/#do_action-->
+
 	<footer id="footer"><!--Footer-->
 		
 		<div class="footer-widget">
@@ -296,9 +211,6 @@
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
 							</form>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
 					</div>
 				</div>
 			</div>
