@@ -712,14 +712,16 @@ def item_cart(request):
     cart_items = userprofile.cart_set.all()
     print cart_items
     products = []
+    total = 0
     for item in cart_items:
         print "here is: ",item.cart_products
         string = str(item.cart_products)
         print "INT:",int(string)
         product = Product.objects.get(productID = int(string))
+        total  = total + product.price
         products.append(product)
     categories = Category.objects.all()
-    return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
+    return render_to_response('cart.html',{'products':products,'categories':categories, 'total':total},context_instance = RequestContext(request))
     
 def login_user(request):
     state = "Please log in below."
@@ -819,12 +821,14 @@ def cart_delete(request):
     userprofile = UserProfile.objects.get(user = request.user)
     cart_items = userprofile.cart_set.all()
     products = []
+    total = 0
     for item in cart_items:
         print item.cart_products
         product = Product.objects.get(productID = int(item.cart_products))
+        total = total + product.price
         products.append(product)
     categories = Category.objects.all()
-    return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
+    return render_to_response('cart.html',{'products':products,'categories':categories,'total':total},context_instance = RequestContext(request))
    
 @login_required(login_url = '/user/login') 
 def wish_delete(request):
