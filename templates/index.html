@@ -71,7 +71,7 @@
 												<div class="product-image-wrapper">
 													<div class="single-products">
 														<div class="productinfo text-center">
-															<img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" />
+															<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" /></a>
 															<h2>{{ p.price }}</h2>
 															<p>{{ p.name }}</p>
 															<form method = "POST" action = "/user/item_cart/">

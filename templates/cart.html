@@ -30,7 +30,7 @@
 					{% for p in products %}
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{ STATIC_URL }}{{ p.image.url }}"  width = "200" height = "200" alt=""></a>
+								<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}"  width = "200" height = "200" alt=""></a>
 							</td>
 							<td class="cart_description">
 								<h4><a href="">{{ p.name }}</a></h4>
