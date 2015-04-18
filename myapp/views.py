@@ -257,10 +257,6 @@ def adminupload(request):
     return render_to_response('image.html',{'state':state},context_instance=RequestContext(request))
 
 def showproducts(request):
-    current_user =  request.user
-    print "CURRENT USER: ",current_user.username
-    if current_user.username != "admin":
-        raise Http404
     products = Product.objects.all()
     return render_to_response('showproducts.html',{'products':products},context_instance = RequestContext(request))
 
@@ -665,7 +661,6 @@ def shop(request):
         string = n.name.split('.')
         n.name_clean = string[0]
         n.save()'''
-    print "-------------"
 
     p = Paginator(products,9)
     print "PAGINATED"
@@ -690,7 +685,6 @@ def shop(request):
 
 @login_required(login_url = '/user/login/')
 def item_cart(request):
-    print "DOES IT COME TO THIS?"
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
     stop = True
