@@ -4,7 +4,7 @@ from django.db import models
 class UserProfile(models.Model):
     #required by the auth model
     user = models.OneToOneField(User, unique=True)
-    fullname = models.CharField(max_length=30, null=True, blank=True)
+    fullname = models.CharField(max_length=100, null=True, blank=True)
     length_blouse = models.IntegerField(null = True, blank = True)
     waist_blouse = models.IntegerField(null = True, blank = True)
     sleeve_length = models.IntegerField(null = True, blank = True)
