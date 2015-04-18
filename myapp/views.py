@@ -257,6 +257,10 @@ def adminupload(request):
     return render_to_response('image.html',{'state':state},context_instance=RequestContext(request))
 
 def showproducts(request):
+    current_user =  request.user
+    print "CURRENT USER: ",current_user.username
+    if current_user.username != "admin":
+        raise Http404
     products = Product.objects.all()
     return render_to_response('showproducts.html',{'products':products},context_instance = RequestContext(request))
 
@@ -458,7 +462,14 @@ def price(request):
     categories = Category.objects.all()
     return render_to_response('shop4.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
 
-    
+def location(request):
+    categories = Category.objects.all()   
+    print request.user.is_authenticated()
+    state = "Please enter your email ID below"
+
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    products = newarrivals.product_set.all()
+    return render_to_response('store-location.html',{'products':products,'categories':categories, 'state':state}, context_instance = RequestContext(request))
 
 def filter_color(request):
     color = request.POST.get("colorpicker-shortlist")
@@ -661,6 +672,7 @@ def shop(request):
         string = n.name.split('.')
         n.name_clean = string[0]
         n.save()'''
+    print "-------------"
 
     p = Paginator(products,9)
     print "PAGINATED"
