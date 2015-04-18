@@ -33,6 +33,8 @@ urlpatterns = patterns('',
     url(r'search', views.search,
         name='search',),
 
+    url(r'wish_delete', views.wish_delete,
+        name='wish_delete',),
     url(r'logout', views.logout_user,
         name='logout_user',),
 

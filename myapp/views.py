@@ -411,17 +411,25 @@ def user_profile_wishlist(request):
 
     return render_to_response('user-wishlist.html', {'products':products,'categories':categories}, context_instance=RequestContext(request))
 
+ 
 def add_wish(request):
     productID = str(request.GET.get("product",""))
     categories = Category.objects.all()
     userprofile = UserProfile.objects.get_or_create(user = request.user)
     userprofile = UserProfile.objects.get(user = request.user)
-    
+
+    stop = True
     if len(productID)>0:
-        print productID
-        wish = Wishlist.objects.create(wish_products = productID)
-        userprofile.wishlist_set.add(wish)
-        userprofile.save()
+        wishes = userprofile.wishlist_set.all()
+        for w in wishes:
+            if int(productID) == int(w.wish_products):
+                stop = False
+                break
+        print stop
+        if stop:
+            wish = Wishlist.objects.create(wish_products = productID)
+            userprofile.wishlist_set.add(wish)
+            userprofile.save()
 
     wishlist = userprofile.wishlist_set.all()
     print wishlist
@@ -817,7 +825,32 @@ def cart_delete(request):
         products.append(product)
     categories = Category.objects.all()
     return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
-    
+   
+@login_required(login_url = '/user/login') 
+def wish_delete(request):
+    if request.method == 'POST':
+        productID = request.POST.get("delete")
+        print productID
+        userprofile = UserProfile.objects.get_or_create(user = request.user)
+        userprofile = UserProfile.objects.get(user = request.user)
+        cart_item = userprofile.wishlist_set.all()
+        for item in cart_item:
+            if int(item.wish_products) == int(productID):
+                userprofile.wishlist_set.remove(item)
+
+    userprofile = UserProfile.objects.get_or_create(user = request.user)
+    userprofile = UserProfile.objects.get(user = request.user)
+    cart_items = userprofile.wishlist_set.all()
+    products = []
+    for item in cart_items:
+        print item
+        product = Product.objects.get(productID = int(item.wish_products))
+        products.append(product)
+    categories = Category.objects.all()
+    return render_to_response('user-wishlist.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
+   
+
+
 
 def savedress(request):
     if request.method == "POST":
