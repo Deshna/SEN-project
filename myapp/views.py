@@ -715,9 +715,7 @@ def item_cart(request):
     total = 0
     for item in cart_items:
         print "here is: ",item.cart_products
-        string = str(item.cart_products)
-        print "INT:",int(string)
-        product = Product.objects.get(productID = int(string))
+        product = Product.objects.get(productID = int(item.cart_products))
         total  = total + product.price
         products.append(product)
     categories = Category.objects.all()
