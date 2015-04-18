@@ -25,7 +25,7 @@ class UserProfile(models.Model):
     cvv = models.IntegerField(null=True,blank=True)
 
 class Category(models.Model):
-	name = models.CharField(max_length = 30)
+	name = models.CharField(max_length = 100)
 	description = models.CharField(max_length = 300)
 	categoryID = models.IntegerField(primary_key = True)
 
@@ -33,7 +33,7 @@ class Category(models.Model):
 		return self.name
 
 class SubCategory(models.Model):
-	name = models.CharField(max_length = 30,primary_key = True)
+	name = models.CharField(max_length = 100,primary_key = True)
 	category = models.ForeignKey(Category)
 	SubCategoryID = models.IntegerField(null = True, blank = True)
 
