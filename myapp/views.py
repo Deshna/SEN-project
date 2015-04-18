@@ -7,6 +7,9 @@ from myapp.models import *
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import Http404 
+from PIL import Image
+import base64, csv
+from time import strftime
 
 def home(request):
     categories = Category.objects.all()   
@@ -33,8 +36,10 @@ def customizedress(request):
     print "ENTERS HERE"
     if request.method == "POST":
         print "POST"
-        base = request.POST.get("base")
-        print base
+        b = request.POST.get("base")
+        print b
+        base = Base.objects.get(image = b)
+        print base.mask_sideborder.url
         patterns = Pattern.objects.all()
         borders = Border.objects.all()
         butta = Butta.objects.all()
@@ -682,7 +687,6 @@ def item_cart(request):
     userprofile = UserProfile.objects.get(user = request.user)
     stop = True
     if request.method == "POST":
-        print "ANDAR NAHI AARA"
         addcart = request.POST.get('addcart')
         print addcart
         userprofile = UserProfile.objects.get_or_create(user = request.user)
@@ -698,10 +702,13 @@ def item_cart(request):
             userprofile.cart_set.add(cart_item)
 
     cart_items = userprofile.cart_set.all()
+    print cart_items
     products = []
     for item in cart_items:
-        print item.cart_products
-        product = Product.objects.get(productID = int(item.cart_products))
+        print "here is: ",item.cart_products
+        string = str(item.cart_products)
+        print "INT:",int(string)
+        product = Product.objects.get(productID = int(string))
         products.append(product)
     categories = Category.objects.all()
     return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
@@ -792,13 +799,16 @@ def aboutus(request):
 def cart_delete(request):
     if request.method == "POST":
         productID = request.POST.get("delete")
+        print productID
         userprofile = UserProfile.objects.get_or_create(user = request.user)
         userprofile = UserProfile.objects.get(user = request.user)
-        cart_item = []
-        cart_item.append(Cart.objects.get(cart_products = productID))
+        cart_item = userprofile.cart_set.all()
         for item in cart_item:
-            userprofile.cart_set.remove(item)
+            if item.cart_products == productID:
+                userprofile.cart_set.remove(item)
 
+    userprofile = UserProfile.objects.get_or_create(user = request.user)
+    userprofile = UserProfile.objects.get(user = request.user)
     cart_items = userprofile.cart_set.all()
     products = []
     for item in cart_items:
@@ -809,3 +819,23 @@ def cart_delete(request):
     return render_to_response('cart.html',{'products':products,'categories':categories},context_instance = RequestContext(request))
     
 
+def savedress(request):
+    if request.method == "POST":
+        img_string = request.POST.get('myvar', '')
+        img_string = img_string.split(',')
+        name_string = request.POST.get('name')
+        name = name_string +".png"
+        path = "created-dress/"+name
+        f = open(path,"wb")
+        f.write(base64.b64decode(img_string[1]))
+        #f.write(decodestring(img_string))
+        f.close()
+        f = open('created-dress/orders_placed.csv','ab')
+        writer = csv.writer(f)
+        time = strftime("%Y-%m-%d %H:%M:%S")
+        writer.writerow([request.user.username,name_string,time])
+
+        return render_to_response('blank.html',context_instance = RequestContext(request))
+
+    else:
+        raise Http404

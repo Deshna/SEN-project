@@ -10,6 +10,9 @@ urlpatterns = patterns('',
     url(r'about', views.aboutus,
         name='aboutus',),
 
+    url(r'savedress', views.savedress,
+        name='savedress',),
+
     url(r'item_cart', views.item_cart,
         name='item_cart',),
 

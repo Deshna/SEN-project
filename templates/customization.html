@@ -142,8 +142,6 @@
 		</nav>
 	</div>
 
-
-
 			</header>
 
 			<div class="row">
@@ -381,7 +379,7 @@
 															</li>
 															{% for but in butta %}
 															<li class="col-lg-3 col-md-4 col-sm-3 col-xs-4"><img data-imagezoom="true" data-zoomviewsize = "[200,200]" data-magnification = "3"  style="margin:5px auto 5px;height:84px;width:84px;"class="img-responsive"src="{{ STATIC_URL }}{{ but.image.url }}">
-																<button href="#" name="{{ STATIC_URL }}{{ but.image.url }}" >Select</button>
+																<button href="#" name="{{ STATIC_URL }}{{ but.image.url }}"class="btn btn-default customizeButton mainButta" >Select</button>
 															{% endfor %}
 											</li>
 											
@@ -391,6 +389,16 @@
 							</div>
 						</div>
 					</div>
+
+													
+
+<form method="POST" enctype="multipart/form-data" action="/user/savedress/" id="myForm">
+{% csrf_token %}
+    <input type="hidden" name="myvar" id="myvar" />
+    <input type = "text" name = "name" />
+    <input type="submit" value="Submit" onclick="capture();" />
+</form>
+													
 
 						</div>
 
@@ -448,6 +456,8 @@
 	var RGBChange = function() {
 		$('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 	};	
+
+	
 
 	$(function(){
 		$('.scale').attr('style','visibility:hidden');
@@ -584,7 +594,8 @@ var img2=new Image();
 var baseColor="#ffffff";
 var url_model="{{ STATIC_URL }}{{ base.mask_model.url }}";
 var url_kurta="{{ STATIC_URL }}{{ base.mask_suit.url }}";
-var url_sideBorderArea="{{ STATIC_URL }}{{ base.mask_sideborder.url }}";
+
+var url_sideBorderArea = "{{ STATIC_URL }}{{ base.mask_sideborder.url }}"
 console.log(url_sideBorderArea);
 var url_neckBorderArea="{{ STATIC_URL }}{{ base.mask_neckborder.url }}";
 var url_bottomBorderArea="{{ STATIC_URL }}{{ base.mask_bottomborder.url }}";
@@ -779,9 +790,9 @@ img1.onload=function(){
             //smallButta();
 
         }
-        img2.src="{{ STATIC_URL }}/base/kurta-1-model.png";
+        img2.src="{{ STATIC_URL }}{{ base.mask_model.url }}";
     }
-    img1.src="{{ STATIC_URL }}/base/kurta-1.png";
+    img1.src="{{ STATIC_URL }}{{ base.mask_suit.url }}";
     
     //img.src="images/customization/borders/border-2.png";
 
@@ -1073,8 +1084,13 @@ ctx.drawImage(img2,0,0,canvas.width,canvas.height);
 i.src=url_mainButta;
 
 }
+
 }
 ); // end $(function(){});
+function capture(){
+var data = canvas.toDataURL();
+document.getElementById('myvar').value = data;
+}
 </script>
 
 
