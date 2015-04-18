@@ -4,7 +4,7 @@ from django.db import models
 class UserProfile(models.Model):
     #required by the auth model
     user = models.OneToOneField(User, unique=True)
-    fullname = models.CharField(max_length=100, null=True, blank=True)
+    fullname = models.CharField(max_length=30, null=True, blank=True)
     length_blouse = models.IntegerField(null = True, blank = True)
     waist_blouse = models.IntegerField(null = True, blank = True)
     sleeve_length = models.IntegerField(null = True, blank = True)
@@ -47,7 +47,7 @@ def get_upload_file_name(instance, filename):
 class Product(models.Model):
 	#image = models.ImageField(upload_to = 'media/', blank = True, null = True) #, height_field = '', width_field = '')
 	image = models.ImageField(upload_to = "home/",null = True)
-	name = models.CharField(max_length = 30)
+	name = models.CharField(max_length = 100)
 	price = models.IntegerField()
 	productID = models.IntegerField(primary_key = True)
 	description = models.CharField(max_length = 300,default = "none")
