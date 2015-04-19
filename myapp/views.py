@@ -24,7 +24,6 @@ def home(request):
 def createdress(request):
     bases = Base.objects.all()
     categories = Category.objects.all()   
-    print request.user.is_authenticated()
     state = "Please enter your email ID below"
 
     newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
@@ -33,7 +32,6 @@ def createdress(request):
 
 @login_required(login_url = '/user/login/')
 def customizedress(request):
-    print "ENTERS HERE"
     if request.method == "POST":
         print "POST"
         b = request.POST.get("base")
@@ -86,9 +84,7 @@ def addsubcategory(request):
         categoryID = request.POST.get("categoryID")
 
         try:
-            print "PROBLEM1"
             c = Category.objects.get(categoryID = categoryID)
-            print "PROBLEM2"
             s = SubCategory.objects.create(name = name, category = c, SubCategoryID = subcategoryID)
             state = "SubCategory successfully created"
         except:
@@ -114,7 +110,6 @@ def deletecategory(request):
 
 def deletesubcategory(request):
     current_user =  request.user
-    print "CURRENT USER: ",current_user.username
     if current_user.username != "admin":
         raise Http404
     state = "Please select a Product to delete"
@@ -131,7 +126,6 @@ def deletesubcategory(request):
 
 def addproduct(request):
     current_user =  request.user
-    print "CURRENT USER: ",current_user.username
     if current_user.username != "admin":
         raise Http404
     state = "Please add a product"
@@ -161,7 +155,6 @@ def addproduct(request):
 
         try:
             sub = SubCategory.objects.get(SubCategoryID = subcategory)
-            print "PROBLEM1"
             #p = Product.objects.create(image = image, name = name, productID = productID, price = price, subcategory = sub, unitsInStock = 1, description = description, unitsInOrder = unitsinorder, views = 0)
         except: 
             state = "Please fill in Product details carefully. Not validated. Make sure ProductID is unique, subcategoryID is correct."
@@ -195,7 +188,7 @@ def addproduct(request):
             try:
                 col =Color.objects.get(colors = token)
             except:
-                col =Fabric.objects.create(colors = token)
+                col =Color.objects.create(colors = token)
                 col.save()            
             col.product.add(p)
 
