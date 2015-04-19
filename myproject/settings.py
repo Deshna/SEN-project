@@ -94,11 +94,11 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(
         os.path.dirname(__file__),
-        '/opt/myenv/myproject/static/',
+        '/home/sidharth/Desktop/4FINAL/static/',
     ),
 )
 
-MEDIA_ROOT = '/opt/myenv/myproject/static/'
+MEDIA_ROOT = '/home/sidharth/Desktop/4FINAL/static/'
 MEDIA_URL = ''
 
 TEMPLATE_DIRS = (

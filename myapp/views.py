@@ -16,7 +16,7 @@ def home(request):
     print request.user.is_authenticated()
     state = "Please enter your email ID below"
 
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
@@ -26,7 +26,7 @@ def createdress(request):
     categories = Category.objects.all()   
     state = "Please enter your email ID below"
 
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('createdress.html',{'bases':bases, 'state':state, 'products':products, 'categories':categories},context_instance=RequestContext(request))
 
@@ -49,7 +49,7 @@ def customizedress(request):
         print request.user.is_authenticated()
         state = "Please enter your email ID below"
 
-        newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+        newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
         products = newarrivals.product_set.all()
         return render_to_response('createdress.html',{'bases':bases, 'state':state, 'products':products, 'categories':categories},context_instance=RequestContext(request))
 
@@ -262,7 +262,7 @@ def logout_user(request):
     categories = Category.objects.all()
     state = "Please enter your email ID below"
     print request.user.is_authenticated()
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
@@ -460,12 +460,13 @@ def location(request):
     print request.user.is_authenticated()
     state = "Please enter your email ID below"
 
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('store-location.html',{'products':products,'categories':categories, 'state':state}, context_instance = RequestContext(request))
 
 def filter_color(request):
     color = request.POST.get("colorpicker-shortlist")
+    color_instances = Color.objects.get_or_create(colors = color)
     color_instances = Color.objects.get(colors = color)
     products = color_instances.product.all()
 
@@ -606,7 +607,7 @@ def item(request):
         categories = Category.objects.all()   
         print request.user.is_authenticated()
         state = "Please enter your email ID below"
-        newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+        newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
         products = newarrivals.product_set.all()
         return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
 
@@ -723,7 +724,8 @@ def item_cart(request):
     total = 0
     for item in cart_items:
         print "here is: ",item.cart_products
-        product = Product.objects.get(productID = int(item.cart_products))
+        String=item.cart_products
+        product = Product.objects.get(productID = int(String))
         total  = total + product.price
         products.append(product)
     categories = Category.objects.all()
@@ -781,7 +783,7 @@ def subscribe(request):
         mail.save()
     categories = Category.objects.all()  
 
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
 
@@ -806,7 +808,7 @@ def search(request):
 
     state = "Please enter your email ID below"
     categories = Category.objects.all() 
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
 
