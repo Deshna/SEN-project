@@ -16,7 +16,7 @@
 {% block body%}
 	<section id="form"><!--form-->
 		<div class="container">
-			<div class="row">
+			<div class="row" style="text-align:center">
 				<div class="col-sm-4 col-sm-offset-3">
 					<div class="login-form" id = "wrapper"><!--login form-->
 						<h2><b>Login to your account</b></h2>
@@ -26,8 +26,8 @@
 							{% if next %}
 							<input type="hidden" name="next" value="{{ next }}" />
 							{% endif %}
-							<input type="text" name = "username" placeholder="Name" />
-							<input type="password" name = "password" placeholder="Password"/>
+							<input type="text" name = "username" placeholder="username" required />
+							<input type="password" name = "password" placeholder="Password" required/>
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
@@ -44,9 +44,9 @@
 						<h2><b>New User Signup!</b></h2>
 						<form action="/user/register/" method = "POST">
 						{% csrf_token %}
-							<input type="text" name = "username" placeholder="Name"/>
-							<input type="email" name = "email" placeholder="Email Address"/>
-							<input type="password" name = "password" placeholder="Password"/>
+							<input type="text" name = "username" placeholder="username" required/>
+							<input type="email" name = "email" placeholder="Email Address" required/>
+							<input type="password" name = "password" placeholder="Password" required/>
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->
