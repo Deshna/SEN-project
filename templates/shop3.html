@@ -182,7 +182,7 @@
 							<div class="single-products">
 								<div class="productinfo text-center">
 									<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "207" height = "250"/></a>
-									<h2>{{ p.price }} rs.</h2>
+									<h2>₹{{ p.price }}</h2>
 									<p>{{ p.name }}</p>
 									<form method = "POST" action = "/user/item_cart/">
 										{% csrf_token %}

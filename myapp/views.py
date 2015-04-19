@@ -557,7 +557,16 @@ def item(request):
         item = str(request.GET.get("item",""))
         print item
         product = Product.objects.get(productID = (item))
-
+        colordict = {"#7bd148":"Green","#5484ed":"Bold Blue","#a4bdfc": "Blue", "#46d6db":"Turquoise", "#7ae7bf":"Light Green","#51b749":"Bold green","#fbd75b":"Yellow","#ffb878":"Orange","#ff887c":"Red","#dc2127":"Bold Red", "#dbadff":"Purple"}
+        color_key = product.color_set.all()
+        clist = []
+        try:
+            for color in color_key:
+                print color.colors
+                clist.append(colordict[color.colors])
+        except:
+            for c in color_key:
+                clist.append(c.colors)
         if product.views is None:
             product.views = 0
         product.views = product.views+1
@@ -592,7 +601,7 @@ def item(request):
             state_ = "The measurements are updated successfully. Thank you."
         categories = Category.objects.all()
         print "ENTERS HERE"
-        return render_to_response('product-details.html', {'product': product, 'userprofile':userprofile,'categories':categories}, context_instance=RequestContext(request))
+        return render_to_response('product-details.html', {'product': product, 'clist':clist,'userprofile':userprofile,'categories':categories}, context_instance=RequestContext(request))
     except:
         categories = Category.objects.all()   
         print request.user.is_authenticated()
@@ -718,7 +727,9 @@ def item_cart(request):
         total  = total + product.price
         products.append(product)
     categories = Category.objects.all()
-    return render_to_response('cart.html',{'products':products,'categories':categories, 'total':total},context_instance = RequestContext(request))
+    fullname = userprofile.fullname
+    total_paise = total*100
+    return render_to_response('cart.html',{'products':products,'categories':categories, 'total':total,'fullname':fullname,'total_paise':total_paise},context_instance = RequestContext(request))
     
 def login_user(request):
     state = "Please log in below."
@@ -873,3 +884,4 @@ def savedress(request):
 
     else:
         raise Http404
+

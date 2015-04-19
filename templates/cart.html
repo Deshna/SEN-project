@@ -67,11 +67,29 @@
 				</table>
 			</div>
 			<div class="container" align="right" margin:10px>
-				<h4>Total = Rs.{{ total }}</h4>
+				<h4>Total = ₹{{ total }}</h4>
 			</div>
 			<div class="container" align="center" margin:10px>
 				<a class="btn btn-default check_out" href="">Continue</a>
 			</div>
+
+
+
+<form action="/purchase" method="POST">
+<script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="rzp_test_c0Pv5YfgjuC4jt"
+    data-amount="10"
+    data-name={{ fullname }}
+    data-description="Purchase Description"
+    data-image="/your_logo.jpg"
+    data-prefill.name="eg.NIKScreations"
+    data-prefill.email="eg.nikscreations@yahoo.co.in"
+></script>
+<input type="hidden" value="Hidden Element" name="hidden">
+</form>
+
+
 		</div>
 	</section> 
 	{%endblock%}

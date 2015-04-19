@@ -169,7 +169,7 @@
 																		</div>
 																	</div>
 
-																	<span>Rs.{{ product.price }}</span>
+																	<span>₹{{ product.price }}</span>
 
 																	<form method = "POST" action = "/user/item_cart/">
 																		{% csrf_token %}
@@ -220,8 +220,8 @@
 															<td width="15%">Colour</td>
 															<td width="1%">:</td>
 															<td width="45%">
-																{% for i in product.color_set.all %}
-																<span><a href="">{{ i.colors }}</a></span>
+																{% for i in clist %}
+																<span><a href="">{{ i }}</a></span>
 																{% endfor %}
 															</td>
 															<td width="15%">Catalog No.</td>
