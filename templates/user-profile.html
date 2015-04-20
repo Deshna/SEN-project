@@ -4,7 +4,12 @@
 {% block ShopTogether %}
 	<a href="#" onclick="TogetherJS(this); return false;" class="btn btn-default btn-lg" >Shop Together</a>
 {% endblock %}
+{%block menubutton%}    
+  <button type="button" class="navbar-toggle navbar-toggle-sidebar collapsed">
+      MENU
+      </button>
 
+{%endblock%}
 {%block body%}
 <div class="row">
 	<div class="col-md-2 container-fluid main-container">
@@ -39,7 +44,7 @@
 <fieldset>
 
 
-<div class="well col-md-10">
+<div class="well1 col-md-10 side-body">
 		<div align ="center" >
 			<h4 class="title"><b>{{ state_ }}</b></h4>
 		</div>
@@ -49,7 +54,7 @@
 <div class="form-group" style="margin-top:20px">
   <label class="col-md-4 control-label" for="username">User Name</label>  
   <div class="col-md-4">
-  <input id="username" name="username" type="text" placeholder={{ user.username }} class="form-control input-md" required="">
+  <input id="username" name="username" type="text" value={{ user.username }} class="form-control input-md" required="">
     
   </div>
 </div>
@@ -73,7 +78,7 @@
 
   <label class="col-md-4 control-label" for="email">Email</label>  
   <div class="col-md-4">
-  <input id="email" name="email" type="text" placeholder={{ user.email }} class="form-control input-md">
+  <input id="email" name="email" type="text" value={{ user.email }} class="form-control input-md">
     
   </div>
 </div>
@@ -82,7 +87,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="oldpassword">Old Password </label>
   <div class="col-md-4">
-    <input id="oldpassword" name="oldpassword" type="password" placeholder="" class="form-control input-md" required="">
+    <input id="oldpassword" name="oldpassword" type="password" placeholder="" class="form-control input-md" required >
     
   </div>
 </div>
@@ -97,7 +102,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="renewpassword">Re-enter New Password </label>
   <div class="col-md-4">
-    <input id="newpassword" name="newpassword" type="password" placeholder="" class="form-control input-md">
+    <input id="newpassword1" name="newpassword" type="password" placeholder="" class="form-control input-md">
     
   </div>
 </div>
@@ -123,12 +128,15 @@
   
 
      <script>
-  	 $(document).ready(function(){
-  	 		$('.navbar-toggle-sidebar').click(function () {
-  		$('.navbar-nav').toggleClass('slide-in');
-  		$('.side-body').toggleClass('body-slide-in');
-  		$('#search').removeClass('in').addClass('collapse').slideUp(200);
-  	});
+     $(document).ready(function(){
+        $('.navbar-toggle-sidebar').click(function () {
+      $('.navbar-nav').toggleClass('slide-in');
+      // $('.side-body').toggleClass('body-slide-in');
+       $('.side-body').click(function(){
+        $('.navbar-toggle-sidebar').click();
+     });
+      $('#search').removeClass('in').addClass('collapse').slideUp(200);
+    });
 
   	// $('#search-trigger').click(function () {
   	// 	$('.navbar-nav').removeClass('slide-in');

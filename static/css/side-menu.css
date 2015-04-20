@@ -125,7 +125,7 @@
 }
 /* Main body section */
 .side-body {
-	margin-left: 310px;
+	margin-left: 0px;
 }
 /* small screen */
 @media (max-width: 768px) {
