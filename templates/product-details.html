@@ -332,10 +332,19 @@
 											$("#myModal").modal('show');
 										});
 
-										$("#ratings").raty({
-											starHalf    : '{{ STATIC_URL }}images/product-details/star-half.png',
-											starOn      : '{{ STATIC_URL }}images/product-details/star-on.png',
-											starOff     : '{{ STATIC_URL }}images/product-details/star-off.png', 
+
+										$('#functions').raty({
+										
+											click: function(score, evt) {
+												console.log(score);
+											},
+
+										});
+
+$("#ratings").raty({
+	starHalf    : '{{ STATIC_URL }}images/product-details/star-half.png',
+	starOn      : '{{ STATIC_URL }}images/product-details/star-on.png',
+	starOff     : '{{ STATIC_URL }}images/product-details/star-off.png', 
 											//console.log(score);   
 										});
 
@@ -354,13 +363,13 @@
 					});
 
 
-					$('#ratings').on('click', function() {
-						// var options = $('#' + this.id.replace('-run', '').val()),
-						// command = "$('#functions').raty('set', " + options + ");";
-						//eval(command);
-						//var r=this.raty('score');
-						//console.log(r);
-					});
+					// $('#ratings').on('click', function() {
+					// 	// var options = $('#' + this.id.replace('-run', '').val()),
+					// 	// command = "$('#functions').raty('set', " + options + ");";
+					// 	//eval(command);
+					// 	//var r=this.raty('score');
+					// 	//console.log(r);
+					// });
 					$("#modalClose").on('click', function() {
 						document.getElementById("q128").checked =false;
 					});

@@ -443,10 +443,13 @@ def add_wish(request):
 
 def price(request):
     price = request.POST.get("price")
+    sub = request.POST.get("sub")
+    print sub
     tokens = price.split(",")
     lower_limit = tokens[0]
     upper_limit = tokens[1]
-    productlist = Product.objects.all()
+    subcat = SubCategory.objects.get(name=sub)
+    productlist = subcat.product_set.all()
     products = []
     for p in productlist:
         if int(p.price) >= int(lower_limit) and int(p.price)<= int(upper_limit):
@@ -462,7 +465,8 @@ def price(request):
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
     categories = Category.objects.all()
-    return render_to_response('shop4.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
+    pager = "price"
+    return render_to_response('shop.html', {'products' : products,'categories':categories,'pager':pager,'sub':sub}, context_instance=RequestContext(request))
 
 def location(request):
     categories = Category.objects.all()   
@@ -472,6 +476,209 @@ def location(request):
     newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
     products = newarrivals.product_set.all()
     return render_to_response('store-location.html',{'products':products,'categories':categories, 'state':state}, context_instance = RequestContext(request))
+
+def fabricfilter(request):
+    products = []
+    productlist = []
+    if request.method == "POST":
+        if request.POST.get("Bamber Georgette"):
+            f = Fabric.objects.get_or_create(fabrics = "Bamber Georgette")
+            f = Fabric.objects.get(fabrics = "Bamber Georgette")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Art Silk"):
+            f = Fabric.objects.get_or_create(fabrics = "Art Silk")
+            f = Fabric.objects.get(fabrics = "Art Silk")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Banarasi"):
+            f = Fabric.objects.get_or_create(fabrics = "Banarasi")
+            f = Fabric.objects.get(fabrics = "Banarasi")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Bhagalpuri Silk"):
+            f = Fabric.objects.get_or_create(fabrics = "Bhagalpuri Silk")
+            f = Fabric.objects.get(fabrics = "Bhagalpuri Silk")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Brasso"):
+            f = Fabric.objects.get_or_create(fabrics = "Brasso")
+            f = Fabric.objects.get(fabrics = "Brasso")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Brocade"):
+            f = Fabric.objects.get_or_create(fabrics = "Brocade")
+            f = Fabric.objects.get(fabrics = "Brocade")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+
+        if request.POST.get("Chiffon"):
+            f = Fabric.objects.get_or_create(fabrics = "Chiffon")
+            f = Fabric.objects.get(fabrics = "Chiffon")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+
+        if request.POST.get("Chanderi"):
+            f = Fabric.objects.get_or_create(fabrics = "Chanderi")
+            f = Fabric.objects.get(fabrics = "Chanderi")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Cotton"):
+            f = Fabric.objects.get_or_create(fabrics = "Cotton")
+            f = Fabric.objects.get(fabrics = "Cotton")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Faux Crepe"):
+            f = Fabric.objects.get_or_create(fabrics = "Faux Crepe")
+            f = Fabric.objects.get(fabrics = "Faux Crepe")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+
+
+        newproducts = []
+        for p in products:
+            if p not in newproducts:
+                newproducts.append(p)
+
+        for p in newproducts:
+            print p
+            productlist.append(Product.objects.get(name = p))
+        
+    products = productlist
+    
+    p = Paginator(productlist,9)
+
+    try: page = int(request.GET.get("page", '1'))
+    except ValueError: page = 1
+
+    try:
+        products = p.page(page)
+    except (InvalidPage, EmptyPage):
+        products = p.page(paginator.num_pages)
+    categories = Category.objects.all()
+    pager = "fabricfilter"
+    return render_to_response('shop.html', {'products' : products,'categories':categories,'pager':pager}, context_instance=RequestContext(request))
+
+def workfilter(request):
+    products = []
+    productlist = []
+    if request.method == "POST":
+        if request.POST.get("Aari Work"):
+            f = Work.objects.get_or_create(fabrics = "Aari Work")
+            f = Work.objects.get(fabrics = "Aari Work")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Applique"):
+            f = Work.objects.get_or_create(fabrics = "Applique")
+            f = Work.objects.get(fabrics = "Applique")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Beads"):
+            f = Work.objects.get_or_create(works = "Beads")
+            f = Work.objects.get(works = "Beads")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Booti Work"):
+            f = Work.objects.get_or_create(works = "Booti Work")
+            f = Work.objects.get(works = "Booti Work")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Cut Dana"):
+            f = Work.objects.get_or_create(works = "Cut Dana")
+            f = Work.objects.get(works = "Cut Dana")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+        if request.POST.get("Cut Work"):
+            f = Work.objects.get_or_create(works = "Cut Work")
+            f = Work.objects.get(works = "Cut Work")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+
+        if request.POST.get("Cutdana Work"):
+            f = Work.objects.get_or_create(works = "Cutdana Work")
+            f = Work.objects.get(works = "Cutdana Work")
+            try:
+                for f in b.product.all():
+                    products.append(p.name)
+            except:
+                pass
+
+
+        newproducts = []
+        for p in products:
+            if p not in newproducts:
+                newproducts.append(p)
+
+        for p in newproducts:
+            print p
+            productlist.append(Product.objects.get(name = p))
+        
+    products = productlist
+    
+    p = Paginator(productlist,9)
+
+    try: page = int(request.GET.get("page", '1'))
+    except ValueError: page = 1
+
+    try:
+        products = p.page(page)
+    except (InvalidPage, EmptyPage):
+        products = p.page(paginator.num_pages)
+    categories = Category.objects.all()
+    pager = "workfilter"
+    return render_to_response('shop.html', {'products' : products,'categories':categories,'pager':pager}, context_instance=RequestContext(request))
+
+
+
+
 
 def filter_color(request):
     color = request.POST.get("colorpicker-shortlist")
@@ -489,7 +696,8 @@ def filter_color(request):
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
     categories = Category.objects.all()
-    return render_to_response('shop3.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
+    pager = "filter_color"
+    return render_to_response('shop.html', {'products' : products,'categories':categories,'pager':pager}, context_instance=RequestContext(request))
 
 
 def filter_occasion(request):
@@ -497,42 +705,42 @@ def filter_occasion(request):
     productlist = []
     if request.method == "POST":
         if request.POST.get("Bridal"):
-            b = Occasion.objects.get(occasions = "Bridal")
+            b = Occasion.objects.get_or_create(occasions = "Bridal")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("Casual"):
-            b = Occasion.objects.get(occasions = "Casual")
+            b = Occasion.objects.get_or_create(occasions = "Casual")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("Festive"):
-            b = Occasion.objects.get(occasions = "Festive")
+            b = Occasion.objects.get_or_create(occasions = "Festive")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("Party"):
-            b = Occasion.objects.get(occasions = "Party")
+            b = Occasion.objects.get_or_create(occasions = "Party")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("Reception"):
-            b = Occasion.objects.get(occasions = "Reception")
+            b = Occasion.objects.get_or_create(occasions = "Reception")
             try:
                 for p in b.product.all():
                     products.append(p.name)
             except:
                 pass
         if request.POST.get("wedding"):
-            b = Occasion.objects.get(occasions = "Wedding")
+            b = Occasion.objects.get_or_create(occasions = "Wedding")
             try:
                 for p in b.product.all():
                     products.append(p.name)
@@ -560,7 +768,8 @@ def filter_occasion(request):
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
     categories = Category.objects.all()
-    return render_to_response('shop2.html', {'products' : products,'categories':categories}, context_instance=RequestContext(request))
+    pager = "filter_occasion"
+    return render_to_response('shop.html', {'products' : products,'categories':categories,'pager':pager}, context_instance=RequestContext(request))
 
 def item(request):
     try: 
@@ -702,9 +911,9 @@ def shop(request):
         products = p.page(page)
     except (InvalidPage, EmptyPage):
         products = p.page(paginator.num_pages)
-
+    pager = "shop"
     categories = Category.objects.all()
-    return render_to_response('shop.html', {'products' : products,'sub':sub, 'categories':categories}, context_instance=RequestContext(request))
+    return render_to_response('shop.html', {'products' : products,'sub':sub, 'categories':categories,'pager':pager}, context_instance=RequestContext(request))
 
 
 @login_required(login_url = '/user/login/')
@@ -760,6 +969,14 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 state = "You're successfully logged in!"
+                categories = Category.objects.all()   
+    
+                state = "Please enter your email ID below"
+
+                newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
+                products = newarrivals.product_set.all()
+                return render_to_response('index.html', {'state': state, 'categories' : categories, 'products':products},context_instance=RequestContext(request))
+
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
@@ -829,6 +1046,24 @@ def search(request):
     return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
 def aboutus(request):
     return render_to_response('about-us.html',context_instance = RequestContext(request))
+
+def faqs(request):
+    return render_to_response('faqs.html',context_instance = RequestContext(request))
+
+def termsofuse(request):
+    return render_to_response('terms-of-use.html',context_instance = RequestContext(request))
+
+def ticketsystem(request):
+    return render_to_response('ticket-system.html',context_instance = RequestContext(request))
+
+def privacypolicy(request):
+    return render_to_response('privacy-policy.html',context_instance = RequestContext(request))
+
+def billingsystem(request):
+    return render_to_response('billing-system.html',context_instance = RequestContext(request))
+
+def refundpolicy(request):
+    return render_to_response('refund-policy.html',context_instance = RequestContext(request))
 
 @login_required(login_url = '/user/login/')
 def cart_delete(request):

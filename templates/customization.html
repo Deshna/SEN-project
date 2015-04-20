@@ -392,13 +392,21 @@
 
 													
 
+<div class="submit-creation" >
+	
+<h3>Give a name to your creation</h3>
+	
 <form method="POST" enctype="multipart/form-data" action="/user/savedress/" id="myForm">
 {% csrf_token %}
     <input type="hidden" name="myvar" id="myvar" />
     <input type = "text" name = "name" />
-    <input type="submit" value="Submit" onclick="capture();" />
+    <br>
+    <button class="btn btn-primary"type="submit" value="Submit" onclick="capture();" >Submit </button>
 </form>
-													
+
+</div>
+
+										
 
 						</div>
 

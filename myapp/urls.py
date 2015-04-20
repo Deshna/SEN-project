@@ -10,8 +10,29 @@ urlpatterns = patterns('',
     url(r'about', views.aboutus,
         name='aboutus',),
 
+    url(r'terms-of-use', views.termsofuse,
+        name='terms-of-use',),
+
+    url(r'faqs', views.faqs,
+        name='faqs',),
+    url(r'privacy-policy', views.privacypolicy,
+        name='privacy-policy',),
+    url(r'billing-system', views.billingsystem,
+        name='billing-system',),
+    url(r'refund-policy', views.refundpolicy,
+        name='refund-policy',),
+
+    url(r'ticket-system', views.ticketsystem,
+        name='ticket-system',),
+
+    url(r'fabricfilter', views.fabricfilter,
+        name='fabricfilter',),
+
     url(r'location', views.location,
         name='location',),
+
+    url(r'workfilter', views.workfilter,
+        name='workfilter',),
 
     url(r'savedress', views.savedress,
         name='savedress',),

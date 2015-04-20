@@ -25,10 +25,10 @@
 							{% csrf_token %}
 							<div style="text-align:center">
 
-							<input style="width:100%" name = "price" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="50" data-slider-value="[0,10000]" id="sl2" ><br />
-							<!-- <b>0</b> <b class="pull-right">10000</b><br>-->
+														<input style="width:100%" name = "price" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="50" data-slider-value="[0,10000]" id="sl2" ><br />
+							<!-- <b>0</b> <b class="pull-right">10000</b><br> -->
 							<br>
-							
+							<input type="hidden" name="sub" value="{{ sub }}" >
 							<input style="margin-left:10px;"class="btn btn-default"type="submit" value="Submit">
 							</div>													
 							</form>
@@ -185,84 +185,84 @@
 					</form>
 							<br>
 							<br>
+
 					<h2>FILTER BY FABRIC</h2>
-					<div class="well style-2" style="max-height:20em;overflow-y: scroll;">
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Bridal</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Casual</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Festive</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Party</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Reception</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
-						</div>
-							
+					<form role = "form" name = "occasions" action = "/user/fabricfilter/" method = "POST">
+					<div class="well">
+						
+							{% csrf_token %}
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Bamber Georgette" value="True">Bamber Georgette</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Art Silk" value="True">Art Silk</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Banarasi" value="True">Banarasi</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Bhagalpuri Silk" value="True">Bhagalpuri Silk</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Brasso" value="True">Brasso</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Brocade" value="True">Brocade</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Chiffon" value="True">Chiffon</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Cotton" value="True">Cotton</label>
+							</div>
+							<div class="checkbox checkboxes">
+								<label><input type="checkbox" name = "Faux Crepe" value="True">Faux Crepe</label>
+							</div>						
 					</div>
 
 							<div style="text-align:center">
 							<input style="margin-left:10px;"class="btn btn-default"type="submit" value="Submit">
 							</div>
+					</form>
 							<br>
 							<br>
+					
 					<h2>FILTER BY WORK</h2>
+					<form role = "form" name = "occasions" action = "/user/workfilter/" method = "POST">
+					<div class="well">
+						
+							{% csrf_token %}
 					<div class="well" style="max-height:20em;overflow-y: scroll;">
 						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Bridal</label>
+							<label><input type="checkbox" name = "Aari Work" value="True">Aari Work</label>
 						</div>
 						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Casual</label>
+							<label><input type="checkbox" name = "Applique" value="True">Applique</label>
 						</div>
 						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Festive</label>
+							<label><input type="checkbox" name = "Beads" value="True">Beads</label>
 						</div>
 						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Party</label>
+							<label><input type="checkbox" name = "Booti Work" value="True">Booti Work</label>
 						</div>
 						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Reception</label>
+							<label><input type="checkbox" name = "Cut Dana" value="True">Cut Dana</label>
 						</div>
 						<div class="checkbox checkboxes">
-							<label><input type="checkbox" value="">Wedding</label>
+							<label><input type="checkbox" name = "Cut Work" value="True">Cut Work</label>
 						</div>
-					
+						<div class="checkbox checkboxes">
+							<label><input type="checkbox" name = "Cutdana Work" value="True">Cutdana Work</label>
+						</div>
 					</div>
-
-							<div style="text-align:center">
+				</div>
+				<div style="text-align:center">
 							<input style="margin-left:10px;"class="btn btn-default"type="submit" value="Submit">
 							</div>
+			</form>
+
+
+							
 							<br>
 							<br>
 				</div>
@@ -305,14 +305,14 @@
 						<!-- <span class="step-links"> -->
 							{% if products.has_previous %}
 							<body onload = "myFunction()">
-								<li><a href= "/user/shop/?sub={{ sub }}&page={{ products.previous_page_number }}" style="color:gray">&lt; </a></li>
+								<li><a href= "/user/{{ pager }}/?sub={{ sub }}&page={{ products.previous_page_number }}" style="color:gray">&lt; </a></li>
 								{% endif %}
 								<li><span class="current" style="color:gray">
 									&nbsp;Page {{ products.number }} of {{ products.paginator.num_pages }}
 								</span></li>
 
 								{% if products.has_next %}
-								<li><a href="/user/shop/?sub={{ sub }}&page={{ products.next_page_number }}" style="color:gray" > &gt;</a></li>
+								<li><a href="/user/{{ pager }}/?sub={{ sub }}&page={{ products.next_page_number }}" style="color:gray" > &gt;</a></li>
 								{% endif %}
 							<!-- </span> -->
 						</ul>
