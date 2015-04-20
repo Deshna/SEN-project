@@ -768,20 +768,29 @@ def login_user(request):
     print state
     categories = Category.objects.all()
     return render_to_response('login.html',{'state':state, 'username': username,'categories':categories},context_instance=RequestContext(request))
-
 def register_user(request):
     if request.method == "POST":
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        stop = False
+        user = User.objects.all()
+        for u in user:
+            if u.username == username:
+                state = "Username already exists"
+                stop = True
+                break
+        if stop:
+            categories = Category.objects.all()
+            return render_to_response('login.html',{'state2':state,'categories':categories},context_instance = RequestContext(request))
+
 
         user = User.objects.create_user(username,email,password)
         user.save()
 
-        state = "Your account is active. Please login to verify."
+    state = "Your account is active. Please login to verify."
     categories = Category.objects.all()
-    return render_to_response('login.html',{'state':state,'categories':categories},context_instance = RequestContext(request))
-
+    return render_to_response('login.html',{'state2':state,'categories':categories},context_instance = RequestContext(request))
 def subscribe(request):
     state = "Please enter your email ID below"
     if request.method == "POST":
@@ -799,28 +808,25 @@ def subscribe(request):
 def search(request):
     if request.method == "POST":
         search = request.POST.get('search')
+        page = request.POST.get('page')
         products = Product.objects.filter(Q(name__icontains = search)|Q(description__icontains = search))
         for p in products:
             print p.name
-        p = Paginator(products,10)
-
-        try: page = int(request.GET.get("page", '1'))
-        except ValueError: page = 1
+        p = Paginator(products,9)
 
         try:
             products = p.page(page)
         except (InvalidPage, EmptyPage):
             products = p.page(paginator.num_pages)
         categories = Category.objects.all()
-        return render_to_response('shop.html', {'products' : products,'categories':categories}, context_instance = RequestContext(request))
+        return render_to_response('search.html', {'products' : products,'categories':categories,'search':search}, context_instance = RequestContext(request))
 
 
     state = "Please enter your email ID below"
     categories = Category.objects.all() 
-    newarrivals  = SubCategory.objects.get(SubCategoryID = 701)
+    newarrivals  = SubCategory.objects.get(SubCategoryID = 71)
     products = newarrivals.product_set.all()
     return render_to_response('index.html', {'state' :state, 'categories' : categories, 'products':products},context_instance = RequestContext(request))
-
 def aboutus(request):
     return render_to_response('about-us.html',context_instance = RequestContext(request))
 

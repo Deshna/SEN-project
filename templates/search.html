@@ -300,24 +300,33 @@
 				
 						</div>
 							{% if products.object_list and products.paginator.num_pages > 1 %}
-					<div style="text-align:center">
-					<ul class="pagination">
-						<!-- <span class="step-links"> -->
-							{% if products.has_previous %}
-							<body onload = "myFunction()">
-								<li><a href= "/user/shop/?sub={{ sub }}&page={{ products.previous_page_number }}" style="color:gray">&lt; </a></li>
-								{% endif %}
-								<li><span class="current" style="color:gray">
-									&nbsp;Page {{ products.number }} of {{ products.paginator.num_pages }}
-								</span></li>
+							<div style="text-align:center">
+						<div class="pagination" >
+							
+								{% if products.has_previous %}
+								<form method = "POST" action = "/user/search/">
+								{% csrf_token %}
+									<input type = "hidden" name = "page" value ={{ products.previous_page_number }} />
+									<input type = "hidden" name = "search" value ={{ search }} />
+									<button type = "submit" class = "submit btn btn-deault" >&lt;</button>
+								</form>
+									{% endif %}
+									<span class="current" style="color:gray">
+										&nbsp;Page {{ products.number }} of {{ products.paginator.num_pages }}
+									</span>
+									{% if products.has_next %}
 
-								{% if products.has_next %}
-								<li><a href="/user/shop/?sub={{ sub }}&page={{ products.next_page_number }}" style="color:gray" > &gt;</a></li>
-								{% endif %}
-							<!-- </span> -->
-						</ul>
-					</div>
-						{% endif %}
+									<form method = "POST" action = "/user/search/">
+									{% csrf_token %}
+									<input type = "hidden" name = "page" value ={{ products.next_page_number }} />
+									<input type = "hidden" name = "search" value ={{ search }} />
+									<button type = "submit" class = "submit btn btn-deault" name = "submit" value = "submit"> &gt;</button>
+									</form>
+									{% endif %}
+							
+							</div>
+							</div>
+							{% endif %}
 					</div>
 					</div>
 				</section>

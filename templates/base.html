@@ -96,6 +96,7 @@
 						<div class="search_box pull-right">
 							<form action = "/user/search/" method = "POST">
 							{% csrf_token %}
+							<input type ="hidden" name="page" value = "1" />
 							<input type="text" style = "color:rgb(16,145,115)" name = "search" placeholder="Search"/>
 							</form>
 						</div>

@@ -42,6 +42,7 @@
 				<div class="col-sm-4">
 					<div class="signup-form" id = "wrapper"><!--sign up form-->
 						<h2><b>New User Signup!</b></h2>
+						{{ state2 }}
 						<form action="/user/register/" method = "POST">
 						{% csrf_token %}
 							<input type="text" name = "username" placeholder="username" required/>

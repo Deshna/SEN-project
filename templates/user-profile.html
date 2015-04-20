@@ -135,15 +135,15 @@
 
      <script>
 
-          function checkPasswordMatch() {
-    var password = $("#newpassword").val();
-    var confirmPassword = $("#newpassword1").val();
+    //       function checkPasswordMatch() {
+    // var password = $("#newpassword").val();
+    // var confirmPassword = $("#newpassword1").val();
 
-    if (password != confirmPassword)
-        $("#divCheckPasswordMatch").html("Passwords do not match!");
-    else
-        $("#divCheckPasswordMatch").html("Passwords match.");
-      }
+    // if (password != confirmPassword)
+    //     $("#divCheckPasswordMatch").html("Passwords do not match!");
+    // else
+    //     $("#divCheckPasswordMatch").html("Passwords match.");
+    //   }
 
      $(document).ready(function(){
         $('.navbar-toggle-sidebar').click(function () {
@@ -153,7 +153,7 @@
         $('.navbar-toggle-sidebar').click();
      });
       $('#search').removeClass('in').addClass('collapse').slideUp(200);
-       $("#newpassword1").keyup(checkPasswordMatch);
+       // $("#newpassword1").keyup(checkPasswordMatch);
 
     });
 
