@@ -173,7 +173,7 @@
 
 																	<form method = "POST" action = "/user/item_cart/">
 																		{% csrf_token %}
-																		<input type = "hidden" name = "addcart" value = {{ p.productID }}>
+																		<input type = "hidden" name = "addcart" value = {{ product.productID }}>
 																		<button type = "submit" value="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
 																	</form>
 																</span>
@@ -181,7 +181,7 @@
 														<p><b>Condition:</b> New</p> -->
 														<div class="choose">
 															<ul class="nav nav-pills nav-justified">
-																<li><a href="/user/add_wish?product={{ p.productID }}"><i class="fa fa-plus-square"></i>Add to Wishlist</a></li>
+																<li><a href="/user/add_wish?product={{ product.productID }}"><i class="fa fa-plus-square"></i>Add to Wishlist</a></li>
 															</ul>
 														</div>
 													</div>

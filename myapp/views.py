@@ -277,7 +277,8 @@ def user_profile(request):
         email = request.POST.get('email')
         oldpassword = request.POST.get('oldpassword')
         newpassword = request.POST.get('newpassword')
-
+        renewpassword = request.POST.get('renewpassword')
+ 
         try:
             #Do for other details
             u = User.objects.get(username = username)
@@ -287,22 +288,30 @@ def user_profile(request):
             if user is not None:
                 print "is_authenticated"
                 userprofile = UserProfile.objects.get_or_create(user = user)
+ 
                 userprofile = UserProfile.objects.get(user = user)
                 if len(newpassword)!=0:
-                    u.set_password(newpassword)
+                    if newpassword == renewpassword:
+                        u.set_password(newpassword)
+                        state_ = "Password successfully changed"
+                    else:
+                        state_ = "Password and confirm password do not match."
+                        return render_to_response('user-profile.html', {'state_': state_, 'state': state,'categories':categories}, context_instance=RequestContext(request))
                 if len(email)!=0:
                     u.email = email
+                    state_ = "Account updated successfully."
                 if len(fullname)!=0:
                     userprofile.fullname = fullname
                     userprofile.save()
+                    state_ = "Account updated successfully."
                 u.save()
-
-            state_ = "Account updated successfully."
+            else:
+                state_ = "Wrong username and pass"
+                return render_to_response('user-profile.html', {'state_': state_, 'state': state,'categories':categories}, context_instance=RequestContext(request))
         except: 
             state_ = "Please enter details correctly."
-
+ 
     return render_to_response('user-profile.html', {'state_': state_, 'state': state,'categories':categories}, context_instance=RequestContext(request))
-
 @login_required(login_url = '/user/login/')
 def user_profile_address(request):
     state = "Please enter your email ID below"

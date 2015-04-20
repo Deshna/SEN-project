@@ -102,10 +102,16 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="renewpassword">Re-enter New Password </label>
   <div class="col-md-4">
-    <input id="newpassword1" name="newpassword" type="password" placeholder="" class="form-control input-md">
+    <input id="newpassword1" name="renewpassword" type="password" placeholder="" class="form-control input-md" onChange="checkPasswordMatch();">
     
   </div>
 </div>
+
+
+
+ <div class="registrationFormAlert" style="text-align:center"id="divCheckPasswordMatch">
+</div>
+
 <!-- Button -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="updatebutton"></label>
@@ -128,6 +134,17 @@
   
 
      <script>
+
+          function checkPasswordMatch() {
+    var password = $("#newpassword").val();
+    var confirmPassword = $("#newpassword1").val();
+
+    if (password != confirmPassword)
+        $("#divCheckPasswordMatch").html("Passwords do not match!");
+    else
+        $("#divCheckPasswordMatch").html("Passwords match.");
+      }
+
      $(document).ready(function(){
         $('.navbar-toggle-sidebar').click(function () {
       $('.navbar-nav').toggleClass('slide-in');
@@ -136,13 +153,17 @@
         $('.navbar-toggle-sidebar').click();
      });
       $('#search').removeClass('in').addClass('collapse').slideUp(200);
+       $("#newpassword1").keyup(checkPasswordMatch);
+
     });
 
-  	// $('#search-trigger').click(function () {
-  	// 	$('.navbar-nav').removeClass('slide-in');
-  	// 	$('.side-body').removeClass('body-slide-in');
-  	// 	$('.search-input').focus();
-  	// });
   	 });
+
+
+
+
+
+
+
   	 </script>
   	 {%endblock%}
