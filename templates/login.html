@@ -46,7 +46,7 @@
 						<form action="/user/register/"  method = "POST" autocomplete="off">
 						{% csrf_token %}
 							<input type="text" name = "username" placeholder="username" required/>
-							<input type="email" name = "email" placeholder="Email Address"  required/>
+							<input type="email" name = "email" placeholder="eg. john@gmail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email of the format john@gmail.com" required/>
 							<input type="password" name = "password" placeholder="Password" required/>
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>

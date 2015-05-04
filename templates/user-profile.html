@@ -63,7 +63,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="Full Name">Full Name</label>  
   <div class="col-md-4">
-  <input id="Full Name" name="Full Name" type="text" placeholder="eg. John Lennon" class="form-control input-md">
+  <input id="Full Name" pattern="[a-zA-Z]{1,}"name="Full Name" type="text" placeholder="eg. John Lennon" class="form-control input-md">
     
   </div>
 </div>
@@ -78,7 +78,7 @@
 
   <label class="col-md-4 control-label" for="email">Email</label>  
   <div class="col-md-4">
-  <input id="email" name="email" type="text" value={{ user.email }} class="form-control input-md">
+  <input id="email" name="email" type="text" value={{ user.email }} class="form-control input-md" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
     
   </div>
 </div>
