@@ -22,21 +22,22 @@
 						</div>
 						<div class="modal-body">
 							<textarea style="background-color:#ffffff"> NOTE: Measurement has to be taken over the body and not previously made garments				</textarea>
-							<form class="form-horizontal" action = "/user/sizechart_update/" method = "POST" 	style="margin-top:20px">
+							<textarea style="background-color:#ffffff; color:red;" id="warningModal" > Please fill in proper details				</textarea>
+							<form class="form-horizontal" action = "/user/sizechart_update/" method = "POST" 	style="margin-top:10px">
 								<fieldset>
 
 									<div class="form-group" style="margin-top:2px">
 										<div class="col-md-4" >
 											<label class="pull-right control-label" for="textinput">Length(Blouse)</label>  </div>
 											<div class="col-md-2">
-												<input  name="length_blouse" type="text" placeholder={{ userprofile.length_blouse }} class="form-control input-md">
+												<input id="textinput1" name="length_blouse" type="text" value={{ userprofile.length_blouse }} class="form-control input-md" required>
 
 											</div>
 
 											<div class="col-md-4" >
 												<label class="pull-right control-label" for="textinput">Bust/Chest</label>  </div>
 												<div class="col-md-2">
-													<input  name="bust" type="text" placeholder={{ userprofile.bust}} class="form-control input-md">
+													<input  id="textinput2" name="bust" type="text" value={{ userprofile.bust}} class="form-control input-md" required>
 
 												</div>
 
@@ -48,14 +49,14 @@
 												<div class="col-md-4" >
 													<label class="pull-right control-label" for="textinput">Waist(Blouse)</label>  </div>
 													<div class="col-md-2">
-														<input id="textinput" name="waist_blouse" type="text" placeholder={{ userprofile.waist_blouse }} class="form-control input-md" >
+														<input id="textinput3" name="waist_blouse" type="text" value={{ userprofile.waist_blouse }} class="form-control input-md" required >
 
 													</div>
 
 													<div class="col-md-4" >
 														<label class="pull-right control-label" for="textinput">Shoulder</label>  </div>
 														<div class="col-md-2">
-															<input id="textinput" name="shoulder" type="text" placeholder={{ userprofile.shoulder }} class="form-control input-md">
+															<input id="textinput4" name="shoulder" type="text" value={{ userprofile.shoulder }} class="form-control input-md" required>
 
 														</div>
 
@@ -66,14 +67,14 @@
 														<div class="col-md-4" >
 															<label class="pull-right control-label" for="textinput">Sleeve(Length)</label>  </div>
 															<div class="col-md-2">
-																<input id="textinput" name="sleeve_length" type="text" placeholder={{ userprofile.sleeve_length}} class="form-control input-md">
+																<input id="textinput5" name="sleeve_length" type="text" value={{ userprofile.sleeve_length}} class="form-control input-md" required>
 
 															</div>
 
 															<div class="col-md-4" >
 																<label class="pull-right control-label" for="textinput">Sleeve(Width)</label>  </div>
 																<div class="col-md-2">
-																	<input id="textinput" name="sleeve_width" type="text" placeholder={{ userprofile.sleeve_width }} class="form-control input-md">
+																	<input id="textinput6" name="sleeve_width" type="text" value={{ userprofile.sleeve_width }} class="form-control input-md" required>
 
 																</div>
 
@@ -84,14 +85,14 @@
 																<div class="col-md-4" >
 																	<label class="pull-right control-label" for="textinput">Neck(Front)</label>  </div>
 																	<div class="col-md-2">
-																		<input id="textinput" name="neck_front" type="text" placeholder={{ userprofile.neck_front }} class="form-control input-md">
+																		<input id="textinput7" name="neck_front" type="text" value={{ userprofile.neck_front }} class="form-control input-md" required>
 
 																	</div>
 
 																	<div class="col-md-4" >
 																		<label class="pull-right control-label" for="textinput">Neck(Back)</label>  </div>
 																		<div class="col-md-2">
-																			<input id="textinput" name="neck_back" type="text" placeholder={{ userprofile.neck_back }} class="form-control input-md">
+																			<input type="text"id="textinput8" name="neck_back" type="text" value={{ userprofile.neck_back }} class="form-control input-md" required>
 																		</div>
 																	</div>
 																</fieldset>
@@ -99,7 +100,7 @@
 
 
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-primary" value = "submit" style="margin:5px">     Ok    </button>
+																	<button type="button" class="btn btn-primary" value = "submit" style="margin:5px" id="modalOk">     Ok    </button>
 																</div>
 															</form>
 														</div>
@@ -110,9 +111,9 @@
 												<div class="product-details"><!--product-details-->
 													<div class="col-sm-4">
 														<div class="view-product">
-															<img src="{{ STATIC_URL }}{{ product.image.url }}"  class="img-responsive" data-imagezoom="true" style="margin-top:30px"/>
+															<img src="{{ STATIC_URL }}{{ product.image.url }}"  class="img-responsive" data-imagezoom="true" style="margin-top:30px;height:100%"/>
 														</div>
-														<div id="similar-product" class="carousel slide" data-ride="carousel">
+														<!-- <div id="similar-product" class="carousel slide" data-ride="carousel">
 
 															<div class="carousel-inner">
 																{% for i in product.images_set.all %}
@@ -146,7 +147,7 @@
 																	<i class="fa fa-angle-right"></i>
 																</a>
 															</div> 
-
+ -->
 														</div>
 														<div class="col-sm-8">
 															<div class="product-information">
@@ -328,11 +329,30 @@
 
 									<script>
 									$(document).ready(function(){
+										// $("#q128").change(function(){
+										// 	$("#myModal").modal('show');
+										// });
+
 										$("#q128").change(function(){
-											$("#myModal").modal('show');
+												document.getElementById("warningModal").style.display="none";
+												$("#myModal").modal('show');
+											});
+											$('#myModal').modal({
+  												keyboard: false,
+  												show:false,
+  												backdrop:'static'
+  											})
+  											$("#modalClose").on('click', function() {
+									document.getElementById("q128").checked =false;
 										});
+  											$("#modalOk").on('click',function(){
+  													if(document.getElementById("textinput1").value<=100){
+  														$("#myModal").modal('hide');
+  													}else{
+  														document.getElementById("warningModal").style.display="table";
+  													}
 
-
+  											});
 										$('#functions').raty({
 										
 											click: function(score, evt) {

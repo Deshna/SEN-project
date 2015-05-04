@@ -53,14 +53,14 @@
 						<tbody>
 						{% for p in products %}
 						<tr>
-							<td class = "cart_product">
-								<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "150" height = "150"></a>/
+							<td class = "cart_product" width="33%">
+								<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}" alt="" width = "150" height = "150"></a>
 							</td>
-							<td class="cart_description">
+							<td class="cart_description" width="50%">
 								<h4><a href="">{{ p.name }}</a></h4>
 								<p>Web ID: {{ p.productID }}</p>
 							</td>
-							<td class="cart_price">
+							<td class="cart_price"width="15%">
 								<p>{{ p.price }}</p>
 							</td>
 							

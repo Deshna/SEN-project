@@ -29,17 +29,17 @@
 					<tbody>
 					{% for p in products %}
 						<tr>
-							<td class="cart_product">
+							<td class="cart_product" width="30%">
 								<a href = "/user/item/?item={{ p.productID }}"><img src="{{ STATIC_URL }}{{ p.image.url }}"  width = "200" height = "200" alt=""></a>
 							</td>
-							<td class="cart_description">
+							<td class="cart_description" width="30%">
 								<h4><a href="">{{ p.name }}</a></h4>
 								<p>Web ID: {{ p.productID }}</p>
 							</td>
-							<td class="cart_quantity">
-							<h5 >1</h5>
+							<td class="cart_quantity" width="15%">
+							<input style="width:30%"type="number" name="q" id = "q" min="1" value="1" max="10">
 							</td>
-							<td class="cart_price">
+							<td class="cart_price" width="15%">
 								<p>{{ p.price }}</p>
 							</td>
 							<!-- <td class="cart_quantity">
@@ -57,6 +57,7 @@
 							<form method = "POST" action = "/user/cart_delete/">
 							{% csrf_token %}
 								<input type = "hidden" name = "delete" value = {{ p.productID }}>
+								<input type = "hidden" name="q" id ="q">
 								<button  type = "submit" value = "submit" class=" btn btn-default btn-sm cart_quantity_delete"><i class="fa fa-times"></i></button>
 							</form>
 							</td>

@@ -306,7 +306,7 @@ def user_profile(request):
                     state_ = "Account updated successfully."
                 u.save()
             else:
-                state_ = "Wrong username and pass"
+                state_ = "Wrong username and/or password"
                 return render_to_response('user-profile.html', {'state_': state_, 'state': state,'categories':categories}, context_instance=RequestContext(request))
         except: 
             state_ = "Please enter details correctly."
@@ -334,7 +334,7 @@ def user_profile_address(request):
 @login_required(login_url = '/user/login/')
 def user_profile_creditcard(request):
     state = "Please enter your email ID below"
-    state_ = "Please enter the billing address details carefully."
+    state_ = "Please enter the card details carefully."
     categories = Category.objects.all()
 
     if request.method == "POST":    
@@ -553,6 +553,7 @@ def fabricfilter(request):
             try:
                 for f in b.product.all():
                     products.append(p.name)
+                    print p.name," PRINTING"
             except:
                 pass
         if request.POST.get("Faux Crepe"):

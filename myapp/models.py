@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     address_line2= models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
-    postcode = models.IntegerField(max_length=10,null=True,blank=True)
+    postcode = models.IntegerField(null=True,blank=True)
     cardname = models.CharField(max_length=100, null=True, blank=True)
     cardno = models.IntegerField(null=True,blank=True)
     exp_month = models.CharField(max_length=50, null=True, blank=True)
@@ -72,11 +72,11 @@ class Review(models.Model):
 
 class Fabric(models.Model):
     fabrics = models.CharField(max_length = 60)
-    product = models.ManyToManyField(Product, null = True)
+    product = models.ManyToManyField(Product, null = True, blank = True)
 
 class Color(models.Model):
     colors = models.CharField(max_length = 60)
-    product = models.ManyToManyField(Product, null = True)
+    product = models.ManyToManyField(Product, null = True, blank = True)
 
 class Occasion(models.Model):
     occasions = models.CharField(max_length = 60)
@@ -88,6 +88,7 @@ class Work(models.Model):
 
 class Cart(models.Model):
     cart_products = models.CharField(max_length = 60,null=True)
+    quantity = models.IntegerField(default = 1)
     user = models.ForeignKey(UserProfile, null = True)
 
 class Wishlist(models.Model):
