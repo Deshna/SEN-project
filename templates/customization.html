@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title> Home | NIKScreations</title>
+    <title> Customization | NIKScreations</title>
     
     <link href = "{{STATIC_URL}}css/bootstrap.min.css" rel = "stylesheet">
     <link href = "{{STATIC_URL}}css/animate.css" rel = "stylesheet"> 
@@ -17,7 +17,7 @@
     <link href = "{{STATIC_URL}}css/side-menu.css" rel = "stylesheet">
     <link href = "{{STATIC_URL}}css/price-range.css" rel = "stylesheet">
     <link href = "{{STATIC_URL}}css/jquery.simplecolorpicker.css" rel = "stylesheet">
-  
+  	<link href = "{{STATIC_URL}}css/bootstrap-tour.min.css" rel = "stylesheet">
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -190,7 +190,7 @@
 					<div class="panel-group" style="margin-right:90px;" id="accordion">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h4 class="panel-title">
+								<h4 class="panel-title" id="titleBase">
 									<a data-toggle="collapse" data-parent="#accordion" href="#collapseColor">
 										Base Color</a>
 									</h4>
@@ -231,8 +231,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
+								<div class="panel panel-default" >
+									<div class="panel-heading" id="titlePattern">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-parent="#accordion" href="#pattern">
 												Pattern</a>
@@ -272,7 +272,7 @@
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4 class="panel-title">
+											<h4 class="panel-title" id="titleSideBorders">
 												<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
 													Side Borders</a>
 												</h4>
@@ -302,7 +302,7 @@
 										</div>
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h4 class="panel-title">
+												<h4 class="panel-title" id="titleNeckBorders">
 													<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
 														Neck Border</a>
 													</h4>
@@ -333,7 +333,7 @@
 									</div>
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4 class="panel-title">
+											<h4 class="panel-title" id="titleBottomBorders">
 												<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
 													Botttom Border</a>
 												</h4>
@@ -360,7 +360,7 @@
 								</div>
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h4 class="panel-title">
+										<h4 class="panel-title" id="titleButta">
 											<a data-toggle="collapse" data-parent="#accordion" href="#collapseMainButta">
 												Butta</a>
 											</h4>
@@ -392,7 +392,7 @@
 
 													
 
-<div class="submit-creation" >
+<div class="submit-creation" id="titleCreation">
 	
 <h3>Give a name to your creation</h3>
 	
@@ -457,9 +457,69 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/price-range.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/imagezoom.js"></script>
     <script src="https://togetherjs.com/togetherjs-min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-tour.min.js"></script>
 		
 	<script>
+	var tour = new Tour({
+  	  storage: false,
+  steps: [
+  {
+    element: "#canvas",
+    title: "This is your canvas",
+    content: "Use features on the right to customize",
+  	backdrop: true
+  },
+  {
+    element: "#titleBase",
+     placement: "left",
+    title: "Fill a Base Color",
+    content: "Click on this panel heading to select a base color",
+  	backdrop: true
+  },
+  {
+    element: "#titlePattern",
+    placement: "left",
+    title: "Fill a Pattern",
+    content: "Click on this panel heading to select a pattern to fill your dress. You will be able to adjust spacing and size of pattern from the controls that appear near the canvas once you select a pattern!"
+  },
+  {
+    element: "#titleSideBorders",
+    placement: "left",
+    title: "Select Side Border",
+    content: "Click on this panel heading to select Side Border"
+  },
+  {
+    element: "#titleNeckBorders",
+    placement: "left",
+    title: "Select Neck Border",
+    content: "Click on this panel heading to select Neck Border"
+  },
+   {
+    element: "#titleBottomBorders",
+    placement: "left",
+    title: "Select Bottom Border",
+    content: "Click on this panel heading to select Bottom Border"
+  },
+   {
+    element: "#titleButta",
+    placement: "left",
+    title: "Select Butta Designsyou want to put on your dress",
+    content: "Click on this panel heading to select butta design. After you select a design click on the dress to place the selected design on the dress. You will be able to adjust size of design from the controls that appear near the canvas once you select a design! You can add multiple designs!"
+  },
+   {
+    element: "#titleCreation",
+    placement: "left",
+    title: "Provide a name to your creation",
+    content: "Give a name to your dress after you are done and click submit button."
+  }
+]});
 
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+tour.start();
 
 	$('#sl2').slider();
 	var RGBChange = function() {
